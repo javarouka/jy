@@ -1,6 +1,5 @@
 import { useLocation } from '@renderer/hook/useLocation'
 import './MetaInformation.css'
-import Box from '@renderer/component/Box'
 import { useWeather } from '@renderer/hook/useWeather'
 import Clock from './Clock'
 
@@ -15,11 +14,11 @@ function MetaInformation() {
   }
 
   return (
-    <Box className="meta-information-container">
-      <Box className="info-item">{renderWeather()}</Box>
-      <Box className="info-item">{location}</Box>
+    <div className="meta-information-container">
+      <div className="info-item">{renderWeather()}</div>
+      <div className="info-item">{location}</div>
       <Clock />
-    </Box>
+    </div>
   )
 }
 

@@ -2,6 +2,8 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.jpg?asset'
+import { PrismaClient } from '@prisma/client'
+import { TypeAssessmentFormData } from '../shared/types'
 
 function createWindow(): void {
   // Create the browser window.
@@ -72,3 +74,31 @@ app.on('window-all-closed', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+const prisma = new PrismaClient()
+
+ipcMain.handle('db:get-assessmentLog', async () => {
+  return prisma.assessmentLog.findMany()
+})
+
+ipcMain.handle('db:create-assessmentLog', async (_, assessmentLog: TypeAssessmentFormData) => {
+  return prisma.assessmentLog.create({
+    data: {
+      ...assessmentLog,
+      researchDate: new Date(assessmentLog.researchDate),
+    },
+  })
+})
+
+ipcMain.handle('db:update-assessmentLog', async (_, id: number, assessmentLog: TypeAssessmentFormData) => {
+  return prisma.assessmentLog.update({
+    where: { id },
+    data: assessmentLog,
+  })
+})
+
+ipcMain.handle('db:delete-assessmentLog', async (_, id: number) => {
+  return prisma.assessmentLog.delete({
+    where: { id },
+  })
+})

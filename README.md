@@ -32,3 +32,6 @@ $ npm run build:mac
 # For Linux
 $ npm run build:linux
 ```
+
+## 수련수첩 구성
+https://www.notion.so/2024-cp-2025/25b9e87a563f80dcadcfe69bd33c43e2

@@ -1,0 +1,11 @@
+.app-bar-container {
+  position: fixed;
+  top: 0;
+  left: 0; /* 추가 */
+  right: 0; /* width: 100% 대신 사용 */
+  /*justify-content: flex-end; !* right -> flex-end 로 수정 *!*/
+  /*align-items: center; !* 세로 중앙 정렬을 위해 추가 *!*/
+  box-sizing: border-box; /* 패딩이 너비에 영향을 주지 않도록 설정 */
+  /*height: 50px;*/
+  background: transparent;
+}

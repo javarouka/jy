@@ -6,3 +6,5 @@ out
 *.log*
 .idea
 .vscode
+
+/src/generated/prisma

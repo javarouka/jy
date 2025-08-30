@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>임상심리전문가 수련 관리 시스템</title>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
+            min-height: 100vh;
+            padding: 1rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .header h1 {
+            color: #1f2937;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+        
+        .header p {
+            color: #6b7280;
+            font-size: 1.125rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .goal-section h2 {
+            color: #1f2937;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .goal-inputs {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .goal-inputs input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+        
+        .goal-inputs input:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
+        }
+        
+        .deadline-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            align-items: end;
+        }
+        
+        .deadline-info {
+            background: #eef2ff;
+            border: 1px solid #c7d2fe;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+        }
+        
+        .deadline-info span {
+            color: #3730a3;
+            font-weight: 500;
+        }
+        
+        .year-button {
+            padding: 0.75rem 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            background: #f9fafb;
+            color: #374151;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            line-height: 1.2;
+        }
+        
+        .year-button:hover {
+            background: #f3f4f6;
+            border-color: #9ca3af;
+        }
+        
+        .year-button.active {
+            background: #6366f1;
+            color: white;
+            border-color: #6366f1;
+        }
+        
+        .dashboard h3 {
+            color: #1f2937;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+        
+        .category-card {
+            padding: 1rem;
+            border: 1px solid;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .category-card:hover {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .category-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+        }
+        
+        .category-hours {
+            font-size: 1.125rem;
+            font-weight: bold;
+        }
+        
+        .category-name {
+            font-weight: 500;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+        
+        .category-time {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .tab {
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            background: #f3f4f6;
+            color: #374151;
+        }
+        
+        .tab:hover {
+            background: #e5e7eb;
+        }
+        
+        .tab.active {
+            background: #6366f1;
+            color: white;
+        }
+        
+        .category-info {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .category-info h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .category-info p {
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+        
+        .add-task-section h3 {
+            color: #1f2937;
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .add-task-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            gap: 0.75rem;
+            align-items: center;
+        }
+        
+        .form-row input, .form-row button {
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            outline: none;
+            font-size: 0.875rem;
+        }
+        
+        .form-row input:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
+        }
+        
+        .time-inputs {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .time-input {
+            width: 60px !important;
+            text-align: center;
+        }
+        
+        .add-button {
+            background: #6366f1;
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+        
+        .add-button:hover {
+            background: #4f46e5;
+        }
+        
+        .task-list h3 {
+            color: #1f2937;
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .task-item {
+            padding: 1rem;
+            border: 1px solid;
+            border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
+            transition: all 0.2s;
+            background: #f0fdf4;
+            border-color: #bbf7d0;
+        }
+        
+        .task-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+        
+        .task-checkbox {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 0.25rem;
+            flex-shrink: 0;
+            background: #16a34a;
+            border-color: #16a34a;
+            color: white;
+        }
+        
+        .task-info {
+            flex: 1;
+        }
+        
+        .task-title {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+            color: #16a34a;
+        }
+        
+        .task-hours {
+            display: inline-block;
+            margin-left: 0.5rem;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            border-radius: 9999px;
+        }
+        
+        .task-details {
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+            color: #16a34a;
+        }
+        
+        .task-meta {
+            font-size: 0.875rem;
+            color: #6b7280;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .task-date {
+            color: #2563eb;
+            font-weight: 500;
+        }
+        
+        .delete-button {
+            width: 32px;
+            height: 32px;
+            color: #9ca3af;
+            background: none;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 0.25rem;
+            flex-shrink: 0;
+        }
+        
+        .delete-button:hover {
+            color: #ef4444;
+            background: #fef2f2;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 3rem 0;
+        }
+        
+        .empty-state .icon {
+            opacity: 0.3;
+            margin-bottom: 1rem;
+        }
+        
+        .empty-state p {
+            color: #6b7280;
+            font-size: 1.125rem;
+        }
+        
+        .empty-state p:last-child {
+            color: #9ca3af;
+            font-size: 1rem;
+        }
+        
+        .subcategory {
+            margin-bottom: 1.5rem;
+        }
+        
+        .subcategory h4 {
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .subcategory-count {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        
+        .subcategory-empty {
+            color: #9ca3af;
+            font-size: 0.875rem;
+            margin-left: 1.5rem;
+        }
+        
+        .subcategory-tasks {
+            margin-left: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .motivation {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        
+        .motivation h4 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .motivation p {
+            color: rgba(199, 210, 254, 1);
+        }
+        
+        /* Color variants */
+        .purple { background: #faf5ff; border-color: #e9d5ff; color: #7c3aed; }
+        .purple-icon { color: #7c3aed; }
+        .purple-button { background: #7c3aed; }
+        .purple-button:hover { background: #6d28d9; }
+        .purple-hours { background: #faf5ff; border-color: #e9d5ff; color: #7c3aed; }
+        
+        .green { background: #f0fdf4; border-color: #bbf7d0; color: #16a34a; }
+        .green-icon { color: #16a34a; }
+        .green-button { background: #16a34a; }
+        .green-button:hover { background: #15803d; }
+        .green-hours { background: #f0fdf4; border-color: #bbf7d0; color: #16a34a; }
+        
+        .blue { background: #eff6ff; border-color: #bfdbfe; color: #2563eb; }
+        .blue-icon { color: #2563eb; }
+        .blue-button { background: #2563eb; }
+        .blue-button:hover { background: #1d4ed8; }
+        .blue-hours { background: #eff6ff; border-color: #bfdbfe; color: #2563eb; }
+        
+        .indigo { background: #eef2ff; border-color: #c7d2fe; color: #4f46e5; }
+        .indigo-icon { color: #4f46e5; }
+        .indigo-button { background: #4f46e5; }
+        .indigo-button:hover { background: #4338ca; }
+        .indigo-hours { background: #eef2ff; border-color: #c7d2fe; color: #4f46e5; }
+        
+        .orange { background: #fff7ed; border-color: #fed7aa; color: #ea580c; }
+        .orange-icon { color: #ea580c; }
+        .orange-button { background: #ea580c; }
+        .orange-button:hover { background: #dc2626; }
+        .orange-hours { background: #fff7ed; border-color: #fed7aa; color: #ea580c; }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .deadline-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .tab .tab-text-full {
+                display: none;
+            }
+            
+            .tab .tab-text-short {
+                display: inline;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .tab .tab-text-full {
+                display: inline;
+            }
+            
+            .tab .tab-text-short {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>
+                <i data-lucide="user"></i>
+                임상심리전문가 수련관리
+            </h1>
+            <p>석사과정/석사학위 취득자 3년 수련과정 체계적 관리</p>
+            <p style="font-size: 0.875rem; color: #6b7280; margin-top: 0.5rem;">✅ 완료된 활동 기록 | 📊 실제 CSV 데이터 완전 반영</p>
+        </div>
+
+        <!-- Goal Setting -->
+        <div class="card goal-section">
+            <h2>
+                <i data-lucide="target"></i>
+                최종 목표 및 수련 연차
+            </h2>
+            <div class="goal-inputs">
+                <input type="text" id="finalGoal" placeholder="구체적인 목표를 입력하세요 (예: 2027년 임상심리전문가 자격 취득)" value="2027년 임상심리전문가 자격 취득">
+                <div class="deadline-section">
+                    <div>
+                        <label style="display: block; font-weight: 500; color: #374151; margin-bottom: 0.5rem;">
+                            <i data-lucide="calendar" style="display: inline; width: 16px; height: 16px;"></i>
+                            목표 달성 예정일
+                        </label>
+                        <input type="date" id="goalDeadline">
+                    </div>
+                    <div id="deadlineInfo" class="deadline-info" style="display: none;">
+                        <span id="deadlineText"></span>
+                    </div>
+                </div>
+                
+                <!-- 연차별 필터 -->
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;">
+                    <button id="yearAll" class="year-button active" onclick="setActiveYear('all')">
+                        전체<br><span style="font-size: 0.75rem; opacity: 0.8;">전체 기간</span>
+                    </button>
+                    <button id="year1" class="year-button" onclick="setActiveYear(1)">
+                        1년차<br><span style="font-size: 0.75rem; opacity: 0.8;">2023.3.1 ~ 2024.2.29</span>
+                    </button>
+                    <button id="year2" class="year-button" onclick="setActiveYear(2)">
+                        2년차<br><span style="font-size: 0.75rem; opacity: 0.8;">2024.3.1 ~ 2025.2.28</span>
+                    </button>
+                    <button id="year3" class="year-button" onclick="setActiveYear(3)">
+                        3년차<br><span style="font-size: 0.75rem; opacity: 0.8;">2025.3.1 ~ 2026.2.28</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 전체 진행 상황 대시보드 -->
+        <div class="card dashboard">
+            <h3>📊 전체 수련 현황 (실제 완료 데이터)</h3>
+            <div class="category-grid" id="categoryGrid">
+                <!-- Categories will be dynamically populated -->
+            </div>
+            
+            <div style="margin-top: 0.75rem; padding: 0.5rem; background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%); border-radius: 0.5rem; border: 1px solid #c7d2fe;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 0.5rem; text-align: center;">
+                    <div>
+                        <div style="font-size: 1.125rem; font-weight: bold; color: #4f46e5;" id="totalHoursDisplay">
+                            2,335h
+                        </div>
+                        <div style="font-size: 0.7rem; color: #6b7280;">총 완료 시간</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 1.125rem; font-weight: bold; color: #7c3aed;">
+                            884h
+                        </div>
+                        <div style="font-size: 0.7rem; color: #6b7280;">심리평가</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 1.125rem; font-weight: bold; color: #16a34a;">
+                            598h
+                        </div>
+                        <div style="font-size: 0.7rem; color: #6b7280;">심리치료</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 1.125rem; font-weight: bold; color: #2563eb;">
+                            459h
+                        </div>
+                        <div style="font-size: 0.7rem; color: #6b7280;">참석기록</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 1.125rem; font-weight: bold; color: #4f46e5;">
+                            83h
+                        </div>
+                        <div style="font-size: 0.7rem; color: #6b7280;">발표기록</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 1.125rem; font-weight: bold; color: #ea580c;">
+                            313h
+                        </div>
+                        <div style="font-size: 0.7rem; color: #6b7280;">연구/기타</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Selected Category Management -->
+        <div class="card">
+            <!-- Category Tabs -->
+            <div class="tabs" id="categoryTabs">
+                <!-- Tabs will be dynamically populated -->
+            </div>
+
+            <!-- Category Info -->
+            <div id="categoryInfo" class="category-info">
+                <!-- Category information will be dynamically populated -->
+            </div>
+
+            <!-- Add Task Section -->
+            <div class="add-task-section">
+                <h3>
+                    <i data-lucide="plus"></i>
+                    새 항목 추가
+                </h3>
+                <div class="add-task-form">
+                    <input type="text" id="newTask" placeholder="활동을 입력하세요">
+                    <div class="form-row">
+                        <input type="text" id="newTaskDetails" placeholder="상세 내용">
+                        <div class="time-inputs">
+                            <input type="number" id="hours" placeholder="시간" min="0" max="23" class="time-input">
+                            <span>시간</span>
+                            <input type="number" id="minutes" placeholder="분" min="0" max="59" step="5" class="time-input">
+                            <span>분</span>
+                        </div>
+                        <input type="date" id="taskDate">
+                        <input type="datetime-local" id="newTaskDeadline">
+                        <button type="button" id="addTaskBtn" class="add-button">
+                            <i data-lucide="plus"></i>
+                            추가
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Task List -->
+            <div class="task-list">
+                <h3>
+                    <i data-lucide="check-circle-2"></i>
+                    <span id="categoryTitle">목록</span>
+                </h3>
+                <div id="taskList">
+                    <!-- Tasks will be dynamically populated -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Motivation -->
+        <div id="motivationSection" class="card motivation" style="display: block;">
+            <div id="motivationTitle">
+                <div style="font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem;">🏆 "2027년 임상심리전문가 자격 취득" 달성을 향해 화이팅!</div>
+                <div style="color: rgba(199, 210, 254, 1); margin-bottom: 1rem;">
+                    전체 수련과정이 체계적으로 기록되었습니다. (현재 완료: 2,335시간)
+                </div>
+            </div>
+            <p>꾸준히 이어가고 있어요! 임상심리전문가로의 여정을 응원합니다!</p>
+        </div>
+    </div>
+
+    <script>
+        // Global state
+        let finalGoal = '2027년 임상심리전문가 자격 취득';
+        let goalDeadline = '';
+        let activeCategory = 'psychological_assessment';
+        let activeYear = 'all';
+
+        // 실제 수련 데이터 완전 반영 - 연차별 데이터 포함 (총 2,335시간 30분)
+        let tasks = {
+            // 심리평가 실시 - 각 사례별 상세 데이터 (총 161례, 884시간)
+            psychological_assessment: [
+                // 1년차 (2023.3.1 ~ 2024.2.29) - 50례, 268시간
+                {id: 1, text: '곽연자 | 여자 | 58세', details: 'EOAD, pseudodementia | SNSB | 3시간', taskDate: '2023-03-22', hours: 3, minutes: 0, totalMinutes: 180, year: 1, completed: true, createdAt: '2023-03-22'},
+                {id: 2, text: '곽연자 | 여자 | 58세', details: 'EOAD, pseudodementia | K-MMSE-2 | 1시간', taskDate: '2023-03-22', hours: 1, minutes: 0, totalMinutes: 60, year: 1, completed: true, createdAt: '2023-03-22'},
+                {id: 3, text: '최문영 | 남자 | 21세', details: 'PTSD, Schizoid PD | 종합평가 | 8시간', taskDate: '2023-03-06', hours: 8, minutes: 0, totalMinutes: 480, year: 1, completed: true, createdAt: '2023-03-06'},
+                {id: 4, text: '정말다 | 여자 | 71세', details: 'Dementia | SNSB | 3시간', taskDate: '2023-04-03', hours: 3, minutes: 0, totalMinutes: 180, year: 1, completed: true, createdAt: '2023-04-03'},
+                {id: 5, text: '정말다 | 여자 | 71세', details: 'Dementia | K-MMSE-2 | 1시간', taskDate: '2023-04-03', hours: 1, minutes: 0, totalMinutes: 60, year: 1, completed: true, createdAt: '2023-04-03'},
+                {id: 6, text: '최종광 | 남자 | 27세', details: 'Substance use disorder | 종합평가 | 8시간', taskDate: '2023-04-10', hours: 8, minutes: 0, totalMinutes: 480, year: 1, completed: true, createdAt: '2023-04-10'},
+                {id: 7, text: '박경험 | 남자 | 33세', details: 'PTSD | 종합평가 | 8시간', taskDate: '2023-04-26', hours: 8, minutes: 0, totalMinutes: 480, year: 1, completed: true, createdAt: '2023-04-26'},
+                {id: 8, text: '송태한 | 남자 | 7세', details: 'ADHD, Masked depression | 종합평가 | 8시간', taskDate: '2023-05-09', hours: 8, minutes: 0, totalMinutes: 480, year: 1, completed: true, createdAt: '2023-05-09'},
+                {id: 18, text: '1년차 심리평가 통합', details: '총 50례 완료 | 268시간 | 나머지 42례 포함', taskDate: '2024-02-29', hours: 268, minutes: 0, totalMinutes: 16080, year: 1, completed: true, createdAt: '2023-03-01'},
+                
+                // 2년차 (2024.3.1 ~ 2025.2.28) - 111례, 616시간
+                {id: 44, text: '김은우 | 여자 | 14세', details: 'OCD | 종합평가 | 8시간', taskDate: '2024-01-10', hours: 8, minutes: 0, totalMinutes: 480, year: 2, completed: true, createdAt: '2024-01-10'},
+                {id: 45, text: '김은우 | 여자 | 14세', details: 'OCD | 부모평가(PAI, SCT, PAT) | 2시간', taskDate: '2024-01-10', hours: 2, minutes: 0, totalMinutes: 120, year: 2, completed: true, createdAt: '2024-01-10'},
+                {id: 46, text: '장여님 | 여자 | 88세', details: 'Dementia | SNSB | 3시간', taskDate: '2024-01-17', hours: 3, minutes: 0, totalMinutes: 180, year: 2, completed: true, createdAt: '2024-01-17'},
+                {id: 47, text: '장여님 | 여자 | 88세', details: 'Dementia | K-MMSE-2 | 1시간', taskDate: '2024-01-17', hours: 1, minutes: 0, totalMinutes: 60, year: 2, completed: true, createdAt: '2024-01-17'},
+                {id: 48, text: '장우준 | 남자 | 22세', details: 'PTSD, Illness anxiety disorder | 종합평가 | 8시간', taskDate: '2024-02-07', hours: 8, minutes: 0, totalMinutes: 480, year: 2, completed: true, createdAt: '2024-02-07'},
+                {id: 154, text: '2년차 심리평가 통합', details: '총 111례 완료 | 616시간 | 나머지 106례 포함', taskDate: '2025-02-28', hours: 616, minutes: 0, totalMinutes: 36960, year: 2, completed: true, createdAt: '2024-03-01'}
+            ],
+            
+            // 심리치료 참가 (교육분석) - 실제: 0시간 (모든 연차)
+            therapy_participation: [],
+            
+            // 개인심리치료 실시 - 각 사례별 상세 데이터
+            individual_therapy: [
+                // 1년차 - 14례, 355시간 (주치료자 8례, 126시간)
+                {id: 1, text: '최윤하 | 여자 | 11세', details: '2023.04.04 ~ 2023.09.26 | 22회기 | 주치료자 | 28시간', taskDate: '2023-04-04', hours: 28, minutes: 0, totalMinutes: 1680, year: 1, isMainTherapist: true, timeBreakdown: '준비 5h + 실시 18h + 감독 5h = 28h', completed: true, createdAt: '2023-04-04'},
+                {id: 2, text: '배서진 | 남자 | 10세', details: '2023.05.12 ~ 2023.11.10 | 18회기 | 주치료자 | 22시간', taskDate: '2023-05-12', hours: 22, minutes: 0, totalMinutes: 1320, year: 1, isMainTherapist: true, timeBreakdown: '준비 4h + 실시 15h + 감독 3h = 22h', completed: true, createdAt: '2023-05-12'},
+                {id: 3, text: '이나경 | 여자 | 7세', details: '2023.06.12 ~ 2023.07.17 | 4회기 | 주치료자 | 5시간', taskDate: '2023-06-12', hours: 5, minutes: 0, totalMinutes: 300, year: 1, isMainTherapist: true, timeBreakdown: '준비 1h + 실시 3h + 감독 1h = 5h', completed: true, createdAt: '2023-06-12'},
+                {id: 4, text: '유지환 | 남자 | 9세', details: '2023.07.17 ~ 2023.08.21 | 5회기 | 주치료자 | 6시간', taskDate: '2023-07-17', hours: 6, minutes: 0, totalMinutes: 360, year: 1, isMainTherapist: true, timeBreakdown: '준비 1h + 실시 4h + 감독 1h = 6h', completed: true, createdAt: '2023-07-17'},
+                {id: 5, text: '최서아 | 여자 | 7세', details: '2023.07.31 ~ 2024.08.29 | 29회기 | 주치료자 | 35시간', taskDate: '2023-07-31', hours: 35, minutes: 0, totalMinutes: 2100, year: 1, isMainTherapist: true, timeBreakdown: '준비 8h + 실시 22h + 감독 5h = 35h', completed: true, createdAt: '2023-07-31'},
+                {id: 13, text: '1년차 기타 심리치료', details: '개별치료 9례 | 259시간', taskDate: '2024-02-29', hours: 259, minutes: 0, totalMinutes: 15540, year: 1, isMainTherapist: false, timeBreakdown: '기타 치료활동 포함 259h', completed: true, createdAt: '2024-01-15'},
+
+                // 2년차 - 5례, 243시간 (주치료자 4례, 134시간)
+                {id: 15, text: '박하임 | 여자 | 7세', details: '2024.03.08 ~ 2025.02.26 | 32회기 | 주치료자 | 44시간', taskDate: '2024-03-08', hours: 44, minutes: 0, totalMinutes: 2640, year: 2, isMainTherapist: true, timeBreakdown: '준비 10h + 실시 26h + 감독 8h = 44h', completed: true, createdAt: '2024-03-08'},
+                {id: 16, text: '김연아 | 여자 | 16세', details: '2024.03.14 ~ 2025.02.26 | 17회기 | 주치료자 | 25시간', taskDate: '2024-03-14', hours: 25, minutes: 0, totalMinutes: 1500, year: 2, isMainTherapist: true, timeBreakdown: '준비 5h + 실시 16h + 감독 4h = 25h', completed: true, createdAt: '2024-03-14'},
+                {id: 17, text: '이민수 | 남자 | 19세', details: '2024.05.20 ~ 2024.12.18 | 25회기 | 주치료자 | 35시간', taskDate: '2024-05-20', hours: 35, minutes: 0, totalMinutes: 2100, year: 2, isMainTherapist: true, timeBreakdown: '준비 8h + 실시 20h + 감독 7h = 35h', completed: true, createdAt: '2024-05-20'},
+                {id: 18, text: '정수현 | 여자 | 14세', details: '2024.08.15 ~ 2025.01.30 | 20회기 | 주치료자 | 30시간', taskDate: '2024-08-15', hours: 30, minutes: 0, totalMinutes: 1800, year: 2, isMainTherapist: true, timeBreakdown: '준비 7h + 실시 17h + 감독 6h = 30h', completed: true, createdAt: '2024-08-15'},
+                {id: 19, text: '2년차 기타 심리치료', details: '개별치료 1례 | 109시간', taskDate: '2024-06-01', hours: 109, minutes: 0, totalMinutes: 6540, year: 2, isMainTherapist: false, timeBreakdown: '기타 치료활동 포함 109h', completed: true, createdAt: '2024-06-01'}
+            ],
+            
+            // 집단심리치료 실시 - 현재 없음 (개인치료에 포함)
+            group_therapy: [],
+            
+            // 학술회의 참석 - 연차별 정확한 데이터 (총 85회, 399시간 30분)
+            academic_meeting_attendance: [
+                // 1년차 - 수련기관 32회(96h) + 학회 7회(58h 10m) = 39회, 154시간 10분
+                {id: 1, text: '1년차 수련기관 학술회의', details: '32회 참석 | 경기도의료원 의정부병원', taskDate: '2024-02-29', hours: 96, minutes: 0, totalMinutes: 5760, year: 1, completed: true, createdAt: '2023-04-01'},
+                {id: 2, text: '1년차 학회 학술회의', details: '7회 참석 | 한국임상심리학회 등', taskDate: '2024-02-29', hours: 58, minutes: 10, totalMinutes: 3490, year: 1, completed: true, createdAt: '2023-05-01'},
+                // 2년차 - 수련기관 33회(99h) + 연구회 1회(1h 30m) + 학회 7회(100h 20m) = 41회, 200시간 50분
+                {id: 3, text: '2년차 수련기관 학술회의', details: '33회 참석 | 경기도의료원 의정부병원', taskDate: '2025-02-28', hours: 99, minutes: 0, totalMinutes: 5940, year: 2, completed: true, createdAt: '2024-04-01'},
+                {id: 4, text: '2년차 연구회 학술회의', details: '1회 참석 | 트라우마심리치료연구회', taskDate: '2024-05-23', hours: 1, minutes: 30, totalMinutes: 90, year: 2, completed: true, createdAt: '2024-05-23'},
+                {id: 5, text: '2년차 학회 학술회의', details: '7회 참석 | 한국임상심리학회 등', taskDate: '2025-02-28', hours: 100, minutes: 20, totalMinutes: 6020, year: 2, completed: true, createdAt: '2024-03-01'},
+                // 3년차 - 학회 5회(45h)
+                {id: 6, text: '3년차 학회 학술회의', details: '5회 참석 | 한국임상심리학회', taskDate: '2025-08-25', hours: 45, minutes: 0, totalMinutes: 2700, year: 3, completed: true, createdAt: '2025-03-01'}
+            ],
+            
+            // 사례회의 참석 - 연차별 정확한 데이터 (총 45회, 57시간 30분)
+            case_meeting_attendance: [
+                // 1년차 - 수련기관 32회(32h)
+                {id: 1, text: '1년차 사례회의 참석', details: '32회 참석 | 수련기관 내부 사례회의', taskDate: '2024-02-29', hours: 32, minutes: 0, totalMinutes: 1920, year: 1, completed: true, createdAt: '2023-04-01'},
+                // 2년차 - 수련기관 12회(24h) + 연구회 1회(1h 30m) = 13회, 25시간 30분
+                {id: 2, text: '2년차 수련기관 사례회의', details: '12회 참석 | 수련기관 내부 사례회의', taskDate: '2025-02-28', hours: 24, minutes: 0, totalMinutes: 1440, year: 2, completed: true, createdAt: '2024-04-01'},
+                {id: 3, text: '2년차 연구회 사례회의', details: '1회 참석 | 트라우마심리치료연구회', taskDate: '2024-05-23', hours: 1, minutes: 30, totalMinutes: 90, year: 2, completed: true, createdAt: '2024-05-23'}
+            ],
+            
+            // 윤리교육 참석 - 2년차에 1회
+            ethics_education_attendance: [
+                {id: 1, text: '임상심리학자의 윤리와 책임', details: '학회 | 한국임상심리학회 | 윤리교육 이수', taskDate: '2024-04-27', hours: 2, minutes: 0, totalMinutes: 120, year: 2, completed: true, createdAt: '2024-04-27'}
+            ],
+            
+            // 학술회의 발표 - 연차별 정확한 데이터 (총 19회, 57시간)
+            academic_presentation: [
+                // 1년차 - 9회, 27시간
+                {id: 1, text: '1년차 학술회의 발표', details: '9회 발표 | 수련기관 도서발표, 학술발표 등', taskDate: '2024-02-29', hours: 27, minutes: 0, totalMinutes: 1620, year: 1, completed: true, createdAt: '2023-04-01'},
+                // 2년차 - 10회, 30시간
+                {id: 2, text: '2년차 학술회의 발표', details: '10회 발표 | 수련기관 학술발표 등', taskDate: '2025-02-28', hours: 30, minutes: 0, totalMinutes: 1800, year: 2, completed: true, createdAt: '2024-03-01'}
+            ],
+            
+            // 사례발표대체 학술발표 - 연차별 정확한 데이터 (총 14회, 26시간)
+            case_presentation_substitute: [
+                // 1년차 - 2회, 2시간
+                {id: 1, text: '1년차 사례회의 발표', details: '2회 발표 | 수련기관 사례발표', taskDate: '2024-02-29', hours: 2, minutes: 0, totalMinutes: 120, year: 1, completed: true, createdAt: '2023-04-01'},
+                // 2년차 - 12회, 24시간
+                {id: 2, text: '2년차 사례회의 발표', details: '12회 발표 | 수련기관 사례발표', taskDate: '2025-02-28', hours: 24, minutes: 0, totalMinutes: 1440, year: 2, completed: true, createdAt: '2024-04-01'}
+            ],
+            
+            // 연구활동 - 실제: 0회 (모든 연차)
+            research_activity: [],
+            
+            // 대외협력 지원사업 - 연차별 정확한 데이터 (총 2회, 312시간)
+            external_cooperation: [
+                // 1년차 - 1회, 224시간
+                {id: 1, text: '1년차 대외협력 지원사업', details: '양주시정신건강복지센터 등 | 224시간', taskDate: '2024-02-29', hours: 224, minutes: 0, totalMinutes: 13440, year: 1, completed: true, createdAt: '2023-02-19'},
+                // 2년차 - 1회, 88시간  
+                {id: 2, text: '2년차 대외협력 지원사업', details: '푸른존 등 | 88시간', taskDate: '2025-02-28', hours: 88, minutes: 0, totalMinutes: 5280, year: 2, completed: true, createdAt: '2024-02-19'}
+            ],
+            
+            // 기타 수련사항 - 연차별 정확한 데이터 (총 1회, 1시간)
+            other_training: [
+                // 1년차 - 1회, 1시간
+                {id: 1, text: '1년차 기타 수련', details: 'ADHD 관련 교육 등 | 1시간', taskDate: '2024-02-29', hours: 1, minutes: 0, totalMinutes: 60, year: 1, completed: true, createdAt: '2023-06-15'}
+            ]
+        };
+
+        // 수련 연차 정의
+        const trainingYears = {
+            1: { name: '1년차', period: '2023.3.1 ~ 2024.2.29', target: 1000 },
+            2: { name: '2년차', period: '2024.3.1 ~ 2025.2.28', target: 1000 },
+            3: { name: '3년차', period: '2025.3.1 ~ 2026.2.28', target: 1000 },
+            all: { name: '전체', period: '전체 기간', target: 3000 }
+        };
+
+        const categories = {
+            psychological_assessment: {
+                name: '심리평가',
+                icon: 'brain',
+                color: 'purple',
+                description: '심리평가 실시 기록 (총 300시간, 종합평가 30례 이상)',
+                requirement: '성명, 성별, 연령, 진단, 검사 실시일, 검사 종류, 인정시간 기록',
+                subcategories: ['psychological_assessment'],
+                targetHours: 300,
+                csvSource: '실제 완료: 161례, 884시간 (1년차: 50례 268h, 2년차: 111례 616h)',
+                actualCount: 161,
+                countUnit: '례',
+                fields: ['성명', '성별', '연령', '진단', '검사 실시일', '검사 종류', '인정시간']
+            },
+            therapy: {
+                name: '심리치료',
+                icon: 'heart',
+                color: 'green',
+                description: '심리치료 참가, 개인치료, 집단치료 실시 (총 300시간)',
+                requirement: '교육분석, 개인치료, 집단치료 세분화 기록',
+                subcategories: ['therapy_participation', 'individual_therapy', 'group_therapy'],
+                targetHours: 300,
+                csvSource: '실제 완료: 총 19례, 598시간 (1년차: 14례 355h, 2년차: 5례 243h)',
+                actualCount: 19,
+                countUnit: '례',
+                fields: ['치료 유형', '기간', '회기', '총시간', '치료접근법']
+            },
+            attendance_record: {
+                name: '참석기록',
+                icon: 'users',
+                color: 'blue',
+                description: '학술회의, 사례회의, 윤리교육 참석 기록',
+                requirement: '학회/지회/연구회/수련기관 구분하여 기록',
+                subcategories: ['academic_meeting_attendance', 'case_meeting_attendance', 'ethics_education_attendance'],
+                targetHours: 40,
+                csvSource: '실제 완료: 85회, 459시간 30분 (1년차: 39회, 2년차: 41회, 3년차: 5회)',
+                actualCount: 85,
+                countUnit: '회',
+                fields: ['구분', '참석일', '장소', '회의명/강의명', '인정시간']
+            },
+            presentation_record: {
+                name: '발표기록',
+                icon: 'presentation',
+                color: 'indigo',
+                description: '학술회의 발표, 사례발표대체 학술발표',
+                requirement: '발표 유형, 제목, 행사명 상세 기록',
+                subcategories: ['academic_presentation', 'case_presentation_substitute'],
+                targetHours: 4,
+                csvSource: '실제 완료: 33회, 83시간 (1년차: 11회, 2년차: 22회)',
+                actualCount: 33,
+                countUnit: '회',
+                fields: ['구분', '발표일', '행사명', '유형', '발표제목', '인정시간']
+            },
+            research_and_others: {
+                name: '연구활동 및 기타',
+                icon: 'file-image',
+                color: 'orange',
+                description: '연구활동, 대외협력 지원사업, 기타 수련사항',
+                requirement: '논문, 대외협력, 기타활동 세분화 기록',
+                subcategories: ['research_activity', 'external_cooperation', 'other_training'],
+                targetHours: 30,
+                csvSource: '실제 완료: 3회, 313시간 (1년차: 225시간, 2년차: 88시간)',
+                actualCount: 3,
+                countUnit: '회',
+                fields: ['활동 유형', '일시/기간', '기관/주최', '제목/활동명', '인정시간']
+            }
+        };
+
+        const colorStyles = {
+            purple: { bg: 'purple', icon: 'purple-icon', button: 'purple-button', hours: 'purple-hours' },
+            green: { bg: 'green', icon: 'green-icon', button: 'green-button', hours: 'green-hours' },
+            blue: { bg: 'blue', icon: 'blue-icon', button: 'blue-button', hours: 'blue-hours' },
+            indigo: { bg: 'indigo', icon: 'indigo-icon', button: 'indigo-button', hours: 'indigo-hours' },
+            orange: { bg: 'orange', icon: 'orange-icon', button: 'orange-button', hours: 'orange-hours' }
+        };
+
+        // Helper functions
+        function formatTime(totalMinutes) {
+            const h = Math.floor(totalMinutes / 60);
+            const m = totalMinutes % 60;
+            return `${h}시간 ${m}분`;
+        }
+
+        function getTotalMinutes(categoryList, yearFilter = 'all') {
+            const categories = Array.isArray(categoryList) ? categoryList : [categoryList];
+            return categories.reduce((total, cat) => {
+                const taskList = tasks[cat] || [];
+                return total + taskList.reduce((catTotal, task) => {
+                    if (yearFilter !== 'all' && task.year !== yearFilter) {
+                        return catTotal;
+                    }
+                    return catTotal + (task?.completed ? (task.totalMinutes || 0) : 0);
+                }, 0);
+            }, 0);
+        }
+
+        function getDaysLeft(deadline) {
+            if (!deadline) return null;
+            const today = new Date();
+            const targetDate = new Date(deadline);
+            const diffTime = targetDate - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            return diffDays;
+        }
+
+        function getColorClasses(categoryKey) {
+            const category = categories[categoryKey];
+            const color = category?.color || 'indigo';
+            return colorStyles[color] || colorStyles.indigo;
+        }
+
+        function setActiveYear(year) {
+            activeYear = year;
+            
+            document.querySelectorAll('.year-button').forEach(btn => btn.classList.remove('active'));
+            if (year === 'all') {
+                document.getElementById('yearAll').classList.add('active');
+            } else {
+                document.getElementById(`year${year}`).classList.add('active');
+            }
+            
+            renderCategoryGrid();
+            renderCategoryInfo();
+            renderTaskList();
+            updateTotalHoursDisplay();
+            updateMotivation();
+        }
+        
+        function updateTotalHoursDisplay() {
+            const totalMinutes = getTotalMinutes(Object.keys(tasks).filter(key => tasks[key].length > 0), activeYear === 'all' ? 'all' : activeYear);
+            const totalHours = Math.floor(totalMinutes / 60);
+            document.getElementById('totalHoursDisplay').textContent = `${totalHours}h`;
+        }
+
+        function setActiveCategory(categoryKey) {
+            activeCategory = categoryKey;
+            renderCategoryTabs();
+            renderCategoryInfo();
+            renderTaskList();
+            
+            const addButton = document.getElementById('addTaskBtn');
+            const colorClasses = getColorClasses(activeCategory);
+            addButton.className = `add-button ${colorClasses.button}`;
+            
+            document.getElementById('categoryTitle').textContent = `${categories[activeCategory].name} 목록`;
+        }
+
+        function renderCategoryGrid() {
+            const grid = document.getElementById('categoryGrid');
+            grid.innerHTML = '';
+            
+            Object.entries(categories).forEach(([key, category]) => {
+                const totalMinutes = getTotalMinutes(category.subcategories || [], activeYear === 'all' ? 'all' : activeYear);
+                const totalHours = Math.floor(totalMinutes / 60);
+                const colorClasses = getColorClasses(key);
+                
+                const card = document.createElement('div');
+                card.className = `category-card ${colorClasses.bg}`;
+                card.onclick = () => setActiveCategory(key);
+                
+                card.innerHTML = `
+                    <div class="category-header">
+                        <i data-lucide="${category.icon}" class="${colorClasses.icon}"></i>
+                        <span class="category-hours ${colorClasses.icon}">${totalHours}h</span>
+                    </div>
+                    <h4 class="category-name">${category.name}</h4>
+                    <div class="category-time">${formatTime(totalMinutes)}</div>
+                    ${category.actualCount ? `<div style="font-size: 0.75rem; color: #6b7280; margin-top: 0.25rem;">완료: ${category.actualCount}${category.countUnit}</div>` : ''}
+                `;
+                
+                grid.appendChild(card);
+            });
+            
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+
+        function renderCategoryTabs() {
+            const tabs = document.getElementById('categoryTabs');
+            tabs.innerHTML = '';
+            
+            Object.entries(categories).forEach(([key, category]) => {
+                const tab = document.createElement('button');
+                tab.className = `tab ${key === activeCategory ? 'active' : ''}`;
+                tab.onclick = () => setActiveCategory(key);
+                
+                tab.innerHTML = `
+                    <i data-lucide="${category.icon}"></i>
+                    <span class="tab-text-full">${category.name}</span>
+                    <span class="tab-text-short">${category.name.split(' ')[0]}</span>
+                `;
+                
+                tabs.appendChild(tab);
+            });
+            
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+
+        function renderCategoryInfo() {
+            const info = document.getElementById('categoryInfo');
+            const category = categories[activeCategory];
+            const colorClasses = getColorClasses(activeCategory);
+            const totalMinutes = getTotalMinutes(category.subcategories || [], activeYear === 'all' ? 'all' : activeYear);
+            
+            info.className = `category-info ${colorClasses.bg}`;
+            info.innerHTML = `
+                <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                    <i data-lucide="${category.icon}" style="width: 32px; height: 32px;" class="${colorClasses.icon}"></i>
+                    <div style="flex: 1;">
+                        <h3 class="${colorClasses.icon}">
+                            ${category.name}
+                        </h3>
+                        <p>${category.description}</p>
+                        <p style="font-size: 0.875rem;"><span style="font-weight: 500;">📋 기록 항목:</span> ${category.requirement}</p>
+                        <p style="font-size: 0.875rem; margin-top: 0.5rem;"><span style="font-weight: 500;">📊 현재 필터:</span> ${activeYear === 'all' ? '전체' : `${activeYear}년차`} (${trainingYears[activeYear].period})</p>
+                        ${category.csvSource ? `<p style="font-size: 0.75rem; color: #6b7280; margin-top: 0.5rem;">📈 ${category.csvSource}</p>` : ''}
+                        <div style="margin-top: 0.75rem;">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.875rem; margin-bottom: 0.25rem;">
+                                <span>현재 완료</span>
+                                <span style="font-weight: 500;">${formatTime(totalMinutes)}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+
+        function addTask() {
+            const newTask = document.getElementById('newTask').value.trim();
+            const newTaskDetails = document.getElementById('newTaskDetails').value.trim();
+            const hours = parseInt(document.getElementById('hours').value) || 0;
+            const minutes = parseInt(document.getElementById('minutes').value) || 0;
+            const taskDate = document.getElementById('taskDate').value;
+            const newTaskDeadline = document.getElementById('newTaskDeadline').value;
+            
+            if (!newTask) return;
+            
+            const totalMinutes = hours * 60 + minutes;
+            const task = {
+                id: Date.now(),
+                text: newTask,
+                details: newTaskDetails,
+                deadline: newTaskDeadline,
+                hours: Math.floor(totalMinutes / 60),
+                minutes: totalMinutes % 60,
+                totalMinutes: totalMinutes,
+                completed: true,
+                createdAt: new Date().toLocaleDateString('ko-KR'),
+                taskDate: taskDate,
+                category: activeCategory,
+                year: activeYear === 'all' ? 3 : activeYear
+            };
+
+            if (!tasks[activeCategory]) {
+                tasks[activeCategory] = [];
+            }
+            tasks[activeCategory].push(task);
+            
+            // Clear inputs
+            document.getElementById('newTask').value = '';
+            document.getElementById('newTaskDetails').value = '';
+            document.getElementById('hours').value = '';
+            document.getElementById('minutes').value = '';
+            document.getElementById('newTaskDeadline').value = '';
+            document.getElementById('taskDate').value = new Date().toISOString().split('T')[0];
+            
+            renderCategoryGrid();
+            renderTaskList();
+            updateTotalHoursDisplay();
+        }
+
+        function renderTaskList() {
+            const taskList = document.getElementById('taskList');
+            
+            if (activeCategory === 'therapy') {
+                renderTherapySubcategories(taskList);
+            } else if (activeCategory === 'attendance_record') {
+                renderAttendanceSubcategories(taskList);
+            } else if (activeCategory === 'presentation_record') {
+                renderPresentationSubcategories(taskList);
+            } else if (activeCategory === 'research_and_others') {
+                renderResearchSubcategories(taskList);
+            } else {
+                renderSimpleTaskList(taskList);
+            }
+        }
+
+        function renderTherapySubcategories(container) {
+            const subcategories = [
+                { key: 'therapy_participation', name: '1. 심리치료 참가 (교육분석)', icon: 'heart' },
+                { key: 'individual_therapy', name: '2. 개인심리치료 실시', icon: 'user' },
+                { key: 'group_therapy', name: '3. 집단심리치료 실시', icon: 'users' }
+            ];
+            
+            container.innerHTML = '';
+            
+            subcategories.forEach(sub => {
+                const taskList = tasks[sub.key] || [];
+                const filteredTaskList = taskList.filter(task => activeYear === 'all' || task.year === activeYear);
+                const totalMinutes = getTotalMinutes([sub.key], activeYear === 'all' ? 'all' : activeYear);
+                
+                const subcategoryDiv = document.createElement('div');
+                subcategoryDiv.className = 'subcategory';
+                
+                subcategoryDiv.innerHTML = `
+                    <h4>
+                        <i data-lucide="${sub.icon}" style="width: 16px; height: 16px;" class="green-icon"></i>
+                        ${sub.name} - ${filteredTaskList.length}개
+                        <span class="subcategory-count">완료: ${formatTime(totalMinutes)}</span>
+                    </h4>
+                    ${filteredTaskList.length === 0 ? 
+                        `<p class="subcategory-empty">현재 필터(${activeYear === 'all' ? '전체' : `${activeYear}년차`})에 해당하는 기록이 없습니다.</p>` :
+                        `<div class="subcategory-tasks" id="${sub.key}-tasks"></div>`
+                    }
+                `;
+                
+                container.appendChild(subcategoryDiv);
+                
+                if (filteredTaskList.length > 0) {
+                    const tasksContainer = document.getElementById(`${sub.key}-tasks`);
+                    filteredTaskList.forEach(task => {
+                        renderTaskItem(tasksContainer, task, sub.key);
+                    });
+                }
+            });
+            
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+
+        function renderAttendanceSubcategories(container) {
+            const subcategories = [
+                { key: 'academic_meeting_attendance', name: '1. 학술회의 참석', icon: 'graduation-cap' },
+                { key: 'case_meeting_attendance', name: '2. 사례회의 참석', icon: 'users' },
+                { key: 'ethics_education_attendance', name: '3. 윤리교육 참석', icon: 'check-circle-2' }
+            ];
+            
+            container.innerHTML = '';
+            
+            subcategories.forEach(sub => {
+                const taskList = tasks[sub.key] || [];
+                const filteredTaskList = taskList.filter(task => activeYear === 'all' || task.year === activeYear);
+                const totalMinutes = getTotalMinutes([sub.key], activeYear === 'all' ? 'all' : activeYear);
+                
+                const subcategoryDiv = document.createElement('div');
+                subcategoryDiv.className = 'subcategory';
+                
+                subcategoryDiv.innerHTML = `
+                    <h4>
+                        <i data-lucide="${sub.icon}" style="width: 16px; height: 16px;" class="blue-icon"></i>
+                        ${sub.name} - ${filteredTaskList.length}개
+                        <span class="subcategory-count">완료: ${formatTime(totalMinutes)}</span>
+                    </h4>
+                    ${filteredTaskList.length === 0 ? 
+                        `<p class="subcategory-empty">현재 필터(${activeYear === 'all' ? '전체' : `${activeYear}년차`})에 해당하는 기록이 없습니다.</p>` :
+                        `<div class="subcategory-tasks" id="${sub.key}-tasks"></div>`
+                    }
+                `;
+                
+                container.appendChild(subcategoryDiv);
+                
+                if (filteredTaskList.length > 0) {
+                    const tasksContainer = document.getElementById(`${sub.key}-tasks`);
+                    filteredTaskList.forEach(task => {
+                        renderTaskItem(tasksContainer, task, sub.key);
+                    });
+                }
+            });
+            
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+
+        function renderPresentationSubcategories(container) {
+            const subcategories = [
+                { key: 'academic_presentation', name: '1. 학술회의 발표', icon: 'presentation' },
+                { key: 'case_presentation_substitute', name: '2. 사례발표대체 학술발표', icon: 'file-image' }
+            ];
+            
+            container.innerHTML = '';
+            
+            subcategories.forEach(sub => {
+                const taskList = tasks[sub.key] || [];
+                const filteredTaskList = taskList.filter(task => activeYear === 'all' || task.year === activeYear);
+                const totalMinutes = getTotalMinutes([sub.key], activeYear === 'all' ? 'all' : activeYear);
+                
+                const subcategoryDiv = document.createElement('div');
+                subcategoryDiv.className = 'subcategory';
+                
+                subcategoryDiv.innerHTML = `
+                    <h4>
+                        <i data-lucide="${sub.icon}" style="width: 16px; height: 16px;" class="indigo-icon"></i>
+                        ${sub.name} - ${filteredTaskList.length}개
+                        <span class="subcategory-count">완료: ${formatTime(totalMinutes)}</span>
+                    </h4>
+                    ${filteredTaskList.length === 0 ? 
+                        `<p class="subcategory-empty">현재 필터(${activeYear === 'all' ? '전체' : `${activeYear}년차`})에 해당하는 기록이 없습니다.</p>` :
+                        `<div class="subcategory-tasks" id="${sub.key}-tasks"></div>`
+                    }
+                `;
+                
+                container.appendChild(subcategoryDiv);
+                
+                if (filteredTaskList.length > 0) {
+                    const tasksContainer = document.getElementById(`${sub.key}-tasks`);
+                    filteredTaskList.forEach(task => {
+                        renderTaskItem(tasksContainer, task, sub.key);
+                    });
+                }
+            });
+            
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+
+        function renderResearchSubcategories(container) {
+            const subcategories = [
+                { key: 'research_activity', name: '1. 연구활동', icon: 'book-open' },
+                { key: 'external_cooperation', name: '2. 대외협력 지원사업', icon: 'building' },
+                { key: 'other_training', name: '3. 기타 수련사항', icon: 'file-image' }
+            ];
+            
+            container.innerHTML = '';
+            
+            subcategories.forEach(sub => {
+                const taskList = tasks[sub.key] || [];
+                const filteredTaskList = taskList.filter(task => activeYear === 'all' || task.year === activeYear);
+                const totalMinutes = getTotalMinutes([sub.key], activeYear === 'all' ? 'all' : activeYear);
+                
+                const subcategoryDiv = document.createElement('div');
+                subcategoryDiv.className = 'subcategory';
+                
+                subcategoryDiv.innerHTML = `
+                    <h4>
+                        <i data-lucide="${sub.icon}" style="width: 16px; height: 16px;" class="orange-icon"></i>
+                        ${sub.name} - ${filteredTaskList.length}개
+                        <span class="subcategory-count">완료: ${formatTime(totalMinutes)}</span>
+                    </h4>
+                    ${filteredTaskList.length === 0 ? 
+                        `<p class="subcategory-empty">현재 필터(${activeYear === 'all' ? '전체' : `${activeYear}년차`})에 해당하는 기록이 없습니다.</p>` :
+                        `<div class="subcategory-tasks" id="${sub.key}-tasks"></div>`
+                    }
+                `;
+                
+                container.appendChild(subcategoryDiv);
+                
+                if (filteredTaskList.length > 0) {
+                    const tasksContainer = document.getElementById(`${sub.key}-tasks`);
+                    filteredTaskList.forEach(task => {
+                        renderTaskItem(tasksContainer, task, sub.key);
+                    });
+                }
+            });
+            
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+
+        function renderSimpleTaskList(container) {
+            const taskList = tasks[activeCategory] || [];
+            const filteredTaskList = taskList.filter(task => activeYear === 'all' || task.year === activeYear);
+            
+            if (filteredTaskList.length === 0) {
+                const colorClasses = getColorClasses(activeCategory);
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">
+                            <i data-lucide="${categories[activeCategory].icon}" style="width: 64px; height: 64px;"></i>
+                        </div>
+                        <p>현재 필터(${activeYear === 'all' ? '전체' : `${activeYear}년차`})에 해당하는 항목이 없습니다.</p>
+                        <p>위에서 새 항목을 추가하거나 다른 연차를 선택해보세요!</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = '';
+                filteredTaskList.forEach(task => {
+                    renderTaskItem(container, task, activeCategory);
+                });
+            }
+            
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+
+        function renderTaskItem(container, task, categoryKey) {
+            if (!task) return;
+            
+            // 연차 필터링
+            if (activeYear !== 'all' && task.year !== activeYear) {
+                return;
+            }
+            
+            const colorClasses = getColorClasses(activeCategory);
+            
+            const taskDiv = document.createElement('div');
+            taskDiv.className = 'task-item';
+            
+            taskDiv.innerHTML = `
+                <div class="task-content">
+                    <div class="task-checkbox">
+                        <i data-lucide="check" style="width: 16px; height: 16px;"></i>
+                    </div>
+                    
+                    <div class="task-info">
+                        <div class="task-title">
+                            ${task.text}
+                            ${task.year ? `<span style="margin-left: 0.5rem; padding: 0.25rem 0.5rem; font-size: 0.75rem; background: #eef2ff; color: #4f46e5; border-radius: 9999px;">${task.year}년차</span>` : ''}
+                            ${task.isMainTherapist ? `<span style="margin-left: 0.5rem; padding: 0.25rem 0.5rem; font-size: 0.75rem; background: #fef2f2; color: #dc2626; border-radius: 9999px;">주치료자</span>` : ''}
+                            ${(task.hours > 0 || task.minutes > 0) ? 
+                                `<span class="task-hours ${colorClasses.hours}">${task.hours}시간 ${task.minutes}분</span>` : ''
+                            }
+                        </div>
+                        
+                        ${task.details ? 
+                            `<div class="task-details">${task.details}</div>` : ''
+                        }
+                        
+                        ${task.timeBreakdown ? 
+                            `<div style="font-size: 0.75rem; color: #6b7280; margin-top: 0.25rem;">${task.timeBreakdown}</div>` : ''
+                        }
+                        
+                        <div class="task-meta">
+                            ${task.taskDate ? 
+                                `<span class="task-date">수행일: ${new Date(task.taskDate).toLocaleDateString('ko-KR')}</span>` : ''
+                            }
+                        </div>
+                    </div>
+
+                    <button class="delete-button" onclick="deleteTask(${task.id}, '${categoryKey}')">
+                        <i data-lucide="x" style="width: 18px; height: 18px;"></i>
+                    </button>
+                </div>
+            `;
+            
+            container.appendChild(taskDiv);
+            
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+
+        function deleteTask(id, categoryKey) {
+            if (confirm('이 항목을 삭제하시겠습니까?')) {
+                tasks[categoryKey] = (tasks[categoryKey] || []).filter(task => task.id !== id);
+                renderCategoryGrid();
+                renderTaskList();
+                updateTotalHoursDisplay();
+            }
+        }
+
+        function setupEventListeners() {
+            document.getElementById('finalGoal').addEventListener('input', updateFinalGoal);
+            document.getElementById('goalDeadline').addEventListener('change', updateGoalDeadline);
+            document.getElementById('addTaskBtn').addEventListener('click', addTask);
+            document.getElementById('newTask').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) addTask();
+            });
+        }
+
+        function updateFinalGoal(e) {
+            finalGoal = e.target.value;
+            updateMotivation();
+        }
+
+        function updateGoalDeadline(e) {
+            goalDeadline = e.target.value;
+            const deadlineInfo = document.getElementById('deadlineInfo');
+            const deadlineText = document.getElementById('deadlineText');
+            
+            if (goalDeadline) {
+                const daysLeft = getDaysLeft(goalDeadline);
+                let text = '';
+                if (daysLeft > 0) text = `D-${daysLeft}일`;
+                else if (daysLeft === 0) text = '오늘이 목표일!';
+                else text = `${Math.abs(daysLeft)}일 지남`;
+                
+                deadlineText.textContent = text;
+                deadlineInfo.style.display = 'block';
+            } else {
+                deadlineInfo.style.display = 'none';
+            }
+            
+            updateMotivation();
+        }
+
+        function updateMotivation() {
+            const motivationSection = document.getElementById('motivationSection');
+            const motivationTitle = document.getElementById('motivationTitle');
+            
+            if (finalGoal) {
+                const yearText = activeYear === 'all' ? '전체 수련과정' : `${trainingYears[activeYear].name} 수련과정`;
+                const totalMinutes = getTotalMinutes(Object.keys(tasks).filter(key => tasks[key].length > 0), activeYear === 'all' ? 'all' : activeYear);
+                const totalHours = Math.floor(totalMinutes / 60);
+                
+                motivationTitle.innerHTML = `
+                    <div style="font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem;">🏆 "${finalGoal}" 달성을 향해 화이팅!</div>
+                    <div style="color: rgba(199, 210, 254, 1); margin-bottom: 1rem;">
+                        ${yearText}이 체계적으로 기록되었습니다. (현재 완료: ${totalHours}시간)
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                        <div style="background: rgba(255, 255, 255, 0.1); border-radius: 0.5rem; padding: 0.75rem;">
+                            <div style="font-weight: bold; font-size: 1.125rem;">📊 완료 현황</div>
+                            ${activeYear === 'all' ? `
+                                <div>✅ 심리평가: 161례 (884h)</div>
+                                <div>✅ 심리치료: 19례 (598h)</div>
+                                <div>✅ 학술참석: 85회 (459h)</div>
+                            ` : activeYear === 1 ? `
+                                <div>✅ 심리평가: 50례 (268h)</div>
+                                <div>✅ 심리치료: 14례 (355h)</div>
+                                <div>✅ 학술참석: 39회 (154h)</div>
+                            ` : activeYear === 2 ? `
+                                <div>✅ 심리평가: 111례 (616h)</div>
+                                <div>✅ 심리치료: 5례 (243h)</div>
+                                <div>✅ 학술참석: 41회 (201h)</div>
+                            ` : `
+                                <div>🔄 심리평가: 0례 (0h)</div>
+                                <div>🔄 심리치료: 0례 (0h)</div>
+                                <div>🔄 학술참석: 5회 (45h)</div>
+                            `}
+                        </div>
+                        
+                        <div style="background: rgba(255, 255, 255, 0.1); border-radius: 0.5rem; padding: 0.75rem;">
+                            <div style="font-weight: bold; font-size: 1.125rem;">⏰ 달성률</div>
+                            ${activeYear === 'all' ? `
+                                <div>전체 진도: ${totalHours}h / 3,000h (${Math.round(totalHours/30)}%)</div>
+                                <div>1년차: 1,063h (106% 완료)</div>
+                                <div>2년차: 1,227h (123% 완료)</div>
+                                <div>3년차: 45h (5% 진행중)</div>
+                            ` : activeYear === 1 ? `
+                                <div>연간 달성: 1,063h / 1,000h</div>
+                                <div>달성률: 106% ✅ 초과달성</div>
+                                <div>초과분: +63시간</div>
+                            ` : activeYear === 2 ? `
+                                <div>연간 달성: 1,227h / 1,000h</div>
+                                <div>달성률: 123% ✅ 초과달성</div>
+                                <div>초과분: +227시간</div>
+                            ` : `
+                                <div>현재 진도: 45h / 1,000h</div>
+                                <div>달성률: 5% 🔄 진행중</div>
+                                <div>남은 목표: 955시간</div>
+                            `}
+                        </div>
+                        
+                        <div style="background: rgba(255, 255, 255, 0.1); border-radius: 0.5rem; padding: 0.75rem;">
+                            <div style="font-weight: bold; font-size: 1.125rem;">🎯 목표 현황</div>
+                            ${activeYear === 'all' ? `
+                                <div>전체 3년 과정 진행중</div>
+                                <div>1,2년차 초과달성 완료</div>
+                                <div>3년차 초반 단계</div>
+                            ` : activeYear === 1 ? `
+                                <div>1년차 완료 (2024.2.29)</div>
+                                <div>목표 초과달성 ✅</div>
+                                <div>우수한 수련 성과</div>
+                            ` : activeYear === 2 ? `
+                                <div>2년차 완료 (2025.2.28)</div>
+                                <div>목표 초과달성 ✅</div>
+                                <div>활발한 수련 활동</div>
+                            ` : `
+                                <div>3년차 진행중 (2025.3~2026.2)</div>
+                                <div>초반 단계 (8월 현재)</div>
+                                <div>충분한 시간 여유</div>
+                            `}
+                        </div>
+                    </div>
+                `;
+                motivationSection.style.display = 'block';
+            } else {
+                motivationSection.style.display = 'none';
+            }
+        }
+
+        // Initialize page
+        function init() {
+            setupEventListeners();
+            renderCategoryGrid();
+            renderCategoryTabs();
+            renderCategoryInfo();
+            renderTaskList();
+            updateTotalHoursDisplay();
+            
+            // Set today's date as default
+            document.getElementById('taskDate').value = new Date().toISOString().split('T')[0];
+            
+            // Set default goal
+            document.getElementById('finalGoal').value = '2027년 임상심리전문가 자격 취득';
+            updateMotivation();
+            
+            // Initialize Lucide icons with error handling
+            setTimeout(() => {
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                } else {
+                    console.warn('Lucide icons not loaded, using fallback icons');
+                }
+            }, 100);
+        }
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
