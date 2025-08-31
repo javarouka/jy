@@ -3,11 +3,7 @@ import { RESEARCH_TYPE_OPTIONS } from '@shared/types'
 import useAssessmentLogSearch from './hook/useAssessmentLogSearch'
 import { FormEvent } from 'react'
 
-interface AssessmentLogListProps {
-  // No props needed as component will fetch its own data
-}
-
-const AssessmentLogList = (_props: AssessmentLogListProps) => {
+const AssessmentLogList = () => {
   const {
     data: {
       assessmentLog,
@@ -40,7 +36,7 @@ const AssessmentLogList = (_props: AssessmentLogListProps) => {
   return (
     <div>
       {/* 검색 폼 */}
-      <div className="mb-6 p-4 border rounded-md bg-gray-50">
+      <div className="mb-6 p-4 border rounded-md">
         <h3 className="text-lg font-medium mb-4">검색</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <div className="form-group text-sm">
@@ -161,7 +157,7 @@ const AssessmentLogList = (_props: AssessmentLogListProps) => {
       </div>
 
       {/* 결과 목록 */}
-      <div className="p-4 sm:p-6">
+      <div>
         {/* 기본: 1열 (모바일) */}
         {/* md (768px) 이상: 2열 */}
         {/* xl (1280px) 이상: 3열 */}
