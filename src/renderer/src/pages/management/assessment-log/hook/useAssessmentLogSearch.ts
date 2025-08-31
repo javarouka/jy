@@ -4,9 +4,9 @@ import {
   DateRangeParams,
   LikeSearchParams, SearchParams,
   SortOrder
-} from '../../../../../../shared/types/db'
+} from '@shared/types/db'
 import { QueryClient, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { TypeAssessmentFormData } from '../../../../../../shared/types'
+import { TypeAssessmentFormData } from '@shared/types'
 
 export default function useAssessmentLogSearch(_queryClient?: QueryClient) {
 

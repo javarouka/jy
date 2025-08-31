@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { QueryClient, useMutation, useQueryClient } from '@tanstack/react-query'
-import { RESEARCH_TYPE_OPTIONS, TypeAssessmentFormData } from '../../../../../../shared/types'
+import { RESEARCH_TYPE_OPTIONS, TypeAssessmentFormData } from '@shared/types'
 
 export default function useAssessmentLogMutation(_queryClient?: QueryClient) {
 
@@ -15,8 +15,6 @@ export default function useAssessmentLogMutation(_queryClient?: QueryClient) {
     creditTime: 0,
     usable: true
   });
-
-  // const [queryParams, setQueryParams] = useState<AssessmentLogQueryParams>(initialQueryParams);
 
   const isValidateForm = (formData: TypeAssessmentFormData): boolean => {
     return !!formData.gender

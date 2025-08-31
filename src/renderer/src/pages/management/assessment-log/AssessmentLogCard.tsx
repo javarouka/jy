@@ -1,5 +1,5 @@
 import { AssessmentLog } from '@prisma/client'
-import { TypeAssessmentFormData } from '../../../../../shared/types'
+import { TypeAssessmentFormData } from '@shared/types'
 
 type Props = {
   log: AssessmentLog

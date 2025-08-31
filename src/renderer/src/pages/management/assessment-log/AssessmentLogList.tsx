@@ -1,5 +1,5 @@
 import AssessmentLogCard from '@renderer/pages/management/assessment-log/AssessmentLogCard'
-import { RESEARCH_TYPE_OPTIONS } from '../../../../../shared/types'
+import { RESEARCH_TYPE_OPTIONS } from '@shared/types'
 import useAssessmentLogSearch from './hook/useAssessmentLogSearch'
 import { FormEvent } from 'react'
 

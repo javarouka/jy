@@ -1,8 +1,8 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
-import { TypeAssessmentFormData } from '../shared/types'
-import { ASSESSMENT_LOG_CHANNELS } from '../shared/constants/ipcChannels'
-import { AssessmentLogQueryParams } from '../shared/types/db'
+import { TypeAssessmentFormData } from '@shared/types'
+import { ASSESSMENT_LOG_CHANNELS } from '@shared/constants/ipcChannels'
+import { AssessmentLogQueryParams } from '@shared/types/db'
 
 export const api = {
 }

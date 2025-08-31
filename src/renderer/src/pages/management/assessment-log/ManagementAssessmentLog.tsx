@@ -1,7 +1,7 @@
 import ManagementWrapper from '@renderer/pages/management/ManagementWrapper'
 import SubTitle from '@renderer/component/basic/SubTitle'
 import useAssessmentLogMutation from '@renderer/pages/management/assessment-log/hook/useAssessmentLogMutation'
-import { RESEARCH_TYPE_OPTIONS } from '../../../../../shared/types'
+import { RESEARCH_TYPE_OPTIONS } from '@shared/types'
 import './ManagementAssessmentLog.css'
 import AssessmentLogList from '@renderer/pages/management/assessment-log/AssessmentLogList'
 

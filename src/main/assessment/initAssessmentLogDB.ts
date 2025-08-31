@@ -1,8 +1,8 @@
 import { ipcMain } from 'electron'
-import { TypeAssessmentFormData } from '../../shared/types'
+import { TypeAssessmentFormData } from '@shared/types'
 import type { PrismaClient } from '@prisma/client'
-import { ASSESSMENT_LOG_CHANNELS } from '../../shared/constants/ipcChannels'
-import { AssessmentLogQueryParams } from '../../shared/types/db'
+import { ASSESSMENT_LOG_CHANNELS } from '@shared/constants/ipcChannels'
+import { AssessmentLogQueryParams } from '@shared/types/db'
 
 export function initAssessmentLogDB(prisma: PrismaClient) {
   ipcMain.handle(ASSESSMENT_LOG_CHANNELS.GET, async (_, params?: AssessmentLogQueryParams) => {
@@ -28,7 +28,7 @@ export function initAssessmentLogDB(prisma: PrismaClient) {
 
     // Apply like search for multiple fields if provided
     if (params?.likeSearch) {
-      const { clientName, age, gender, dx, researchType } = params.likeSearch
+      const { clientName, dx, researchType } = params.likeSearch
 
       // Add contains filter for string fields
       if (clientName) {
@@ -41,15 +41,6 @@ export function initAssessmentLogDB(prisma: PrismaClient) {
 
       if (researchType) {
         queryOptions.where.researchType = { contains: researchType }
-      }
-
-      // Add exact match for non-string fields
-      if (age !== undefined) {
-        queryOptions.where.age = age
-      }
-
-      if (gender) {
-        queryOptions.where.gender = { contains: gender }
       }
     }
 
