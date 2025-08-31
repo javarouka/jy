@@ -1,17 +1,34 @@
 appId: com.electron.app
 productName: jiyoon-app
 icon: resources/icon.jpg
-directories:
-  buildResources: resources
+#directories:
+#  buildResources: resources
 files:
+  - 'dist/**/*'
+  - 'out/**/*'
+  - 'node_modules/@prisma/**/*'
+  - 'node_modules/**/*'
+  - "prisma/**/*"
   - '!**/.vscode/*'
   - '!src/*'
   - '!electron.vite.config.{js,ts,mjs,cjs}'
   - '!{.eslintcache,eslint.config.mjs,.prettierignore,.prettierrc.yaml,dev-app-update.yml,CHANGELOG.md,README.md}'
   - '!{.env,.env.*,.npmrc,pnpm-lock.yaml}'
   - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
+  - '!node_modules/electron-vite/**/*'
+  - '!node_modules/.bin/**/*'
+asar: true
 asarUnpack:
   - resources/**
+  - '**/*.node'
+  - '**/*/node_modules/@prisma/**/*'
+  - '**/*/node_modules/prisma/**/*'
+  - '**/*/node_modules/.prisma/**/*'
+extraResources:
+  - "prisma/dev.db"
+  - "prisma/data.db"
+  - "node_modules/.prisma/**/*"
+  - "node_modules/@prisma/client/**/*"
 win:
   executableName: jiyoon-app
 nsis:
