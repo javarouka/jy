@@ -39,15 +39,15 @@ const AssessmentLogCard = (props: Props) => {
             </span>
           </h3>
           {/* 'usable' 상태를 시각적으로 표시하는 뱃지 */}
-          <span
-            className={`px-3 py-1 text-xs font-semibold rounded-full ${
-              log.usable
-                ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300'
-                : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300'
-            }`}
-          >
-            {log.usable ? '사용가능' : '불가'}
-          </span>
+          {/*<span*/}
+          {/*  className={`px-3 py-1 text-xs font-semibold rounded-full ${*/}
+          {/*    log.usable*/}
+          {/*      ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300'*/}
+          {/*      : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300'*/}
+          {/*  }`}*/}
+          {/*>*/}
+          {/*  {log.usable ? '사용가능' : '불가'}*/}
+          {/*</span>*/}
         </div>
         <div className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
           <p>
