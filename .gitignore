@@ -9,5 +9,6 @@ out
 # Prisma
 .env
 prisma/dev.db
+prisma/data.db
 
 /src/generated/prisma

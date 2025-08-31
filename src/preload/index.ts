@@ -3,8 +3,16 @@ import { electronAPI } from '@electron-toolkit/preload'
 import { TypeAssessmentFormData } from '@shared/types'
 import { ASSESSMENT_LOG_CHANNELS } from '@shared/constants/ipcChannels'
 import { AssessmentLogQueryParams } from '@shared/types/db'
+import _log from './preloadLogger'
 
 export const api = {
+}
+
+export const log = {
+  info: (...args: any) => _log.info(...args),
+  warn: (...args: any) => _log.warn(...args),
+  error: (...args: any) => _log.error(...args)
+  // You can expose other methods as needed
 }
 
 export const db = {
@@ -24,6 +32,7 @@ if (process.contextIsolated) {
     contextBridge.exposeInMainWorld('db', db)
     contextBridge.exposeInMainWorld('electron', electronAPI)
     contextBridge.exposeInMainWorld('api', api)
+    contextBridge.exposeInMainWorld('log', log)
     // contextBridge.exposeInMainWorld('fs', {
     //   createFile: () => ipcRenderer.invoke('create-file'),
     //   readFile: () => ipcRenderer.invoke('read-file'),

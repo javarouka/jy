@@ -8,10 +8,14 @@ export function initAssessmentLogDB(prisma: PrismaClient) {
   ipcMain.handle(ASSESSMENT_LOG_CHANNELS.GET, async (_, params?: AssessmentLogQueryParams) => {
     // Default query options
     const queryOptions: any = {
-      orderBy: {
-        modifiedAt: 'desc',
-        createdAt: 'desc'
-      },
+      orderBy: [
+        {
+          modifiedAt: 'desc',
+        },
+        {
+          createdAt: 'desc',
+        }
+      ],
       where: {}
     }
 

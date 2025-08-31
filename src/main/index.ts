@@ -4,11 +4,32 @@ import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.jpg?asset'
 import { PrismaClient } from '@prisma/client'
 import { initAssessmentLogDB } from './assessment/initAssessmentLogDB'
+import log, { initPrisma } from './mainLogger'
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
-const prisma = new PrismaClient()
+const prisma = new PrismaClient({
+  log: [
+    {
+      emit: 'event', // 이 설정을 통해 로그를 이벤트로 받습니다.
+      level: 'query',
+    },
+    {
+      emit: 'event',
+      level: 'error',
+    },
+    {
+      emit: 'event',
+      level: 'info',
+    },
+    {
+      emit: 'event',
+      level: 'warn',
+    },
+  ],
+})
 
+initPrisma(prisma)
 initAssessmentLogDB(prisma)
 
 function createWindow(): void {
@@ -58,7 +79,7 @@ app.whenReady().then(() => {
   })
 
   // IPC test
-  ipcMain.on('ping', () => console.log('pong'))
+  ipcMain.on('ping', () => log.info('pong'))
 
   createWindow()
 
@@ -66,6 +87,7 @@ app.whenReady().then(() => {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
+    log.info('Main window created.');
   })
 })
 
@@ -74,6 +96,7 @@ app.whenReady().then(() => {
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
+    log.info('All windows closed, quitting the app.')
     app.quit()
   }
 })
