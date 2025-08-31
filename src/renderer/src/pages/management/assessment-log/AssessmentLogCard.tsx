@@ -1,8 +1,9 @@
 import { AssessmentLog } from '@prisma/client'
+import { TypeAssessmentFormData } from '@shared/types'
 
 type Props = {
   log: AssessmentLog
-  onEdit: (log: AssessmentLog) => void;
+  onEdit: (id: number, data: TypeAssessmentFormData) => void;
   onDelete: (id: number) => void;
 }
 
@@ -70,11 +71,7 @@ const AssessmentLogCard = (props: Props) => {
         {/* --- 신규 추가: 수정/삭제 버튼 --- */}
         <div className="flex space-x-2">
           <button
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              onEdit(log);
-            }}
+            onClick={() => onEdit(log.id, {} as TypeAssessmentFormData)}
             className="px-3 py-1 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500"
           >
             수정

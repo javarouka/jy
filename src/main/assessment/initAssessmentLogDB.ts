@@ -76,10 +76,7 @@ export function initAssessmentLogDB(prisma: PrismaClient) {
   ipcMain.handle(ASSESSMENT_LOG_CHANNELS.UPDATE, async (_, id: number, assessmentLog: TypeAssessmentFormData) => {
     return prisma.assessmentLog.update({
       where: { id },
-      data: {
-        ...assessmentLog,
-        researchDate: new Date(assessmentLog.researchDate),
-      },
+      data: assessmentLog,
     })
   })
 
