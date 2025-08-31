@@ -1,9 +1,16 @@
 import AssessmentLogCard from '@renderer/pages/management/assessment-log/AssessmentLogCard'
+import type { TypeAssessmentFormData } from '@shared/types'
 import { RESEARCH_TYPE_OPTIONS } from '@shared/types'
 import useAssessmentLogSearch from './hook/useAssessmentLogSearch'
-import { FormEvent } from 'react'
+import type { FormEvent } from 'react'
+import { useState } from 'react'
+import EditAssessmentLogModal from './EditAssessmentLogModal'
+import type { AssessmentLog } from '@prisma/client'
 
 const AssessmentLogList = () => {
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const [selectedLog, setSelectedLog] = useState<AssessmentLog | null>(null)
+
   const {
     data: {
       assessmentLog,
@@ -30,11 +37,41 @@ const AssessmentLogList = () => {
     clearQueryParams()
   }
 
+  // Handle opening the edit modal
+  const handleEditClick = (id: number) => {
+    const logToEdit = assessmentLog.find(log => log.id === id)
+    if (logToEdit) {
+      setSelectedLog(logToEdit)
+      setIsEditModalOpen(true)
+    }
+  }
+
+  // Handle closing the edit modal
+  const handleCloseModal = () => {
+    setIsEditModalOpen(false)
+    setSelectedLog(null)
+  }
+
+  // Handle saving the edited log
+  const handleSaveEdit = (id: number, data: TypeAssessmentFormData) => {
+    updateLog(id, data)
+    setIsEditModalOpen(false)
+    setSelectedLog(null)
+  }
+
   if (isLoading) return <div>로딩 중...</div>
   if (isError) return <div>에러가 발생했습니다.</div>
 
   return (
     <div>
+      {/* Edit Modal */}
+      <EditAssessmentLogModal
+        isOpen={isEditModalOpen}
+        onClose={handleCloseModal}
+        log={selectedLog}
+        onSave={handleSaveEdit}
+      />
+
       {/* 검색 폼 */}
       <div className="mb-6 p-4 border rounded-md">
         <h3 className="text-lg font-medium mb-4">검색</h3>
@@ -167,7 +204,7 @@ const AssessmentLogList = () => {
               key={log.id}
               log={log}
               onDelete={deleteLog}
-              onEdit={updateLog}
+              onEdit={handleEditClick}
             />
           ))}
         </div>

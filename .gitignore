@@ -6,5 +6,8 @@ out
 *.log*
 .idea
 .vscode
+# Prisma
+.env
+prisma/dev.db
 
 /src/generated/prisma

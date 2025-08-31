@@ -23,6 +23,7 @@ model AssessmentLog {
   creditTime    Int // 인정시간. 분
   usable       Boolean  @default(false)
   createdAt     DateTime @default(now())
+  modifiedAt     DateTime @default(now())
 }
 
 /**
@@ -43,6 +44,7 @@ model IndividualTherapyLog {
   endDate       DateTime // 종료일 (*)
   usable       Boolean  @default(false)
   createdAt     DateTime @default(now())
+  modifiedAt     DateTime @default(now())
 }
 
 /**
@@ -61,6 +63,7 @@ model GroupTherapyLog {
   endDate       DateTime // 종료일 (*)
   usable       Boolean  @default(false)
   createdAt     DateTime @default(now())
+  modifiedAt     DateTime @default(now())
 }
 
 /**
@@ -77,6 +80,7 @@ model AcademicActivityLog {
   creditTime    Int // 인정시간. 분
   usable       Boolean  @default(false)
   createdAt     DateTime @default(now())
+  modifiedAt     DateTime @default(now())
 }
 
 /**
@@ -88,8 +92,9 @@ model ResearchLog {
   pagerName     String // 논문이름
   journalName   String // 학회지
   participateType String // 저자구분. 1저자, 공동저자
-  usable       Boolean  @default(false)
+  usable        Boolean  @default(false)
   createdAt     DateTime @default(now())
+  modifiedAt    DateTime @default(now())
 }
 
 // 기티활동 로그
@@ -102,6 +107,7 @@ model OtherActivityLog {
   creditTime      Int // 인정시간. 분
   usable         Boolean  @default(false)
   createdAt       DateTime @default(now())
+  modifiedAt       DateTime @default(now())
 }
 
 // This is your Prisma schema file,

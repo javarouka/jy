@@ -9,6 +9,7 @@ export function initAssessmentLogDB(prisma: PrismaClient) {
     // Default query options
     const queryOptions: any = {
       orderBy: {
+        modifiedAt: 'desc',
         createdAt: 'desc'
       },
       where: {}
@@ -76,7 +77,10 @@ export function initAssessmentLogDB(prisma: PrismaClient) {
   ipcMain.handle(ASSESSMENT_LOG_CHANNELS.UPDATE, async (_, id: number, assessmentLog: TypeAssessmentFormData) => {
     return prisma.assessmentLog.update({
       where: { id },
-      data: assessmentLog,
+      data: {
+        ...assessmentLog,
+        researchDate: new Date(assessmentLog.researchDate),
+      },
     })
   })
 
