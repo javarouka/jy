@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { QueryClient, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { RESEARCH_TYPE_OPTIONS, TypeAssessmentFormData } from '../../../../../../shared/types'
-
+import { AssessmentLogQueryParams, SortOrder } from '../../../../../../shared/types/db'
 
 export default function useAssessmentLogMutation(_queryClient?: QueryClient) {
 
@@ -17,41 +17,38 @@ export default function useAssessmentLogMutation(_queryClient?: QueryClient) {
     usable: true
   });
 
+  const [queryParams, setQueryParams] = useState<AssessmentLogQueryParams>({});
+
+  const isValidateForm = (formData: TypeAssessmentFormData): boolean => {
+    return !!formData.gender
+  }
+
   const { data: assessmentLog, isLoading, isError } = useQuery({
-    queryKey: ['AssessmentLog'],
-    queryFn: () => window.db.getAssessmentLogs(),
+    queryKey: ['AssessmentLog', queryParams],
+    queryFn: () => window.db.getAssessmentLogs(queryParams),
   })
 
   const createAssessmentLogMutation = useMutation({
     mutationFn: (log: TypeAssessmentFormData) => window.db.createAssessmentLog(log),
-    onSuccess: () => {
-      // 성공 시 'tasks' 쿼리를 무효화시켜 자동으로 다시 불러오게 함
-      queryClient.invalidateQueries({ queryKey: ['AssessmentLog'] })
-    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['AssessmentLog', queryParams] }),
   })
 
   const updateAssessmentLogMutation = useMutation({
     mutationFn: (data: { id: number, data: TypeAssessmentFormData }) =>
       window.db.updateAssessmentLog(data.id, data.data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['AssessmentLog'] })
-    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['AssessmentLog', queryParams] }),
   })
 
   const deleteAssessmentLogMutation = useMutation({
     mutationFn: (id: number) => window.db.deleteAssessmentLog(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['AssessmentLog'] })
-    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['AssessmentLog', queryParams] }),
   })
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!formData.gender) {
-      alert('성별을 선택해주세요.');
+    if (!isValidateForm(formData)) {
       return;
     }
-    console.log('제출할 데이터:', formData);
     createAssessmentLogMutation.mutate(formData);
   };
 
@@ -79,6 +76,27 @@ export default function useAssessmentLogMutation(_queryClient?: QueryClient) {
     updateAssessmentLogMutation.mutate({ id, data })
   }
 
+  // Function to set sorting parameters
+  const setSorting = (field: string, order: SortOrder) => {
+    setQueryParams(prev => ({
+      ...prev,
+      sort: { field, order }
+    }))
+  }
+
+  // Function to set search/filter parameters
+  const setSearch = (field: string, value: string | number | boolean | Date) => {
+    setQueryParams(prev => ({
+      ...prev,
+      search: { field, value }
+    }))
+  }
+
+  // Function to clear all query parameters
+  const clearQueryParams = () => {
+    setQueryParams({})
+  }
+
   return {
     forms: {
       formData,
@@ -88,6 +106,12 @@ export default function useAssessmentLogMutation(_queryClient?: QueryClient) {
       assessmentLog,
       isError,
       isLoading,
+    },
+    query: {
+      params: queryParams,
+      setSorting,
+      setSearch,
+      clearQueryParams
     },
     handleChange,
     handleSubmit,

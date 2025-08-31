@@ -53,7 +53,8 @@ export function useWeather(location: string | null, initialized: boolean) {
                 const geoData = await geoResponse.json();
 
                 if (!geoData.results) {
-                    throw new Error('cannot find city');
+                    setWeather(null);
+                    return
                 }
 
                 const { latitude, longitude } = geoData.results[0];

@@ -3,7 +3,7 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.jpg?asset'
 import { PrismaClient } from '@prisma/client'
-import { TypeAssessmentFormData } from '../shared/types'
+import { initAssessmentLogDB } from './assessment/initAssessmentLogDB'
 
 function createWindow(): void {
   // Create the browser window.
@@ -76,29 +76,4 @@ app.on('window-all-closed', () => {
 // code. You can also put them in separate files and require them here.
 
 const prisma = new PrismaClient()
-
-ipcMain.handle('db:get-assessmentLog', async () => {
-  return prisma.assessmentLog.findMany()
-})
-
-ipcMain.handle('db:create-assessmentLog', async (_, assessmentLog: TypeAssessmentFormData) => {
-  return prisma.assessmentLog.create({
-    data: {
-      ...assessmentLog,
-      researchDate: new Date(assessmentLog.researchDate),
-    },
-  })
-})
-
-ipcMain.handle('db:update-assessmentLog', async (_, id: number, assessmentLog: TypeAssessmentFormData) => {
-  return prisma.assessmentLog.update({
-    where: { id },
-    data: assessmentLog,
-  })
-})
-
-ipcMain.handle('db:delete-assessmentLog', async (_, id: number) => {
-  return prisma.assessmentLog.delete({
-    where: { id },
-  })
-})
+initAssessmentLogDB(prisma)

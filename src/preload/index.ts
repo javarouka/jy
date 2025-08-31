@@ -1,16 +1,18 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
 import { TypeAssessmentFormData } from '../shared/types'
+import { ASSESSMENT_LOG_CHANNELS } from '../shared/constants/ipcChannels'
+import { AssessmentLogQueryParams } from '../shared/types/db'
 
 export const api = {
 }
 
 export const db = {
-  getAssessmentLogs: () => ipcRenderer.invoke('db:get-assessmentLog'),
-  createAssessmentLog: (form: TypeAssessmentFormData) => ipcRenderer.invoke('db:create-assessmentLog', form),
+  getAssessmentLogs: (params?: AssessmentLogQueryParams) => ipcRenderer.invoke(ASSESSMENT_LOG_CHANNELS.GET, params),
+  createAssessmentLog: (form: TypeAssessmentFormData) => ipcRenderer.invoke(ASSESSMENT_LOG_CHANNELS.CREATE, form),
   updateAssessmentLog: (id: number, form: TypeAssessmentFormData) =>
-    ipcRenderer.invoke('db:update-assessmentLog', form),
-  deleteAssessmentLog: (id: number) => ipcRenderer.invoke('db:delete-assessmentLog', id),
+    ipcRenderer.invoke(ASSESSMENT_LOG_CHANNELS.UPDATE, id, form),
+  deleteAssessmentLog: (id: number) => ipcRenderer.invoke(ASSESSMENT_LOG_CHANNELS.DELETE, id),
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to
