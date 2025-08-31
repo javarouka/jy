@@ -5,9 +5,9 @@ import './Layout.css'
 
 const Layout: React.FC = () => {
   return (
-    <div>
+    <div className="layout-container">
       <AppBar />
-      <main className="main-outlet space-y-3 mt-25 mb-4 p-2">
+      <main className="main-outlet">
         <Outlet />
       </main>
       <footer className="p-2 text-right">

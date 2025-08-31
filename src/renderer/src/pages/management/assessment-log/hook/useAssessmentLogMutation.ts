@@ -1,7 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
-import { QueryClient, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { QueryClient, useMutation, useQueryClient } from '@tanstack/react-query'
 import { RESEARCH_TYPE_OPTIONS, TypeAssessmentFormData } from '../../../../../../shared/types'
-import { AssessmentLogQueryParams, SortOrder } from '../../../../../../shared/types/db'
 
 export default function useAssessmentLogMutation(_queryClient?: QueryClient) {
 
@@ -17,31 +16,15 @@ export default function useAssessmentLogMutation(_queryClient?: QueryClient) {
     usable: true
   });
 
-  const [queryParams, setQueryParams] = useState<AssessmentLogQueryParams>({});
+  // const [queryParams, setQueryParams] = useState<AssessmentLogQueryParams>(initialQueryParams);
 
   const isValidateForm = (formData: TypeAssessmentFormData): boolean => {
     return !!formData.gender
   }
 
-  const { data: assessmentLog, isLoading, isError } = useQuery({
-    queryKey: ['AssessmentLog', queryParams],
-    queryFn: () => window.db.getAssessmentLogs(queryParams),
-  })
-
   const createAssessmentLogMutation = useMutation({
     mutationFn: (log: TypeAssessmentFormData) => window.db.createAssessmentLog(log),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['AssessmentLog', queryParams] }),
-  })
-
-  const updateAssessmentLogMutation = useMutation({
-    mutationFn: (data: { id: number, data: TypeAssessmentFormData }) =>
-      window.db.updateAssessmentLog(data.id, data.data),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['AssessmentLog', queryParams] }),
-  })
-
-  const deleteAssessmentLogMutation = useMutation({
-    mutationFn: (id: number) => window.db.deleteAssessmentLog(id),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['AssessmentLog', queryParams] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['AssessmentLog'] }),
   })
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -68,54 +51,12 @@ export default function useAssessmentLogMutation(_queryClient?: QueryClient) {
     }
   };
 
-  const deleteLog = (id: number) => {
-    deleteAssessmentLogMutation.mutate(id)
-  }
-
-  const updateLog = (id: number, data: TypeAssessmentFormData) => {
-    updateAssessmentLogMutation.mutate({ id, data })
-  }
-
-  // Function to set sorting parameters
-  const setSorting = (field: string, order: SortOrder) => {
-    setQueryParams(prev => ({
-      ...prev,
-      sort: { field, order }
-    }))
-  }
-
-  // Function to set search/filter parameters
-  const setSearch = (field: string, value: string | number | boolean | Date) => {
-    setQueryParams(prev => ({
-      ...prev,
-      search: { field, value }
-    }))
-  }
-
-  // Function to clear all query parameters
-  const clearQueryParams = () => {
-    setQueryParams({})
-  }
-
   return {
     forms: {
       formData,
-      setFormData,
-    },
-    data: {
-      assessmentLog,
-      isError,
-      isLoading,
-    },
-    query: {
-      params: queryParams,
-      setSorting,
-      setSearch,
-      clearQueryParams
+      setFormData
     },
     handleChange,
     handleSubmit,
-    deleteLog,
-    updateLog,
   }
 }

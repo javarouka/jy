@@ -34,9 +34,9 @@ export default function MyTabs() {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   return (
-    <div className="w-full">
-      <TabGroup selectedIndex={selectedIndex} onChange={setSelectedIndex}>
-        <div className="flex gap-x-2 border-b border-gray-200">
+    <div className="w-full flex flex-col">
+      <TabGroup selectedIndex={selectedIndex} onChange={setSelectedIndex} className="flex flex-col h-full">
+        <div className="sticky top-0 z-10 bg-white flex gap-x-2 border-b border-gray-200">
           {tabData.map((tab) => (
             <Tab key={tab.title} as={Fragment}>
               <button
@@ -55,7 +55,7 @@ export default function MyTabs() {
           ))}
         </div>
 
-        <div className="mt-2">
+        <div className="flex-1 overflow-auto">
           {tabData.map((tab, idx) => (
             <TabPanel
               key={idx}

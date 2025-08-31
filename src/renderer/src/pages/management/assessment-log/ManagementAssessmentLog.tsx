@@ -12,17 +12,7 @@ function ManagementAssessmentLog() {
     },
     handleSubmit,
     handleChange,
-    deleteLog,
-    updateLog,
-    data: {
-      assessmentLog,
-      isLoading,
-      isError,
-    }
   } = useAssessmentLogMutation()
-
-  if (isLoading) return <div>로딩 중...</div>
-  if (isError) return <div>에러가 발생했습니다.</div>
 
   return (
     <ManagementWrapper>
@@ -30,6 +20,8 @@ function ManagementAssessmentLog() {
         <legend>
           <SubTitle>심리평가 기록 관리</SubTitle>
         </legend>
+
+        {/* 입력 폼 */}
         <div>
           <form onSubmit={handleSubmit} className="assessment-form space-y-4">
             <h3>평가 기록 입력</h3>
@@ -145,11 +137,7 @@ function ManagementAssessmentLog() {
         </div>
       </fieldset>
       <div>
-        <AssessmentLogList
-          assessmentLog={assessmentLog}
-          deleteLog={deleteLog}
-          updateLog={updateLog}
-        />
+        <AssessmentLogList />
       </div>
     </ManagementWrapper>
   )

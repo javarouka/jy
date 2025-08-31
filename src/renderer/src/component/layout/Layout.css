@@ -1,3 +1,23 @@
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
 .main-outlet {
   font-size: 1.0rem;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  /* Ensure content doesn't go under the AppBar */
+  margin-top: 100px; /* Adjust this value based on the actual height of your AppBar */
+  padding-bottom: 20px; /* Add some space at the bottom for better scrolling experience */
+}
+
+footer {
+  flex-shrink: 0;
+  /* Ensure footer stays at the bottom */
+  position: relative;
+  z-index: 1;
 }

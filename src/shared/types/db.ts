@@ -11,7 +11,21 @@ export interface SearchParams {
   value: string | number | boolean | Date
 }
 
+// Extended search params for AssessmentLog
+export interface LikeSearchParams {
+  clientName?: string
+  dx?: string
+  researchType?: string
+}
+
+export interface DateRangeParams {
+  startDate?: string
+  endDate?: string
+}
+
 export interface AssessmentLogQueryParams {
   sort?: SortParams
   search?: SearchParams
+  likeSearch?: LikeSearchParams
+  dateRange?: DateRangeParams
 }
