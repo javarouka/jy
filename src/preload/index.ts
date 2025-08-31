@@ -1,8 +1,8 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
-import { TypeAssessmentFormData, TypeIndividualTherapyFormData, TypeGroupTherapyFormData } from '@shared/types'
-import { ASSESSMENT_LOG_CHANNELS, INDIVIDUAL_THERAPY_LOG_CHANNELS, GROUP_THERAPY_LOG_CHANNELS } from '@shared/constants/ipcChannels'
-import { AssessmentLogQueryParams, IndividualTherapyLogQueryParams, GroupTherapyLogQueryParams } from '@shared/types/db'
+import { TypeAssessmentFormData, TypeIndividualTherapyFormData, TypeGroupTherapyFormData, TypeAcademicActivityFormData } from '@shared/types'
+import { ASSESSMENT_LOG_CHANNELS, INDIVIDUAL_THERAPY_LOG_CHANNELS, GROUP_THERAPY_LOG_CHANNELS, ACADEMIC_ACTIVITY_LOG_CHANNELS } from '@shared/constants/ipcChannels'
+import { AssessmentLogQueryParams, IndividualTherapyLogQueryParams, GroupTherapyLogQueryParams, AcademicActivityLogQueryParams } from '@shared/types/db'
 import _log from './preloadLogger'
 
 export const api = {
@@ -36,6 +36,13 @@ export const db = {
   updateGroupTherapyLog: (id: number, form: TypeGroupTherapyFormData) =>
     ipcRenderer.invoke(GROUP_THERAPY_LOG_CHANNELS.UPDATE, id, form),
   deleteGroupTherapyLog: (id: number) => ipcRenderer.invoke(GROUP_THERAPY_LOG_CHANNELS.DELETE, id),
+
+  // Academic Activity Log API functions
+  getAcademicActivityLogs: (params?: AcademicActivityLogQueryParams) => ipcRenderer.invoke(ACADEMIC_ACTIVITY_LOG_CHANNELS.GET, params),
+  createAcademicActivityLog: (form: TypeAcademicActivityFormData) => ipcRenderer.invoke(ACADEMIC_ACTIVITY_LOG_CHANNELS.CREATE, form),
+  updateAcademicActivityLog: (id: number, form: TypeAcademicActivityFormData) =>
+    ipcRenderer.invoke(ACADEMIC_ACTIVITY_LOG_CHANNELS.UPDATE, id, form),
+  deleteAcademicActivityLog: (id: number) => ipcRenderer.invoke(ACADEMIC_ACTIVITY_LOG_CHANNELS.DELETE, id),
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

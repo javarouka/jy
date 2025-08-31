@@ -97,3 +97,24 @@ export interface GroupTherapyLogQueryParams {
   dateRange?: DateRangeParams
   researchDateRange?: DateRangeParams
 }
+
+// Extended search params for AcademicActivityLog
+export interface AcademicActivityLikeSearchParams {
+  activityName?: string
+  sessionName?: string
+}
+
+export interface AcademicActivityRangeParams {
+  creditTime?: {
+    min?: number
+    max?: number
+  }
+}
+
+export interface AcademicActivityLogQueryParams {
+  sort?: SortParams
+  search?: SearchParams
+  likeSearch?: AcademicActivityLikeSearchParams
+  rangeSearch?: AcademicActivityRangeParams
+  dateRange?: DateRangeParams // For activityDate range search
+}

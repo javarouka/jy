@@ -6,6 +6,7 @@ import { PrismaClient } from '@prisma/client'
 import { initAssessmentLogDB } from './assessment/initAssessmentLogDB'
 import { initIndividualTherapyLogDB } from './individual-therapy/initIndividualTherapyLogDB'
 import { initGroupTherapyLogDB } from './group-therapy/initGroupTherapyLogDB'
+import { initAcademicActivityLogDB } from './academic-activity/initAcademicActivityLogDB'
 import log, { initPrisma } from './mainLogger'
 import { autoMigrate } from './prisma/autoMigrate'
 
@@ -36,6 +37,7 @@ initPrisma(prisma)
 initAssessmentLogDB(prisma)
 initIndividualTherapyLogDB(prisma)
 initGroupTherapyLogDB(prisma)
+initAcademicActivityLogDB(prisma)
 
 function createWindow(): void {
   // Create the browser window.

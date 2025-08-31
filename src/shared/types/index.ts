@@ -92,3 +92,36 @@ export const THERAPY_TYPE_OPTIONS = [
   '주치료자',
   '보조치료자',
 ]
+
+export interface TypeAcademicActivityLog {
+  id: number
+  act: string
+  activityName: string
+  activityType: string
+  activityDate: Date
+  organization: string
+  sessionName: string
+  creditTime: number
+  usable: boolean
+  createdAt: Date
+  modifiedAt: Date
+}
+
+export type TypeAcademicActivityFormData = {
+  act: string
+  activityName: string
+  activityType: string
+  activityDate: string // HTML input date는 string 타입으로 값을 다룹니다.
+  organization: string
+  sessionName: string
+  creditTime: number
+  usable?: boolean
+}
+
+export const ACTIVITY_TYPE_OPTIONS = [
+  '학술대회',
+  '워크샵',
+  '세미나',
+  '강의',
+  '기타'
+]

@@ -25,3 +25,11 @@ export const GROUP_THERAPY_LOG_CHANNELS = {
   UPDATE: 'db:update-groupTherapyLog',
   DELETE: 'db:delete-groupTherapyLog'
 }
+
+// Academic Activity Log IPC channels
+export const ACADEMIC_ACTIVITY_LOG_CHANNELS = {
+  GET: 'db:get-academicActivityLog',
+  CREATE: 'db:create-academicActivityLog',
+  UPDATE: 'db:update-academicActivityLog',
+  DELETE: 'db:delete-academicActivityLog'
+}
