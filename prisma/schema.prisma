@@ -6,7 +6,7 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = "file:./dev.db" // 데이터베이스 파일 위치
+  url      = env("DATABASE_URL")
 }
 
 /**

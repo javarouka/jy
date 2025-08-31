@@ -20,9 +20,25 @@ export default function useAssessmentLogMutation(_queryClient?: QueryClient) {
     return !!formData.gender
   }
 
+  const resetForm = () => {
+    setFormData({
+      clientName: '',
+      age: 0,
+      gender: '',
+      dx: '',
+      researchType: RESEARCH_TYPE_OPTIONS[0],
+      researchDate: '',
+      creditTime: 0,
+      usable: true
+    });
+  };
+
   const createAssessmentLogMutation = useMutation({
     mutationFn: (log: TypeAssessmentFormData) => window.db.createAssessmentLog(log),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['AssessmentLog'] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['AssessmentLog'] });
+      resetForm();
+    },
   })
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -30,6 +46,7 @@ export default function useAssessmentLogMutation(_queryClient?: QueryClient) {
     if (!isValidateForm(formData)) {
       return;
     }
+    
     createAssessmentLogMutation.mutate(formData);
   };
 
@@ -56,5 +73,7 @@ export default function useAssessmentLogMutation(_queryClient?: QueryClient) {
     },
     handleChange,
     handleSubmit,
+    resetForm,
+    createAssessmentLogMutation
   }
 }
