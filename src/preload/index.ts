@@ -1,8 +1,8 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
-import { TypeAssessmentFormData, TypeIndividualTherapyFormData } from '@shared/types'
-import { ASSESSMENT_LOG_CHANNELS, INDIVIDUAL_THERAPY_LOG_CHANNELS } from '@shared/constants/ipcChannels'
-import { AssessmentLogQueryParams } from '@shared/types/db'
+import { TypeAssessmentFormData, TypeIndividualTherapyFormData, TypeGroupTherapyFormData } from '@shared/types'
+import { ASSESSMENT_LOG_CHANNELS, INDIVIDUAL_THERAPY_LOG_CHANNELS, GROUP_THERAPY_LOG_CHANNELS } from '@shared/constants/ipcChannels'
+import { AssessmentLogQueryParams, IndividualTherapyLogQueryParams, GroupTherapyLogQueryParams } from '@shared/types/db'
 import _log from './preloadLogger'
 
 export const api = {
@@ -24,11 +24,18 @@ export const db = {
   deleteAssessmentLog: (id: number) => ipcRenderer.invoke(ASSESSMENT_LOG_CHANNELS.DELETE, id),
 
   // Individual Therapy Log API functions
-  getIndividualTherapyLogs: (params?: AssessmentLogQueryParams) => ipcRenderer.invoke(INDIVIDUAL_THERAPY_LOG_CHANNELS.GET, params),
+  getIndividualTherapyLogs: (params?: IndividualTherapyLogQueryParams) => ipcRenderer.invoke(INDIVIDUAL_THERAPY_LOG_CHANNELS.GET, params),
   createIndividualTherapyLog: (form: TypeIndividualTherapyFormData) => ipcRenderer.invoke(INDIVIDUAL_THERAPY_LOG_CHANNELS.CREATE, form),
   updateIndividualTherapyLog: (id: number, form: TypeIndividualTherapyFormData) =>
     ipcRenderer.invoke(INDIVIDUAL_THERAPY_LOG_CHANNELS.UPDATE, id, form),
   deleteIndividualTherapyLog: (id: number) => ipcRenderer.invoke(INDIVIDUAL_THERAPY_LOG_CHANNELS.DELETE, id),
+
+  // Group Therapy Log API functions
+  getGroupTherapyLogs: (params?: GroupTherapyLogQueryParams) => ipcRenderer.invoke(GROUP_THERAPY_LOG_CHANNELS.GET, params),
+  createGroupTherapyLog: (form: TypeGroupTherapyFormData) => ipcRenderer.invoke(GROUP_THERAPY_LOG_CHANNELS.CREATE, form),
+  updateGroupTherapyLog: (id: number, form: TypeGroupTherapyFormData) =>
+    ipcRenderer.invoke(GROUP_THERAPY_LOG_CHANNELS.UPDATE, id, form),
+  deleteGroupTherapyLog: (id: number) => ipcRenderer.invoke(GROUP_THERAPY_LOG_CHANNELS.DELETE, id),
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

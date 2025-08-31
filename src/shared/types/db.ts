@@ -95,4 +95,5 @@ export interface GroupTherapyLogQueryParams {
   likeSearch?: GroupTherapyLikeSearchParams
   rangeSearch?: GroupTherapyRangeParams
   dateRange?: DateRangeParams
+  researchDateRange?: DateRangeParams
 }
