@@ -107,11 +107,9 @@ function IndividualTherapyLogInsertForm() {
                 onChange={handleChange}
                 className="w-full p-1 border border-gray-300 rounded box-border text-base"
               >
-                {THERAPY_TYPE_OPTIONS.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
+                <option value={THERAPY_TYPE_OPTIONS[0]}>
+                  {THERAPY_TYPE_OPTIONS[0]}
+                </option>
               </select>
             </div>
 

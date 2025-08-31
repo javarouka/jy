@@ -3,6 +3,7 @@ import { TypeIndividualTherapyFormData } from '@shared/types'
 import type { PrismaClient } from '@prisma/client'
 import { INDIVIDUAL_THERAPY_LOG_CHANNELS } from '@shared/constants/ipcChannels'
 import { IndividualTherapyLogQueryParams } from '@shared/types/db'
+import log from '../mainLogger'
 
 export function initIndividualTherapyLogDB(prisma: PrismaClient) {
   ipcMain.handle(INDIVIDUAL_THERAPY_LOG_CHANNELS.GET, async (_, params?: IndividualTherapyLogQueryParams) => {
@@ -41,11 +42,75 @@ export function initIndividualTherapyLogDB(prisma: PrismaClient) {
       }
     }
 
-    // Apply date range search if provided
+    // Apply therapy period date range search if provided
     if (params?.dateRange) {
       const { startDate, endDate } = params.dateRange
 
-      // Handle date range for researchDate
+      if (startDate || endDate) {
+        // Create an OR condition for treatment period overlap
+        queryOptions.where.OR = []
+
+        // Case 1: Treatment starts within the search period
+        if (startDate && endDate) {
+          queryOptions.where.OR.push({
+            startDate: {
+              gte: new Date(startDate),
+              lte: new Date(endDate)
+            }
+          })
+        } else if (startDate) {
+          queryOptions.where.OR.push({
+            startDate: {
+              gte: new Date(startDate)
+            }
+          })
+        } else if (endDate) {
+          queryOptions.where.OR.push({
+            startDate: {
+              lte: new Date(endDate)
+            }
+          })
+        }
+
+        // Case 2: Treatment ends within the search period
+        if (startDate && endDate) {
+          queryOptions.where.OR.push({
+            endDate: {
+              gte: new Date(startDate),
+              lte: new Date(endDate)
+            }
+          })
+        } else if (startDate) {
+          queryOptions.where.OR.push({
+            endDate: {
+              gte: new Date(startDate)
+            }
+          })
+        } else if (endDate) {
+          queryOptions.where.OR.push({
+            endDate: {
+              lte: new Date(endDate)
+            }
+          })
+        }
+
+        // Case 3: Treatment spans the entire search period
+        if (startDate && endDate) {
+          queryOptions.where.OR.push({
+            AND: [
+              { startDate: { lte: new Date(startDate) } },
+              { endDate: { gte: new Date(endDate) } }
+            ]
+          })
+        }
+      }
+    }
+
+    // Apply research date range search if provided
+    if (params?.researchDateRange) {
+      log.info(">>>", params.researchDateRange)
+      const { startDate, endDate } = params.researchDateRange
+
       if (startDate || endDate) {
         queryOptions.where.researchDate = {}
 
@@ -55,32 +120,6 @@ export function initIndividualTherapyLogDB(prisma: PrismaClient) {
 
         if (endDate) {
           queryOptions.where.researchDate.lte = new Date(endDate)
-        }
-      }
-
-      // Handle date range for startDate
-      if (startDate || endDate) {
-        queryOptions.where.startDate = {}
-
-        if (startDate) {
-          queryOptions.where.startDate.gte = new Date(startDate)
-        }
-
-        if (endDate) {
-          queryOptions.where.startDate.lte = new Date(endDate)
-        }
-      }
-
-      // Handle date range for endDate
-      if (startDate || endDate) {
-        queryOptions.where.endDate = {}
-
-        if (startDate) {
-          queryOptions.where.endDate.gte = new Date(startDate)
-        }
-
-        if (endDate) {
-          queryOptions.where.endDate.lte = new Date(endDate)
         }
       }
     }

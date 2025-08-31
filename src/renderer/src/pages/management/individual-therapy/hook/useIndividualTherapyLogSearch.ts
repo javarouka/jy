@@ -29,7 +29,9 @@ export default function useIndividualTherapyLogSearch(_queryClient?: QueryClient
     supervisionTimeMin: '',
     supervisionTimeMax: '',
     startDate: '',
-    endDate: ''
+    endDate: '',
+    researchDateStart: '',
+    researchDateEnd: ''
   });
 
   const [queryParams, setQueryParams] = useState<IndividualTherapyLogQueryParams>({});
@@ -49,6 +51,7 @@ export default function useIndividualTherapyLogSearch(_queryClient?: QueryClient
   const applySearch = () => {
     const likeSearch: IndividualTherapyLikeSearchParams = {};
     const dateRange: DateRangeParams = {};
+    const researchDateRange: DateRangeParams = {};
     const rangeSearch: IndividualTherapyRangeParams = {};
     let search: SearchParams | undefined = undefined;
 
@@ -63,10 +66,16 @@ export default function useIndividualTherapyLogSearch(_queryClient?: QueryClient
       search = { field: 'gender', value: searchFormData.gender };
     }
 
-    // Add date range parameters
+    // Add therapy period date range parameters
     if (searchFormData.startDate || searchFormData.endDate) {
       if (searchFormData.startDate) dateRange.startDate = searchFormData.startDate;
       if (searchFormData.endDate) dateRange.endDate = searchFormData.endDate;
+    }
+
+    // Add research date range parameters
+    if (searchFormData.researchDateStart || searchFormData.researchDateEnd) {
+      if (searchFormData.researchDateStart) researchDateRange.startDate = searchFormData.researchDateStart;
+      if (searchFormData.researchDateEnd) researchDateRange.endDate = searchFormData.researchDateEnd;
     }
 
     // Add range search parameters for numeric fields
@@ -98,11 +107,14 @@ export default function useIndividualTherapyLogSearch(_queryClient?: QueryClient
       likeSearch: Object.keys(likeSearch).length > 0 ? likeSearch : undefined,
       search,
       dateRange: Object.keys(dateRange).length > 0 ? dateRange : undefined,
+      researchDateRange: Object.keys(researchDateRange).length > 0 ? researchDateRange : undefined,
       rangeSearch: Object.keys(rangeSearch).length > 0 ? rangeSearch : undefined
     };
 
     // Update query parameters
     setQueryParams(newParams);
+
+    // window.log.info(newParams)
 
     // Return the new parameters for external use
     return newParams;
@@ -126,7 +138,9 @@ export default function useIndividualTherapyLogSearch(_queryClient?: QueryClient
       supervisionTimeMin: '',
       supervisionTimeMax: '',
       startDate: '',
-      endDate: ''
+      endDate: '',
+      researchDateStart: '',
+      researchDateEnd: ''
     })
     return emptyParams
   }

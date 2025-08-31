@@ -61,6 +61,7 @@ export interface IndividualTherapyLogQueryParams {
   likeSearch?: IndividualTherapyLikeSearchParams
   rangeSearch?: IndividualTherapyRangeParams
   dateRange?: DateRangeParams
+  researchDateRange?: DateRangeParams
 }
 
 // Extended search params for GroupTherapyLog

@@ -251,7 +251,7 @@ const IndividualTherapyLogList = () => {
           </div>
         </div>
 
-        {/* 날짜 범위 검색 */}
+        {/* 치료 기간 범위 검색 */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
           <div className="form-group text-sm">
             <label htmlFor="search-startDate">시작일</label>
@@ -272,6 +272,33 @@ const IndividualTherapyLogList = () => {
               id="search-endDate"
               name="endDate"
               value={searchFormData.endDate}
+              onChange={handleSearchChange}
+              className="w-full"
+            />
+          </div>
+        </div>
+
+        {/* 검사일 범위 검색 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+          <div className="form-group text-sm">
+            <label htmlFor="search-researchDateStart">검사일 시작</label>
+            <input
+              type="date"
+              id="search-researchDateStart"
+              name="researchDateStart"
+              value={searchFormData.researchDateStart}
+              onChange={handleSearchChange}
+              className="w-full"
+            />
+          </div>
+
+          <div className="form-group text-sm">
+            <label htmlFor="search-researchDateEnd">검사일 종료</label>
+            <input
+              type="date"
+              id="search-researchDateEnd"
+              name="researchDateEnd"
+              value={searchFormData.researchDateEnd}
               onChange={handleSearchChange}
               className="w-full"
             />
