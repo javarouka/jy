@@ -1,6 +1,5 @@
 import useAssessmentLogMutation from '@renderer/pages/management/assessment-log/hook/useAssessmentLogMutation'
 import { RESEARCH_TYPE_OPTIONS } from '@shared/types'
-import './ManagementAssessmentLog.css'
 
 function AssessmentLogInsertForm() {
   const {
@@ -14,10 +13,10 @@ function AssessmentLogInsertForm() {
   return (
     <fieldset>
       <div>
-        <form onSubmit={handleSubmit} className="assessment-form space-y-4">
-          <h3>평가 기록 입력</h3>
-          <div className="form-group text-sm">
-            <label htmlFor="clientName">내담자명</label>
+        <form onSubmit={handleSubmit} className="m-2 p-2 border border-gray-200 rounded-lg shadow-md font-sans space-y-4">
+          <h3 className="text-left mb-4">평가 기록 입력</h3>
+          <div className="mb-2 text-sm">
+            <label htmlFor="clientName" className="block font-bold">내담자명</label>
             <input
               type="text"
               id="clientName"
@@ -25,12 +24,13 @@ function AssessmentLogInsertForm() {
               value={formData.clientName}
               onChange={handleChange}
               required
+              className="w-full p-1 border border-gray-300 rounded box-border text-base"
             />
           </div>
 
-          <div style={{ display: 'flex', gap: '1rem' }}>
-            <div className="form-group text-sm" style={{ flex: '1' }}>
-              <label htmlFor="age">나이</label>
+          <div className="flex gap-4">
+            <div className="flex-1 mb-2 text-sm">
+              <label htmlFor="age" className="block font-bold">나이</label>
               <input
                 type="number"
                 id="age"
@@ -38,11 +38,12 @@ function AssessmentLogInsertForm() {
                 value={formData.age}
                 onChange={handleChange}
                 required
+                className="w-full p-1 border border-gray-300 rounded box-border text-base"
               />
             </div>
 
-            <div className="form-group text-sm" style={{ flex: '1' }}>
-              <label htmlFor="creditTime">인정 시간 (분)</label>
+            <div className="flex-1 mb-2 text-sm">
+              <label htmlFor="creditTime" className="block font-bold">인정 시간 (분)</label>
               <input
                 type="number"
                 id="creditTime"
@@ -50,12 +51,13 @@ function AssessmentLogInsertForm() {
                 value={formData.creditTime}
                 onChange={handleChange}
                 required
+                className="w-full p-1 border border-gray-300 rounded box-border text-base"
               />
             </div>
           </div>
 
-          <div className="form-group text-sm">
-            <label htmlFor="dx">진단명(Dx)</label>
+          <div className="mb-2 text-sm">
+            <label htmlFor="dx" className="block font-bold">진단명(Dx)</label>
             <input
               type="text"
               id="dx"
@@ -63,17 +65,19 @@ function AssessmentLogInsertForm() {
               value={formData.dx}
               onChange={handleChange}
               required
+              className="w-full p-1 border border-gray-300 rounded box-border text-base"
             />
           </div>
 
-          <div style={{ display: 'flex', gap: '2rem' }}>
-            <div className="form-group text-sm" style={{ flex: '1' }}>
-              <label htmlFor="researchType">검사 종류</label>
+          <div className="flex gap-8">
+            <div className="flex-1 mb-2 text-sm">
+              <label htmlFor="researchType" className="block font-bold">검사 종류</label>
               <select
                 id="researchType"
                 name="researchType"
                 value={formData.researchType}
                 onChange={handleChange}
+                className="w-full p-1 border border-gray-300 rounded box-border text-base"
               >
                 {RESEARCH_TYPE_OPTIONS.map((type) => (
                   <option key={type} value={type}>
@@ -83,10 +87,10 @@ function AssessmentLogInsertForm() {
               </select>
             </div>
 
-            <div className="form-group text-sm" style={{ flex: '1' }}>
-              <label>성별</label>
-              <div style={{ display: 'flex', gap: '2rem', marginTop: '0.25rem' }}>
-                <label style={{ display: 'flex', alignItems: 'center', fontWeight: 'normal' }}>
+            <div className="flex-1 mb-2 text-sm">
+              <label className="block font-bold">성별</label>
+              <div className="flex gap-8 mt-1">
+                <label className="flex items-center font-normal">
                   <input
                     type="radio"
                     name="gender"
@@ -94,11 +98,11 @@ function AssessmentLogInsertForm() {
                     checked={formData.gender === 'male'}
                     onChange={handleChange}
                     required
-                    style={{ marginRight: '0.25rem' }}
+                    className="mr-1"
                   />
                   남성
                 </label>
-                <label style={{ display: 'flex', alignItems: 'center', fontWeight: 'normal' }}>
+                <label className="flex items-center font-normal">
                   <input
                     type="radio"
                     name="gender"
@@ -106,7 +110,7 @@ function AssessmentLogInsertForm() {
                     checked={formData.gender === 'female'}
                     onChange={handleChange}
                     required
-                    style={{ marginRight: '0.25rem' }}
+                    className="mr-1"
                   />
                   여성
                 </label>
@@ -114,8 +118,8 @@ function AssessmentLogInsertForm() {
             </div>
           </div>
 
-          <div className="form-group text-sm">
-            <label htmlFor="researchDate">검사일</label>
+          <div className="mb-2 text-sm">
+            <label htmlFor="researchDate" className="block font-bold">검사일</label>
             <input
               type="date"
               id="researchDate"
@@ -123,6 +127,7 @@ function AssessmentLogInsertForm() {
               value={formData.researchDate}
               onChange={handleChange}
               required
+              className="w-full p-1 border border-gray-300 rounded box-border text-base"
             />
           </div>
 

@@ -1,6 +1,5 @@
 import useIndividualTherapyLogMutation from '@renderer/pages/management/individual-therapy/hook/useIndividualTherapyLogMutation'
 import { THERAPY_TYPE_OPTIONS } from '@shared/types'
-import './IndividualTherapyLog.css'
 
 function IndividualTherapyLogInsertForm() {
   const {
@@ -14,10 +13,10 @@ function IndividualTherapyLogInsertForm() {
   return (
     <fieldset>
       <div>
-        <form onSubmit={handleSubmit} className="therapy-form space-y-4">
-          <h3>개인심리치료 기록 입력</h3>
-          <div className="form-group text-sm">
-            <label htmlFor="clientName">내담자명</label>
+        <form onSubmit={handleSubmit} className="bg-gray-50 p-6 rounded-lg shadow-sm space-y-4">
+          <h3 className="text-xl font-semibold mb-6 text-gray-800 border-b border-gray-300 pb-2">개인심리치료 기록 입력</h3>
+          <div className="mb-4 text-sm">
+            <label htmlFor="clientName" className="block mb-1 font-semibold text-gray-600">내담자명</label>
             <input
               type="text"
               id="clientName"
@@ -25,12 +24,13 @@ function IndividualTherapyLogInsertForm() {
               value={formData.clientName}
               onChange={handleChange}
               required
+              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm"
             />
           </div>
 
-          <div style={{ display: 'flex', gap: '1rem' }}>
-            <div className="form-group text-sm" style={{ flex: '1' }}>
-              <label htmlFor="age">나이</label>
+          <div className="flex gap-4">
+            <div className="mb-4 text-sm flex-1">
+              <label htmlFor="age" className="block mb-1 font-semibold text-gray-600">나이</label>
               <input
                 type="number"
                 id="age"
@@ -38,11 +38,12 @@ function IndividualTherapyLogInsertForm() {
                 value={formData.age}
                 onChange={handleChange}
                 required
+                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm"
               />
             </div>
 
-            <div className="form-group text-sm" style={{ flex: '1' }}>
-              <label htmlFor="sessionCount">회기 수</label>
+            <div className="mb-4 text-sm flex-1">
+              <label htmlFor="sessionCount" className="block mb-1 font-semibold text-gray-600">회기 수</label>
               <input
                 type="number"
                 id="sessionCount"
@@ -50,13 +51,14 @@ function IndividualTherapyLogInsertForm() {
                 value={formData.sessionCount}
                 onChange={handleChange}
                 required
+                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm"
               />
             </div>
           </div>
 
-          <div style={{ display: 'flex', gap: '1rem' }}>
-            <div className="form-group text-sm" style={{ flex: '1' }}>
-              <label htmlFor="prepareTime">준비 시간 (분)</label>
+          <div className="flex gap-4">
+            <div className="mb-4 text-sm flex-1">
+              <label htmlFor="prepareTime" className="block mb-1 font-semibold text-gray-600">준비 시간 (분)</label>
               <input
                 type="number"
                 id="prepareTime"
@@ -64,11 +66,12 @@ function IndividualTherapyLogInsertForm() {
                 value={formData.prepareTime}
                 onChange={handleChange}
                 required
+                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm"
               />
             </div>
 
-            <div className="form-group text-sm" style={{ flex: '1' }}>
-              <label htmlFor="sessionTime">상담 시간 (분)</label>
+            <div className="mb-4 text-sm flex-1">
+              <label htmlFor="sessionTime" className="block mb-1 font-semibold text-gray-600">상담 시간 (분)</label>
               <input
                 type="number"
                 id="sessionTime"
@@ -76,12 +79,13 @@ function IndividualTherapyLogInsertForm() {
                 value={formData.sessionTime}
                 onChange={handleChange}
                 required
+                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm"
               />
             </div>
           </div>
 
-          <div className="form-group text-sm">
-            <label htmlFor="supervisionTime">지도감독 시간 (분)</label>
+          <div className="mb-4 text-sm">
+            <label htmlFor="supervisionTime" className="block mb-1 font-semibold text-gray-600">지도감독 시간 (분)</label>
             <input
               type="number"
               id="supervisionTime"
@@ -89,17 +93,19 @@ function IndividualTherapyLogInsertForm() {
               value={formData.supervisionTime}
               onChange={handleChange}
               required
+              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm"
             />
           </div>
 
-          <div style={{ display: 'flex', gap: '2rem' }}>
-            <div className="form-group text-sm" style={{ flex: '1' }}>
-              <label htmlFor="threapyType">치료자 유형</label>
+          <div className="flex gap-8">
+            <div className="mb-4 text-sm flex-1">
+              <label htmlFor="threapyType" className="block mb-1 font-semibold text-gray-600">치료자 유형</label>
               <select
                 id="threapyType"
                 name="threapyType"
                 value={formData.threapyType}
                 onChange={handleChange}
+                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm"
               >
                 {THERAPY_TYPE_OPTIONS.map((type) => (
                   <option key={type} value={type}>
@@ -109,10 +115,10 @@ function IndividualTherapyLogInsertForm() {
               </select>
             </div>
 
-            <div className="form-group text-sm" style={{ flex: '1' }}>
-              <label>성별</label>
-              <div style={{ display: 'flex', gap: '2rem', marginTop: '0.25rem' }}>
-                <label style={{ display: 'flex', alignItems: 'center', fontWeight: 'normal' }}>
+            <div className="mb-4 text-sm flex-1">
+              <label className="block mb-1 font-semibold text-gray-600">성별</label>
+              <div className="flex gap-8 mt-1">
+                <label className="flex items-center font-normal">
                   <input
                     type="radio"
                     name="gender"
@@ -120,11 +126,11 @@ function IndividualTherapyLogInsertForm() {
                     checked={formData.gender === 'male'}
                     onChange={handleChange}
                     required
-                    style={{ marginRight: '0.25rem' }}
+                    className="mr-1"
                   />
                   남성
                 </label>
-                <label style={{ display: 'flex', alignItems: 'center', fontWeight: 'normal' }}>
+                <label className="flex items-center font-normal">
                   <input
                     type="radio"
                     name="gender"
@@ -132,7 +138,7 @@ function IndividualTherapyLogInsertForm() {
                     checked={formData.gender === 'female'}
                     onChange={handleChange}
                     required
-                    style={{ marginRight: '0.25rem' }}
+                    className="mr-1"
                   />
                   여성
                 </label>
@@ -140,8 +146,8 @@ function IndividualTherapyLogInsertForm() {
             </div>
           </div>
 
-          <div className="form-group text-sm">
-            <label htmlFor="researchDate">검사일</label>
+          <div className="mb-4 text-sm">
+            <label htmlFor="researchDate" className="block mb-1 font-semibold text-gray-600">검사일</label>
             <input
               type="date"
               id="researchDate"
@@ -149,12 +155,13 @@ function IndividualTherapyLogInsertForm() {
               value={formData.researchDate}
               onChange={handleChange}
               required
+              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm"
             />
           </div>
 
-          <div style={{ display: 'flex', gap: '1rem' }}>
-            <div className="form-group text-sm" style={{ flex: '1' }}>
-              <label htmlFor="startDate">시작일</label>
+          <div className="flex gap-4">
+            <div className="mb-4 text-sm flex-1">
+              <label htmlFor="startDate" className="block mb-1 font-semibold text-gray-600">시작일</label>
               <input
                 type="date"
                 id="startDate"
@@ -162,11 +169,12 @@ function IndividualTherapyLogInsertForm() {
                 value={formData.startDate}
                 onChange={handleChange}
                 required
+                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm"
               />
             </div>
 
-            <div className="form-group text-sm" style={{ flex: '1' }}>
-              <label htmlFor="endDate">종료일</label>
+            <div className="mb-4 text-sm flex-1">
+              <label htmlFor="endDate" className="block mb-1 font-semibold text-gray-600">종료일</label>
               <input
                 type="date"
                 id="endDate"
@@ -174,6 +182,7 @@ function IndividualTherapyLogInsertForm() {
                 value={formData.endDate}
                 onChange={handleChange}
                 required
+                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm"
               />
             </div>
           </div>
