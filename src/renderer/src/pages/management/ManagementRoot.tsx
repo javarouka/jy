@@ -1,7 +1,7 @@
 import { Tab, TabGroup, TabPanel } from '@headlessui/react'
 import { Fragment, ReactNode, useState } from 'react'
 import ManagementAssessmentLog from '@renderer/pages/management/assessment-log/ManagementAssessmentLog'
-import IndividualTherapyLog from '@renderer/pages/management/IndividualTherapyLog'
+import IndividualTherapyLog from '@renderer/pages/management/individual-therapy/IndividualTherapyLog'
 
 const tabData: { title: string; content: ReactNode }[] = [
   {

@@ -29,3 +29,36 @@ export interface AssessmentLogQueryParams {
   likeSearch?: LikeSearchParams
   dateRange?: DateRangeParams
 }
+
+// Extended search params for IndividualTherapyLog
+export interface IndividualTherapyLikeSearchParams {
+  clientName?: string
+  threapyType?: string
+}
+
+export interface IndividualTherapyRangeParams {
+  sessionCount?: {
+    min?: number
+    max?: number
+  }
+  prepareTime?: {
+    min?: number
+    max?: number
+  }
+  sessionTime?: {
+    min?: number
+    max?: number
+  }
+  supervisionTime?: {
+    min?: number
+    max?: number
+  }
+}
+
+export interface IndividualTherapyLogQueryParams {
+  sort?: SortParams
+  search?: SearchParams
+  likeSearch?: IndividualTherapyLikeSearchParams
+  rangeSearch?: IndividualTherapyRangeParams
+  dateRange?: DateRangeParams
+}

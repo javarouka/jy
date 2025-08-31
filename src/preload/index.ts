@@ -1,7 +1,7 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
-import { TypeAssessmentFormData } from '@shared/types'
-import { ASSESSMENT_LOG_CHANNELS } from '@shared/constants/ipcChannels'
+import { TypeAssessmentFormData, TypeIndividualTherapyFormData } from '@shared/types'
+import { ASSESSMENT_LOG_CHANNELS, INDIVIDUAL_THERAPY_LOG_CHANNELS } from '@shared/constants/ipcChannels'
 import { AssessmentLogQueryParams } from '@shared/types/db'
 import _log from './preloadLogger'
 
@@ -16,11 +16,19 @@ export const log = {
 }
 
 export const db = {
+  // Assessment Log API functions
   getAssessmentLogs: (params?: AssessmentLogQueryParams) => ipcRenderer.invoke(ASSESSMENT_LOG_CHANNELS.GET, params),
   createAssessmentLog: (form: TypeAssessmentFormData) => ipcRenderer.invoke(ASSESSMENT_LOG_CHANNELS.CREATE, form),
   updateAssessmentLog: (id: number, form: TypeAssessmentFormData) =>
     ipcRenderer.invoke(ASSESSMENT_LOG_CHANNELS.UPDATE, id, form),
   deleteAssessmentLog: (id: number) => ipcRenderer.invoke(ASSESSMENT_LOG_CHANNELS.DELETE, id),
+
+  // Individual Therapy Log API functions
+  getIndividualTherapyLogs: (params?: AssessmentLogQueryParams) => ipcRenderer.invoke(INDIVIDUAL_THERAPY_LOG_CHANNELS.GET, params),
+  createIndividualTherapyLog: (form: TypeIndividualTherapyFormData) => ipcRenderer.invoke(INDIVIDUAL_THERAPY_LOG_CHANNELS.CREATE, form),
+  updateIndividualTherapyLog: (id: number, form: TypeIndividualTherapyFormData) =>
+    ipcRenderer.invoke(INDIVIDUAL_THERAPY_LOG_CHANNELS.UPDATE, id, form),
+  deleteIndividualTherapyLog: (id: number) => ipcRenderer.invoke(INDIVIDUAL_THERAPY_LOG_CHANNELS.DELETE, id),
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

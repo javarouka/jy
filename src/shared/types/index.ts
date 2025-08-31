@@ -21,7 +21,45 @@ export type TypeAssessmentFormData = {
   creditTime: number
 }
 
+export interface TypeIndividualTherapyLog {
+  id: number
+  clientName: string
+  age: number
+  gender: string
+  threapyType: string // '주치료자', '보조치료자'
+  researchDate: Date // 검사일
+  sessionCount: number // 회기수
+  prepareTime: number // 준비에 소요한 시간
+  sessionTime: number // 상담에 소요한 시간
+  supervisionTime: number // 지도감독에 소요한 시간
+  startDate: Date // 시작일
+  endDate: Date // 종료일
+  usable: boolean
+  createdAt: Date
+  modifiedAt: Date
+}
+
+export type TypeIndividualTherapyFormData = {
+  clientName: string
+  age: number
+  gender: 'male' | 'female' | '' // 선택을 강제하기 위해 '' 추가
+  threapyType: string
+  researchDate: string // HTML input date는 string 타입으로 값을 다룹니다.
+  sessionCount: number
+  prepareTime: number
+  sessionTime: number
+  supervisionTime: number
+  startDate: string // HTML input date는 string 타입으로 값을 다룹니다.
+  endDate: string // HTML input date는 string 타입으로 값을 다룹니다.
+  usable?: boolean
+}
+
 export const RESEARCH_TYPE_OPTIONS = [
   '종합심리평가',
   '신경심리평가',
+]
+
+export const THERAPY_TYPE_OPTIONS = [
+  '주치료자',
+  '보조치료자',
 ]

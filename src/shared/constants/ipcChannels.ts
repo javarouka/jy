@@ -9,3 +9,11 @@ export const ASSESSMENT_LOG_CHANNELS = {
   UPDATE: 'db:update-assessmentLog',
   DELETE: 'db:delete-assessmentLog'
 }
+
+// Individual Therapy Log IPC channels
+export const INDIVIDUAL_THERAPY_LOG_CHANNELS = {
+  GET: 'db:get-individualTherapyLog',
+  CREATE: 'db:create-individualTherapyLog',
+  UPDATE: 'db:update-individualTherapyLog',
+  DELETE: 'db:delete-individualTherapyLog'
+}
