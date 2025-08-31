@@ -4,10 +4,11 @@ import useAssessmentLogSearch from './hook/useAssessmentLogSearch'
 import { FormEvent } from 'react'
 
 interface AssessmentLogListProps {
-  // No props needed as component will fetch its own data
+  onEdit?: (log: any) => void;
 }
 
-const AssessmentLogList = (_props: AssessmentLogListProps) => {
+const AssessmentLogList = (props: AssessmentLogListProps) => {
+  const { onEdit: parentOnEdit } = props;
   const {
     data: {
       assessmentLog,
@@ -21,6 +22,12 @@ const AssessmentLogList = (_props: AssessmentLogListProps) => {
     deleteLog,
     updateLog
   } = useAssessmentLogSearch()
+
+  const handleEdit = parentOnEdit || ((log: any) => {
+    // useAssessmentLogSearch의 updateLog는 실제로는 수정 폼을 위한 것이 아니라
+    // 부모 컴포넌트의 onEdit를 사용하도록 함
+    console.warn('No parent onEdit provided, edit functionality disabled');
+  });
 
   // Apply search internally
   const applySearch = (ev: FormEvent) => {
@@ -166,14 +173,22 @@ const AssessmentLogList = (_props: AssessmentLogListProps) => {
         {/* md (768px) 이상: 2열 */}
         {/* xl (1280px) 이상: 3열 */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {assessmentLog.map((log) => (
-            <AssessmentLogCard
-              key={log.id}
-              log={log}
-              onDelete={deleteLog}
-              onEdit={updateLog}
-            />
-          ))}
+          {assessmentLog && assessmentLog.length > 0 ? (
+            assessmentLog.map((log) => (
+              <AssessmentLogCard
+                key={log.id}
+                log={log}
+                onDelete={deleteLog}
+                onEdit={handleEdit}
+              />
+            ))
+          ) : (
+            <div className="col-span-full text-center py-8 text-gray-500">
+              등록된 심리평가 기록이 없습니다.
+              <br />
+              위 폼을 통해 새로운 기록을 추가해보세요.
+            </div>
+          )}
         </div>
       </div>
     </div>

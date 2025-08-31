@@ -1,18 +1,36 @@
+import { useState } from 'react'
 import ManagementWrapper from '@renderer/pages/management/ManagementWrapper'
 import SubTitle from '@renderer/component/basic/SubTitle'
 import useAssessmentLogMutation from '@renderer/pages/management/assessment-log/hook/useAssessmentLogMutation'
 import { RESEARCH_TYPE_OPTIONS } from '@shared/types'
 import './ManagementAssessmentLog.css'
 import AssessmentLogList from '@renderer/pages/management/assessment-log/AssessmentLogList'
+import EditAssessmentModal from '@renderer/pages/management/assessment-log/EditAssessmentModal'
+import { AssessmentLog } from '@prisma/client'
 
 function ManagementAssessmentLog() {
+  // 새 기록 입력용 hook
   const {
-    forms: {
-      formData,
-    },
+    forms: { formData },
     handleSubmit,
     handleChange,
   } = useAssessmentLogMutation()
+
+  // 모달 상태 관리
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const [editingLog, setEditingLog] = useState<AssessmentLog | null>(null)
+
+  // 수정 모달 열기
+  const handleEditLog = (log: AssessmentLog) => {
+    setEditingLog(log)
+    setIsEditModalOpen(true)
+  }
+
+  // 수정 모달 닫기
+  const handleCloseEditModal = () => {
+    setIsEditModalOpen(false)
+    setEditingLog(null)
+  }
 
   return (
     <ManagementWrapper>
@@ -24,7 +42,7 @@ function ManagementAssessmentLog() {
         {/* 입력 폼 */}
         <div>
           <form onSubmit={handleSubmit} className="assessment-form space-y-4">
-            <h3>평가 기록 입력</h3>
+            <h3>새 평가 기록 입력</h3>
             <div className="form-group text-sm">
               <label htmlFor="clientName">내담자명</label>
               <input
@@ -137,8 +155,15 @@ function ManagementAssessmentLog() {
         </div>
       </fieldset>
       <div>
-        <AssessmentLogList />
+        <AssessmentLogList onEdit={handleEditLog} />
       </div>
+
+      {/* 수정 모달 */}
+      <EditAssessmentModal
+        isOpen={isEditModalOpen}
+        onClose={handleCloseEditModal}
+        assessmentLog={editingLog}
+      />
     </ManagementWrapper>
   )
 }
