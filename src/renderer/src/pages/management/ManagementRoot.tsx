@@ -3,6 +3,9 @@ import { Fragment, ReactNode, useState } from 'react'
 import ManagementAssessmentLog from '@renderer/pages/management/assessment-log/ManagementAssessmentLog'
 import IndividualTherapyLog from '@renderer/pages/management/individual-therapy/IndividualTherapyLog'
 import GroupTherapyLog from '@renderer/pages/management/group-therapy/GroupTherapyLog'
+import AcademicActivityLog from '@renderer/pages/management/academic-activity-log/AcademicActivityLog'
+import ResearchLog from '@renderer/pages/management/research-log/ResearchLog'
+import OtherActivityLog from '@renderer/pages/management/other-activity-log/OtherActivityLog'
 
 const tabData: { title: string; content: ReactNode }[] = [
   {
@@ -19,15 +22,15 @@ const tabData: { title: string; content: ReactNode }[] = [
   },
   {
     title: '학술활동',
-    content: <ManagementAssessmentLog />,
+    content: <AcademicActivityLog />,
   },
   {
     title: '연구활동',
-    content: <ManagementAssessmentLog />,
+    content: <ResearchLog />,
   },
   {
-    title: ' 기타 수련 활동',
-    content: <ManagementAssessmentLog />,
+    title: '기타 수련 활동',
+    content: <OtherActivityLog />,
   },
 ];
 

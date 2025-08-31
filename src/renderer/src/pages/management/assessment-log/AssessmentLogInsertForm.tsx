@@ -131,18 +131,8 @@ function AssessmentLogInsertForm() {
             />
           </div>
 
-          <button className="
-            w-full
-            rounded border-0
-            bg-[#007bff]
-            p-[0.5rem]
-            text-[0.75rem]
-            font-bold
-            text-white
-            transition-colors
-            duration-200
-            hover:bg-[#0056b3]
-            cursor-pointer"
+          <button
+            className="w-full py-2 px-4 rounded bg-blue-600 text-sm font-bold text-white transition-colors duration-200 hover:bg-blue-700 cursor-pointer"
           >
             저장
           </button>

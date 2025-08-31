@@ -1,6 +1,5 @@
 import ManagementWrapper from '@renderer/pages/management/ManagementWrapper'
 import SubTitle from '@renderer/component/basic/SubTitle'
-import './ManagementAssessmentLog.css'
 import AssessmentLogList from '@renderer/pages/management/assessment-log/AssessmentLogList'
 import AssessmentLogInsertForm from '@renderer/pages/management/assessment-log/AssessmentLogInsertForm'
 

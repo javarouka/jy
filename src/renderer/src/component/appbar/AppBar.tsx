@@ -10,7 +10,7 @@ export default function AppBar() {
       <header className="p-2 space-y-3">
         <MainTitle>임상심리전문가 수련관리 시스템</MainTitle>
         <nav className="space-x-10">
-          <Link to="/">Overview</Link>
+          <Link to="/">둘러보기</Link>
           <Link to="/management">활동 관리</Link>
           <Link to="/statistics">통계</Link>
         </nav>

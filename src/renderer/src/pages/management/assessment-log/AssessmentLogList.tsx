@@ -76,8 +76,8 @@ const AssessmentLogList = () => {
       <div className="mb-6 p-4 border rounded-md">
         <h3 className="text-lg font-medium mb-4">검색</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div className="form-group text-sm">
-            <label htmlFor="search-clientName">내담자명</label>
+          <div className="mb-2 text-sm">
+            <label htmlFor="search-clientName" className="block font-bold mb-1">내담자명</label>
             <input
               type="text"
               id="search-clientName"
@@ -85,12 +85,12 @@ const AssessmentLogList = () => {
               value={searchFormData.clientName}
               onChange={handleSearchChange}
               placeholder="내담자명 검색"
-              className="w-full"
+              className="w-full p-1 border border-gray-300 rounded text-base"
             />
           </div>
 
-          <div className="form-group text-sm">
-            <label htmlFor="search-age">나이</label>
+          <div className="mb-2 text-sm">
+            <label htmlFor="search-age" className="block font-bold mb-1">나이</label>
             <input
               type="number"
               id="search-age"
@@ -98,18 +98,18 @@ const AssessmentLogList = () => {
               value={searchFormData.age}
               onChange={handleSearchChange}
               placeholder="나이 검색"
-              className="w-full"
+              className="w-full p-1 border border-gray-300 rounded text-base"
             />
           </div>
 
-          <div className="form-group text-sm">
-            <label htmlFor="search-gender">성별</label>
+          <div className="mb-2 text-sm">
+            <label htmlFor="search-gender" className="block font-bold mb-1">성별</label>
             <select
               id="search-gender"
               name="gender"
               value={searchFormData.gender}
               onChange={handleSearchChange}
-              className="w-full"
+              className="w-full p-1 border border-gray-300 rounded text-base"
             >
               <option value="">전체</option>
               <option value="male">남성</option>
@@ -117,8 +117,8 @@ const AssessmentLogList = () => {
             </select>
           </div>
 
-          <div className="form-group text-sm">
-            <label htmlFor="search-dx">진단명(Dx)</label>
+          <div className="mb-2 text-sm">
+            <label htmlFor="search-dx" className="block font-bold mb-1">진단명(Dx)</label>
             <input
               type="text"
               id="search-dx"
@@ -126,18 +126,18 @@ const AssessmentLogList = () => {
               value={searchFormData.dx}
               onChange={handleSearchChange}
               placeholder="진단명 검색"
-              className="w-full"
+              className="w-full p-1 border border-gray-300 rounded text-base"
             />
           </div>
 
-          <div className="form-group text-sm">
-            <label htmlFor="search-researchType">검사 종류</label>
+          <div className="mb-2 text-sm">
+            <label htmlFor="search-researchType" className="block font-bold mb-1">검사 종류</label>
             <select
               id="search-researchType"
               name="researchType"
               value={searchFormData.researchType}
               onChange={handleSearchChange}
-              className="w-full"
+              className="w-full p-1 border border-gray-300 rounded text-base"
             >
               <option value="">전체</option>
               {RESEARCH_TYPE_OPTIONS.map((type) => (
@@ -150,27 +150,27 @@ const AssessmentLogList = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-          <div className="form-group text-sm">
-            <label htmlFor="search-startDate">검사일 시작</label>
+          <div className="mb-2 text-sm">
+            <label htmlFor="search-startDate" className="block font-bold mb-1">검사일 시작</label>
             <input
               type="date"
               id="search-startDate"
               name="startDate"
               value={searchFormData.startDate}
               onChange={handleSearchChange}
-              className="w-full"
+              className="w-full p-1 border border-gray-300 rounded text-base"
             />
           </div>
 
-          <div className="form-group text-sm">
-            <label htmlFor="search-endDate">검사일 종료</label>
+          <div className="mb-2 text-sm">
+            <label htmlFor="search-endDate" className="block font-bold mb-1">검사일 종료</label>
             <input
               type="date"
               id="search-endDate"
               name="endDate"
               value={searchFormData.endDate}
               onChange={handleSearchChange}
-              className="w-full"
+              className="w-full p-1 border border-gray-300 rounded text-base"
             />
           </div>
         </div>
