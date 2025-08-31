@@ -21,9 +21,9 @@ model AssessmentLog {
   researchType  String // '종합심리평가', '신경심리평가' 등
   researchDate  DateTime // 검사일
   creditTime    Int // 인정시간. 분
-  usable       Boolean  @default(false)
+  usable        Boolean  @default(false)
   createdAt     DateTime @default(now())
-  modifiedAt     DateTime @default(now())
+  modifiedAt    DateTime @default(now())
 }
 
 /**

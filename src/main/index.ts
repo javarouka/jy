@@ -5,6 +5,7 @@ import icon from '../../resources/icon.jpg?asset'
 import { PrismaClient } from '@prisma/client'
 import { initAssessmentLogDB } from './assessment/initAssessmentLogDB'
 import log, { initPrisma } from './mainLogger'
+import { autoMigrate } from './prisma/autoMigrate'
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
@@ -68,6 +69,11 @@ function createWindow(): void {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
+  // Run automatic migrations if schema has changed
+  const isProd = !is.dev
+  log.info(`Running in ${isProd ? 'production' : 'development'} mode.`)
+  autoMigrate(isProd)
+
   // Set app user model id for windows
   electronApp.setAppUserModelId('com.electron')
 
