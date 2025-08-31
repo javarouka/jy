@@ -1,7 +1,6 @@
 import { AssessmentLog } from '@prisma/client'
 import { RESEARCH_TYPE_OPTIONS, TypeAssessmentFormData } from '@shared/types'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
-import './ManagementAssessmentLog.css'
 
 type Props = {
   isOpen: boolean
@@ -62,20 +61,20 @@ const EditAssessmentLogModal = ({ isOpen, onClose, log, onSave }: Props) => {
   if (!isOpen || !log) return null
 
   return (
-    <div className="modal-backdrop">
-      <div className="modal-content">
-        <div className="modal-header">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+      <div className="bg-white rounded-lg shadow-lg w-11/12 max-w-2xl max-h-[90vh] overflow-y-auto p-6">
+        <div className="flex justify-between items-center mb-4 pb-2 border-b border-gray-200">
           <h3 className="text-lg font-medium">평가 기록 수정</h3>
           <button
             onClick={onClose}
-            className="close-button"
+            className="bg-transparent border-none text-2xl cursor-pointer text-gray-500 hover:text-gray-700"
           >
             &times;
           </button>
         </div>
-        <form onSubmit={handleSubmit} className="assessment-form space-y-4">
-          <div className="form-group text-sm">
-            <label htmlFor="edit-clientName">내담자명</label>
+        <form onSubmit={handleSubmit} className="my-2 space-y-4">
+          <div className="text-sm">
+            <label htmlFor="edit-clientName" className="font-bold">내담자명</label>
             <input
               type="text"
               id="edit-clientName"
@@ -83,12 +82,13 @@ const EditAssessmentLogModal = ({ isOpen, onClose, log, onSave }: Props) => {
               value={formData.clientName}
               onChange={handleChange}
               required
+              className="w-full p-1 border border-gray-300 rounded-md text-base"
             />
           </div>
 
-          <div style={{ display: 'flex', gap: '1rem' }}>
-            <div className="form-group text-sm" style={{ flex: '1' }}>
-              <label htmlFor="edit-age">나이</label>
+          <div className="flex gap-4">
+            <div className="text-sm flex-1">
+              <label htmlFor="edit-age" className="font-bold">나이</label>
               <input
                 type="number"
                 id="edit-age"
@@ -96,11 +96,12 @@ const EditAssessmentLogModal = ({ isOpen, onClose, log, onSave }: Props) => {
                 value={formData.age}
                 onChange={handleChange}
                 required
+                className="w-full p-1 border border-gray-300 rounded-md text-base"
               />
             </div>
 
-            <div className="form-group text-sm" style={{ flex: '1' }}>
-              <label htmlFor="edit-creditTime">인정 시간 (분)</label>
+            <div className="text-sm flex-1">
+              <label htmlFor="edit-creditTime" className="font-bold">인정 시간 (분)</label>
               <input
                 type="number"
                 id="edit-creditTime"
@@ -108,12 +109,13 @@ const EditAssessmentLogModal = ({ isOpen, onClose, log, onSave }: Props) => {
                 value={formData.creditTime}
                 onChange={handleChange}
                 required
+                className="w-full p-1 border border-gray-300 rounded-md text-base"
               />
             </div>
           </div>
 
-          <div className="form-group text-sm">
-            <label htmlFor="edit-dx">진단명(Dx)</label>
+          <div className="text-sm">
+            <label htmlFor="edit-dx" className="font-bold">진단명(Dx)</label>
             <input
               type="text"
               id="edit-dx"
@@ -121,17 +123,19 @@ const EditAssessmentLogModal = ({ isOpen, onClose, log, onSave }: Props) => {
               value={formData.dx}
               onChange={handleChange}
               required
+              className="w-full p-1 border border-gray-300 rounded-md text-base"
             />
           </div>
 
-          <div style={{ display: 'flex', gap: '2rem' }}>
-            <div className="form-group text-sm" style={{ flex: '1' }}>
-              <label htmlFor="edit-researchType">검사 종류</label>
+          <div className="flex gap-8">
+            <div className="text-sm flex-1">
+              <label htmlFor="edit-researchType" className="font-bold">검사 종류</label>
               <select
                 id="edit-researchType"
                 name="researchType"
                 value={formData.researchType}
                 onChange={handleChange}
+                className="w-full p-1 border border-gray-300 rounded-md text-base"
               >
                 {RESEARCH_TYPE_OPTIONS.map((type) => (
                   <option key={type} value={type}>
@@ -141,10 +145,10 @@ const EditAssessmentLogModal = ({ isOpen, onClose, log, onSave }: Props) => {
               </select>
             </div>
 
-            <div className="form-group text-sm" style={{ flex: '1' }}>
-              <label>성별</label>
-              <div style={{ display: 'flex', gap: '2rem', marginTop: '0.25rem' }}>
-                <label style={{ display: 'flex', alignItems: 'center', fontWeight: 'normal' }}>
+            <div className="text-sm flex-1">
+              <label className="font-bold">성별</label>
+              <div className="flex gap-8 mt-1">
+                <label className="flex items-center font-normal">
                   <input
                     type="radio"
                     name="gender"
@@ -152,11 +156,11 @@ const EditAssessmentLogModal = ({ isOpen, onClose, log, onSave }: Props) => {
                     checked={formData.gender === 'male'}
                     onChange={handleChange}
                     required
-                    style={{ marginRight: '0.25rem' }}
+                    className="mr-1"
                   />
                   남성
                 </label>
-                <label style={{ display: 'flex', alignItems: 'center', fontWeight: 'normal' }}>
+                <label className="flex items-center font-normal">
                   <input
                     type="radio"
                     name="gender"
@@ -164,7 +168,7 @@ const EditAssessmentLogModal = ({ isOpen, onClose, log, onSave }: Props) => {
                     checked={formData.gender === 'female'}
                     onChange={handleChange}
                     required
-                    style={{ marginRight: '0.25rem' }}
+                    className="mr-1"
                   />
                   여성
                 </label>
@@ -172,8 +176,8 @@ const EditAssessmentLogModal = ({ isOpen, onClose, log, onSave }: Props) => {
             </div>
           </div>
 
-          <div className="form-group text-sm">
-            <label htmlFor="edit-researchDate">검사일</label>
+          <div className="text-sm">
+            <label htmlFor="edit-researchDate" className="font-bold">검사일</label>
             <input
               type="date"
               id="edit-researchDate"
@@ -181,20 +185,21 @@ const EditAssessmentLogModal = ({ isOpen, onClose, log, onSave }: Props) => {
               value={formData.researchDate}
               onChange={handleChange}
               required
+              className="w-full p-1 border border-gray-300 rounded-md text-base"
             />
           </div>
 
-          <div className="modal-footer">
+          <div className="flex justify-end gap-2 mt-6 pt-4 border-t border-gray-200">
             <button
               type="button"
               onClick={onClose}
-              className="cancel-button"
+              className="px-4 py-2 border border-gray-300 rounded-md bg-gray-100 text-gray-700 text-sm hover:bg-gray-200 transition-colors"
             >
               취소
             </button>
             <button
               type="submit"
-              className="save-button"
+              className="px-4 py-2 rounded-md bg-blue-600 text-white text-sm font-bold hover:bg-blue-700 transition-colors"
             >
               저장
             </button>
