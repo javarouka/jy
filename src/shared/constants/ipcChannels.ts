@@ -17,3 +17,11 @@ export const INDIVIDUAL_THERAPY_LOG_CHANNELS = {
   UPDATE: 'db:update-individualTherapyLog',
   DELETE: 'db:delete-individualTherapyLog'
 }
+
+// Group Therapy Log IPC channels
+export const GROUP_THERAPY_LOG_CHANNELS = {
+  GET: 'db:get-groupTherapyLog',
+  CREATE: 'db:create-groupTherapyLog',
+  UPDATE: 'db:update-groupTherapyLog',
+  DELETE: 'db:delete-groupTherapyLog'
+}

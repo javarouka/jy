@@ -1,111 +1,103 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "sqlite"
-  url      = "file:./dev.db" // 데이터베이스 파일 위치
+  url      = "file:./dev.db"
 }
 
-/**
- * 심리평가 기록
- */
+/// *
+///  * 심리평가 기록
 model AssessmentLog {
-  id            Int      @id @default(autoincrement())
-  clientName    String
-  age           Int
-  gender        String // mail, femail
-  dx            String // 진단명
-  researchType  String // '종합심리평가', '신경심리평가' 등
-  researchDate  DateTime // 검사일
-  creditTime    Int // 인정시간. 분
-  usable        Boolean  @default(false)
-  createdAt     DateTime @default(now())
-  modifiedAt    DateTime @updatedAt
+  id           Int      @id @default(autoincrement())
+  clientName   String
+  age          Int
+  gender       String
+  dx           String
+  researchType String
+  researchDate DateTime
+  creditTime   Int
+  usable       Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  modifiedAt   DateTime @updatedAt
 }
 
-/**
- * 개인치료
- */
+/// *
+///  * 개인치료
 model IndividualTherapyLog {
-  id            Int      @id @default(autoincrement())
-  clientName    String
-  age           Int
-  gender        String // mail, femail
-  threapyType   String // '주치료자', '보조치료자' 그러나 개인치료의 경우 주치료자 고정됨
-  researchDate  DateTime // 검사일
-  sessionCount  Int // 회기수
-  prepareTime   Int // 준비에 소요한 시간
-  sessionTime   Int // 상담에 소요한 시간
-  supervisionTime Int // 지도감독에 소요한 시간
-  startDate     DateTime // 시작일 (*)
-  endDate       DateTime // 종료일 (*)
-  usable       Boolean  @default(false)
-  createdAt     DateTime @default(now())
-  modifiedAt     DateTime @updatedAt
+  id              Int      @id @default(autoincrement())
+  clientName      String
+  age             Int
+  gender          String
+  therapyType     String
+  researchDate    DateTime
+  sessionCount    Int
+  prepareTime     Int
+  sessionTime     Int
+  supervisionTime Int
+  startDate       DateTime
+  endDate         DateTime
+  usable          Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  modifiedAt      DateTime @updatedAt
 }
 
-/**
- * 그룹치료
- */
+/// *
+///  * 그룹치료
 model GroupTherapyLog {
-  id            Int      @id @default(autoincrement())
-  groupName     String
-  threapyType   String // '주치료자', '보조치료자'
-  researchDate  DateTime // 검사일
-  sessionCount  Int // 회기수
-  prepareTime   Int // 준비에 소요한 시간
-  sessionTime   Int // 상담에 소요한 시간
-  supervisionTime Int // 지도감독에 소요한 시간
-  startDate     DateTime // 시작일 (*)
-  endDate       DateTime // 종료일 (*)
-  usable       Boolean  @default(false)
-  createdAt     DateTime @default(now())
-  modifiedAt     DateTime @updatedAt
+  id              Int      @id @default(autoincrement())
+  groupName       String
+  therapyType     String
+  researchDate    DateTime
+  sessionCount    Int
+  prepareTime     Int
+  sessionTime     Int
+  supervisionTime Int
+  startDate       DateTime
+  endDate         DateTime
+  usable          Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  modifiedAt      DateTime @updatedAt
 }
 
-/**
- * 학술활동
- */
+/// *
+///  * 학술활동
 model AcademicActivityLog {
-  id            Int      @id @default(autoincrement())
-  act           String // 참석 발표. follower | following
-  activityName  String // 회의명
-  activityType  String // 회의 유형. '학술회의', '사례회의', '윤리교육'
-  activityDate  DateTime // 활동일 (*)
-  organization  String // 주관기관. 수련기관', '학회', '지회/연구회'
-  sessionName   String // 발표명
-  creditTime    Int // 인정시간. 분
+  id           Int      @id @default(autoincrement())
+  act          String
+  activityName String
+  activityType String
+  activityDate DateTime
+  organization String
+  sessionName  String
+  creditTime   Int
   usable       Boolean  @default(false)
-  createdAt     DateTime @default(now())
-  modifiedAt     DateTime @updatedAt
+  createdAt    DateTime @default(now())
+  modifiedAt   DateTime @updatedAt
 }
 
-/**
- * 연구로그
- */
+/// *
+///  * 연구로그
 model ResearchLog {
-  id            Int      @id @default(autoincrement())
-  publishDate   DateTime // 발간일 (*)
-  pagerName     String // 논문이름
-  journalName   String // 학회지
-  participateType String // 저자구분. 1저자, 공동저자
-  usable        Boolean  @default(false)
-  createdAt     DateTime @default(now())
-  modifiedAt    DateTime @updatedAt
+  id              Int      @id @default(autoincrement())
+  publishDate     DateTime
+  pagerName       String
+  journalName     String
+  participateType String
+  usable          Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  modifiedAt      DateTime @updatedAt
 }
 
-// 기티활동 로그
 model OtherActivityLog {
   id              Int      @id @default(autoincrement())
-  activitySummary String // 활동명, 간단한 활동 내용
-  activityType    String // 활동유형. '대외협력', '기타 수련'
-  startDate       DateTime // 활동시작일 (*)
-  endDate         DateTime // 활동종료일 (*)
-  creditTime      Int // 인정시간. 분
-  usable         Boolean  @default(false)
+  activitySummary String
+  activityType    String
+  startDate       DateTime
+  endDate         DateTime
+  creditTime      Int
+  usable          Boolean  @default(false)
   createdAt       DateTime @default(now())
-  modifiedAt       DateTime @updatedAt
+  modifiedAt      DateTime @updatedAt
 }

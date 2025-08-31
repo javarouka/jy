@@ -2,10 +2,10 @@ import { ipcMain } from 'electron'
 import { TypeIndividualTherapyFormData } from '@shared/types'
 import type { PrismaClient } from '@prisma/client'
 import { INDIVIDUAL_THERAPY_LOG_CHANNELS } from '@shared/constants/ipcChannels'
-import { AssessmentLogQueryParams } from '@shared/types/db'
+import { IndividualTherapyLogQueryParams } from '@shared/types/db'
 
 export function initIndividualTherapyLogDB(prisma: PrismaClient) {
-  ipcMain.handle(INDIVIDUAL_THERAPY_LOG_CHANNELS.GET, async (_, params?: AssessmentLogQueryParams) => {
+  ipcMain.handle(INDIVIDUAL_THERAPY_LOG_CHANNELS.GET, async (_, params?: IndividualTherapyLogQueryParams) => {
     // Default query options
     const queryOptions: any = {
       orderBy: [

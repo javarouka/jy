@@ -9,7 +9,7 @@ export default function useIndividualTherapyLogMutation(_queryClient?: QueryClie
     clientName: '',
     age: 0,
     gender: '',
-    threapyType: THERAPY_TYPE_OPTIONS[0],
+    therapyType: THERAPY_TYPE_OPTIONS[0],
     researchDate: '',
     sessionCount: 0,
     prepareTime: 0,

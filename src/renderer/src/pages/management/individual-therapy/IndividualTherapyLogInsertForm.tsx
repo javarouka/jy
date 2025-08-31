@@ -99,11 +99,11 @@ function IndividualTherapyLogInsertForm() {
 
           <div className="flex gap-8">
             <div className="mb-4 text-sm flex-1">
-              <label htmlFor="threapyType" className="block mb-1 font-semibold text-gray-600">치료자 유형</label>
+              <label htmlFor="therapyType" className="block mb-1 font-semibold text-gray-600">치료자 유형</label>
               <select
-                id="threapyType"
-                name="threapyType"
-                value={formData.threapyType}
+                id="therapyType"
+                name="therapyType"
+                value={formData.therapyType}
                 onChange={handleChange}
                 className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm"
               >

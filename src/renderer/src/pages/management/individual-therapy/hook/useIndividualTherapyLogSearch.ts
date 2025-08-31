@@ -19,7 +19,7 @@ export default function useIndividualTherapyLogSearch(_queryClient?: QueryClient
     clientName: '',
     age: '',
     gender: '',
-    threapyType: '',
+    therapyType: '',
     sessionCountMin: '',
     sessionCountMax: '',
     prepareTimeMin: '',
@@ -54,7 +54,7 @@ export default function useIndividualTherapyLogSearch(_queryClient?: QueryClient
 
     // Add non-empty like search parameters
     if (searchFormData.clientName) likeSearch.clientName = searchFormData.clientName;
-    if (searchFormData.threapyType) likeSearch.threapyType = searchFormData.threapyType;
+    if (searchFormData.therapyType) likeSearch.therapyType = searchFormData.therapyType;
 
     // Add exact match search parameter - prioritize age over gender
     if (searchFormData.age) {
@@ -116,7 +116,7 @@ export default function useIndividualTherapyLogSearch(_queryClient?: QueryClient
       clientName: '',
       age: '',
       gender: '',
-      threapyType: '',
+      therapyType: '',
       sessionCountMin: '',
       sessionCountMax: '',
       prepareTimeMin: '',

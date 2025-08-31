@@ -44,7 +44,7 @@ const IndividualTherapyLogCard = (props: Props) => {
         </div>
         <div className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
           <p>
-            <strong className="font-semibold text-gray-800 dark:text-gray-100">치료자 유형:</strong> {log.threapyType}
+            <strong className="font-semibold text-gray-800 dark:text-gray-100">치료자 유형:</strong> {log.therapyType}
           </p>
           <p>
             <strong className="font-semibold text-gray-800 dark:text-gray-100">검사일:</strong> {formattedResearchDate}

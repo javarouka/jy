@@ -117,11 +117,11 @@ const IndividualTherapyLogList = () => {
           </div>
 
           <div className="form-group text-sm">
-            <label htmlFor="search-threapyType">치료자 유형</label>
+            <label htmlFor="search-therapyType">치료자 유형</label>
             <select
-              id="search-threapyType"
-              name="threapyType"
-              value={searchFormData.threapyType}
+              id="search-therapyType"
+              name="therapyType"
+              value={searchFormData.therapyType}
               onChange={handleSearchChange}
               className="w-full"
             >

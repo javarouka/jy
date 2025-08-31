@@ -14,7 +14,7 @@ const EditIndividualTherapyLogModal = ({ isOpen, onClose, log, onSave }: Props) 
     clientName: '',
     age: 0,
     gender: '',
-    threapyType: THERAPY_TYPE_OPTIONS[0],
+    therapyType: THERAPY_TYPE_OPTIONS[0],
     researchDate: '',
     sessionCount: 0,
     prepareTime: 0,
@@ -32,7 +32,7 @@ const EditIndividualTherapyLogModal = ({ isOpen, onClose, log, onSave }: Props) 
         clientName: log.clientName,
         age: log.age,
         gender: log.gender as 'male' | 'female' | '',
-        threapyType: log.threapyType,
+        therapyType: log.therapyType,
         researchDate: new Date(log.researchDate).toISOString().split('T')[0], // Convert to YYYY-MM-DD format
         sessionCount: log.sessionCount,
         prepareTime: log.prepareTime,
@@ -167,11 +167,11 @@ const EditIndividualTherapyLogModal = ({ isOpen, onClose, log, onSave }: Props) 
 
           <div className="flex gap-8">
             <div className="text-sm flex-1">
-              <label htmlFor="edit-threapyType" className="font-bold">치료자 유형</label>
+              <label htmlFor="edit-therapyType" className="font-bold">치료자 유형</label>
               <select
-                id="edit-threapyType"
-                name="threapyType"
-                value={formData.threapyType}
+                id="edit-therapyType"
+                name="therapyType"
+                value={formData.therapyType}
                 onChange={handleChange}
                 className="w-full p-1 border border-gray-300 rounded-md text-base"
               >

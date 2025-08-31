@@ -2,6 +2,7 @@ import { Tab, TabGroup, TabPanel } from '@headlessui/react'
 import { Fragment, ReactNode, useState } from 'react'
 import ManagementAssessmentLog from '@renderer/pages/management/assessment-log/ManagementAssessmentLog'
 import IndividualTherapyLog from '@renderer/pages/management/individual-therapy/IndividualTherapyLog'
+import GroupTherapyLog from '@renderer/pages/management/group-therapy/GroupTherapyLog'
 
 const tabData: { title: string; content: ReactNode }[] = [
   {
@@ -14,7 +15,7 @@ const tabData: { title: string; content: ReactNode }[] = [
   },
   {
     title: '심리치료 (집단)',
-    content: <ManagementAssessmentLog />,
+    content: <GroupTherapyLog />,
   },
   {
     title: '학술활동',

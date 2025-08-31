@@ -33,7 +33,7 @@ export interface AssessmentLogQueryParams {
 // Extended search params for IndividualTherapyLog
 export interface IndividualTherapyLikeSearchParams {
   clientName?: string
-  threapyType?: string
+  therapyType?: string
 }
 
 export interface IndividualTherapyRangeParams {
@@ -60,5 +60,38 @@ export interface IndividualTherapyLogQueryParams {
   search?: SearchParams
   likeSearch?: IndividualTherapyLikeSearchParams
   rangeSearch?: IndividualTherapyRangeParams
+  dateRange?: DateRangeParams
+}
+
+// Extended search params for GroupTherapyLog
+export interface GroupTherapyLikeSearchParams {
+  groupName?: string
+  therapyType?: string
+}
+
+export interface GroupTherapyRangeParams {
+  sessionCount?: {
+    min?: number
+    max?: number
+  }
+  prepareTime?: {
+    min?: number
+    max?: number
+  }
+  sessionTime?: {
+    min?: number
+    max?: number
+  }
+  supervisionTime?: {
+    min?: number
+    max?: number
+  }
+}
+
+export interface GroupTherapyLogQueryParams {
+  sort?: SortParams
+  search?: SearchParams
+  likeSearch?: GroupTherapyLikeSearchParams
+  rangeSearch?: GroupTherapyRangeParams
   dateRange?: DateRangeParams
 }
