@@ -37,11 +37,7 @@ export function useWeather(location: string | null, initialized: boolean) {
         if (location === null || !initialized) {
             return;
         }
-        // 위치 정보가 "서울, KR" 형식이므로 도시 이름만 추출
         const city = location.split(',')[0];
-        // const city = 'Seoul';
-        console.log(city, ',', location)
-        // 위치 정보가 유효할 때만 API 호출
         if (!city) {
             return;
         }
@@ -75,7 +71,7 @@ export function useWeather(location: string | null, initialized: boolean) {
             }
         };
         fetchWeatherData().catch(console.error);
-    }, [location, initialized]); // location이 변경될 때마다 날씨 정보를 다시 가져옴
+    }, [location, initialized]);
 
     return { weather, isLoading };
 }
