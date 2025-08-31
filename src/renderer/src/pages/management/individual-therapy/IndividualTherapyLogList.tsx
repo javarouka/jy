@@ -1,5 +1,4 @@
 import IndividualTherapyLogCard from '@renderer/pages/management/individual-therapy/IndividualTherapyLogCard'
-import { THERAPY_TYPE_OPTIONS } from '@shared/types'
 import useIndividualTherapyLogSearch from './hook/useIndividualTherapyLogSearch'
 import type { FormEvent } from 'react'
 import { useState } from 'react'
@@ -142,7 +141,7 @@ const IndividualTherapyLogList = () => {
               value={searchFormData.age}
               onChange={handleSearchChange}
               placeholder="나이 검색"
-              className="w-[60px] min-w-[60px]"
+              className="w-[100px] min-w-[100px]"
             />
           </div>
 
@@ -153,29 +152,11 @@ const IndividualTherapyLogList = () => {
               name="gender"
               value={searchFormData.gender}
               onChange={handleSearchChange}
-              className="w-full"
+              className="w-[100px] min-w-[100px]"
             >
               <option value="">전체</option>
               <option value="male">남성</option>
               <option value="female">여성</option>
-            </select>
-          </div>
-
-          <div className="form-group text-sm flex-1">
-            <label htmlFor="search-therapyType">치료자 유형</label>
-            <select
-              id="search-therapyType"
-              name="therapyType"
-              value={searchFormData.therapyType}
-              onChange={handleSearchChange}
-              className="w-full"
-            >
-              <option value="">전체</option>
-              {THERAPY_TYPE_OPTIONS.map((type) => (
-                <option key={type} value={type}>
-                  {type}
-                </option>
-              ))}
             </select>
           </div>
         </div>
