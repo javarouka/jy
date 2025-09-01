@@ -134,3 +134,53 @@ export const ORGANIZATION_OPTIONS = [
   '학회',
   '지회/연구회'
 ]
+
+export interface TypeResearchLog {
+  id: number
+  publishDate: Date     // 발간일
+  pagerName: string     // 논문이름
+  journalName: string   // 학회지
+  participateType: string // 저자구분
+  usable: boolean
+  createdAt: Date
+  modifiedAt: Date
+}
+
+export type TypeResearchFormData = {
+  publishDate: string   // HTML input date는 string 타입으로 값을 다룹니다.
+  pagerName: string
+  journalName: string
+  participateType: string
+  usable?: boolean
+}
+
+export const PARTICIPATE_TYPE_OPTIONS = [
+  '1저자',
+  '공동저자'
+]
+
+export interface TypeOtherActivityLog {
+  id: number
+  activitySummary: string // 활동명, 간단한 활동 내용
+  activityType: string    // 활동유형
+  startDate: Date         // 활동시작일
+  endDate: Date           // 활동종료일
+  creditTime: number      // 인정시간. 분
+  usable: boolean
+  createdAt: Date
+  modifiedAt: Date
+}
+
+export type TypeOtherActivityFormData = {
+  activitySummary: string
+  activityType: string
+  startDate: string      // HTML input date는 string 타입으로 값을 다룹니다.
+  endDate: string        // HTML input date는 string 타입으로 값을 다룹니다.
+  creditTime: number
+  usable?: boolean
+}
+
+export const OTHER_ACTIVITY_TYPE_OPTIONS = [
+  '대외협력',
+  '기타 수련'
+]

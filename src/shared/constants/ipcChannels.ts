@@ -33,3 +33,19 @@ export const ACADEMIC_ACTIVITY_LOG_CHANNELS = {
   UPDATE: 'db:update-academicActivityLog',
   DELETE: 'db:delete-academicActivityLog'
 }
+
+// Research Log IPC channels
+export const RESEARCH_LOG_CHANNELS = {
+  GET: 'db:get-researchLog',
+  CREATE: 'db:create-researchLog',
+  UPDATE: 'db:update-researchLog',
+  DELETE: 'db:delete-researchLog'
+}
+
+// Other Activity Log IPC channels
+export const OTHER_ACTIVITY_LOG_CHANNELS = {
+  GET: 'db:get-otherActivityLog',
+  CREATE: 'db:create-otherActivityLog',
+  UPDATE: 'db:update-otherActivityLog',
+  DELETE: 'db:delete-otherActivityLog'
+}

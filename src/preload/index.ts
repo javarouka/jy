@@ -1,8 +1,29 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
-import { TypeAssessmentFormData, TypeIndividualTherapyFormData, TypeGroupTherapyFormData, TypeAcademicActivityFormData } from '@shared/types'
-import { ASSESSMENT_LOG_CHANNELS, INDIVIDUAL_THERAPY_LOG_CHANNELS, GROUP_THERAPY_LOG_CHANNELS, ACADEMIC_ACTIVITY_LOG_CHANNELS } from '@shared/constants/ipcChannels'
-import { AssessmentLogQueryParams, IndividualTherapyLogQueryParams, GroupTherapyLogQueryParams, AcademicActivityLogQueryParams } from '@shared/types/db'
+import {
+  TypeAssessmentFormData,
+  TypeIndividualTherapyFormData,
+  TypeGroupTherapyFormData,
+  TypeAcademicActivityFormData,
+  TypeResearchFormData,
+  TypeOtherActivityFormData
+} from '@shared/types'
+import {
+  ASSESSMENT_LOG_CHANNELS,
+  INDIVIDUAL_THERAPY_LOG_CHANNELS,
+  GROUP_THERAPY_LOG_CHANNELS,
+  ACADEMIC_ACTIVITY_LOG_CHANNELS,
+  RESEARCH_LOG_CHANNELS,
+  OTHER_ACTIVITY_LOG_CHANNELS
+} from '@shared/constants/ipcChannels'
+import {
+  AssessmentLogQueryParams,
+  IndividualTherapyLogQueryParams,
+  GroupTherapyLogQueryParams,
+  AcademicActivityLogQueryParams,
+  ResearchLogQueryParams,
+  OtherActivityLogQueryParams
+} from '@shared/types/db'
 import _log from './preloadLogger'
 
 export const api = {
@@ -43,6 +64,20 @@ export const db = {
   updateAcademicActivityLog: (id: number, form: TypeAcademicActivityFormData) =>
     ipcRenderer.invoke(ACADEMIC_ACTIVITY_LOG_CHANNELS.UPDATE, id, form),
   deleteAcademicActivityLog: (id: number) => ipcRenderer.invoke(ACADEMIC_ACTIVITY_LOG_CHANNELS.DELETE, id),
+
+  // Research Log API functions
+  getResearchLogs: (params?: ResearchLogQueryParams) => ipcRenderer.invoke(RESEARCH_LOG_CHANNELS.GET, params),
+  createResearchLog: (form: TypeResearchFormData) => ipcRenderer.invoke(RESEARCH_LOG_CHANNELS.CREATE, form),
+  updateResearchLog: (id: number, form: TypeResearchFormData) =>
+    ipcRenderer.invoke(RESEARCH_LOG_CHANNELS.UPDATE, id, form),
+  deleteResearchLog: (id: number) => ipcRenderer.invoke(RESEARCH_LOG_CHANNELS.DELETE, id),
+
+  // Other Activity Log API functions
+  getOtherActivityLogs: (params?: OtherActivityLogQueryParams) => ipcRenderer.invoke(OTHER_ACTIVITY_LOG_CHANNELS.GET, params),
+  createOtherActivityLog: (form: TypeOtherActivityFormData) => ipcRenderer.invoke(OTHER_ACTIVITY_LOG_CHANNELS.CREATE, form),
+  updateOtherActivityLog: (id: number, form: TypeOtherActivityFormData) =>
+    ipcRenderer.invoke(OTHER_ACTIVITY_LOG_CHANNELS.UPDATE, id, form),
+  deleteOtherActivityLog: (id: number) => ipcRenderer.invoke(OTHER_ACTIVITY_LOG_CHANNELS.DELETE, id),
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

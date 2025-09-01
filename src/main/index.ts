@@ -7,6 +7,8 @@ import { initAssessmentLogDB } from './assessment/initAssessmentLogDB'
 import { initIndividualTherapyLogDB } from './individual-therapy/initIndividualTherapyLogDB'
 import { initGroupTherapyLogDB } from './group-therapy/initGroupTherapyLogDB'
 import { initAcademicActivityLogDB } from './academic-activity/initAcademicActivityLogDB'
+import { initResearchLogDB } from './research/initResearchLogDB'
+import { initOtherActivityLogDB } from './other-activity/initOtherActivityLogDB'
 import log, { initPrisma } from './mainLogger'
 import { autoMigrate } from './prisma/autoMigrate'
 
@@ -38,6 +40,8 @@ initAssessmentLogDB(prisma)
 initIndividualTherapyLogDB(prisma)
 initGroupTherapyLogDB(prisma)
 initAcademicActivityLogDB(prisma)
+initResearchLogDB(prisma)
+initOtherActivityLogDB(prisma)
 
 function createWindow(): void {
   // Create the browser window.

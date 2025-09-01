@@ -118,3 +118,36 @@ export interface AcademicActivityLogQueryParams {
   rangeSearch?: AcademicActivityRangeParams
   dateRange?: DateRangeParams // For activityDate range search
 }
+
+// Extended search params for ResearchLog
+export interface ResearchLikeSearchParams {
+  pagerName?: string
+  journalName?: string
+}
+
+export interface ResearchLogQueryParams {
+  sort?: SortParams
+  search?: SearchParams
+  likeSearch?: ResearchLikeSearchParams
+  dateRange?: DateRangeParams // For publishDate range search
+}
+
+// Extended search params for OtherActivityLog
+export interface OtherActivityLikeSearchParams {
+  activitySummary?: string
+}
+
+export interface OtherActivityRangeParams {
+  creditTime?: {
+    min?: number
+    max?: number
+  }
+}
+
+export interface OtherActivityLogQueryParams {
+  sort?: SortParams
+  search?: SearchParams
+  likeSearch?: OtherActivityLikeSearchParams
+  rangeSearch?: OtherActivityRangeParams
+  dateRange?: DateRangeParams // For startDate and endDate range search
+}

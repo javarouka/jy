@@ -94,11 +94,11 @@ model ResearchLog {
 ///  * 기타활동 로그
 model OtherActivityLog {
   id              Int      @id @default(autoincrement())
-  activitySummary String /// *활동명, 간단한 활동 내용
-  activityType    String /// *활동유형. '대외협력', '기타 수련'
-  startDate       DateTime /// *활동시작일 (*)
-  endDate         DateTime /// *인정시간. 분
-  creditTime      Int
+  activitySummary String /// * 활동명, 간단한 활동 내용
+  activityType    String /// * 활동유형. '대외협력', '기타 수련'
+  startDate       DateTime /// * 활동시작일 (*)
+  endDate         DateTime /// * 인정시간. 분
+  creditTime      Int ///  * 인정시간. 분
   usable          Boolean  @default(false)
   createdAt       DateTime @default(now())
   modifiedAt      DateTime @updatedAt
