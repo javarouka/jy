@@ -14,6 +14,11 @@ export default function GrandTotal({ creditTime, isSuccess }: GrandTotalProps) {
     ? 'text-green-700 dark:text-green-300'
     : 'text-red-700 dark:text-red-300'
 
+  // Calculate the actual percentage
+  const actualPercentage = (creditTime / (3000 * 60)) * 100
+  const displayPercentage = actualPercentage.toFixed(1)
+  const exceeds100Percent = actualPercentage > 100
+
   return (
     <div className={`p-4 rounded-lg ${bgColorClass} mb-8`}>
       <div className="flex justify-between items-center mb-2">
@@ -21,6 +26,11 @@ export default function GrandTotal({ creditTime, isSuccess }: GrandTotalProps) {
           총 수련시간
           {isSuccess ? ' ✓' : ' ✗'}
         </h4>
+        {exceeds100Percent && (
+          <span className={`text-sm font-medium ${textColorClass}`}>
+            {displayPercentage}% 달성
+          </span>
+        )}
       </div>
       <div className="flex justify-between items-center">
         <div>
@@ -35,7 +45,7 @@ export default function GrandTotal({ creditTime, isSuccess }: GrandTotalProps) {
       <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mt-2">
         <div
           className={`h-2.5 rounded-full ${isSuccess ? 'bg-green-600' : 'bg-red-600'}`}
-          style={{ width: `${Math.min(100, (creditTime / (3000 * 60)) * 100)}%` }}
+          style={{ width: `${Math.min(100, actualPercentage)}%` }}
         ></div>
       </div>
     </div>

@@ -14,6 +14,7 @@ export type YearlyStatProps = {
     totalCreditTime: number
     success: boolean
     progressPercentage: number
+    actualProgressPercentage: number
   }[]
 }
 
@@ -32,9 +33,18 @@ export default function YearlyStatistics({ yearlyStats }: YearlyStatProps) {
             <div className="mb-4">
               <div className="flex justify-between items-center mb-1">
                 <span className="text-sm font-medium">목표시간: {convertMinuteToReader(year.targetHours * 60)} 분 ({year.targetHours} 시간)</span>
-                <span className={`text-sm font-medium ${year.success ? 'text-green-600' : 'text-red-600'}`}>
-                  진행률: {year.progressPercentage.toFixed(1)}%
-                </span>
+                <div className="flex items-center">
+                  <span className={`text-sm font-medium ${year.success ? 'text-green-600' : 'text-red-600'}`}>
+                    진행률: {year.actualProgressPercentage > 100
+                      ? `100%`
+                      : `${year.progressPercentage.toFixed(1)}%`}
+                  </span>
+                  {year.actualProgressPercentage > 100 && (
+                    <span className={`ml-2 text-sm font-medium ${year.success ? 'text-green-600' : 'text-red-600'}`}>
+                      ({year.actualProgressPercentage.toFixed(1)}% 달성)
+                    </span>
+                  )}
+                </div>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
                 <div
