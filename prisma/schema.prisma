@@ -65,13 +65,13 @@ model GroupTherapyLog {
 ///  * 학술활동
 model AcademicActivityLog {
   id           Int      @id @default(autoincrement())
-  act          String
-  activityName String
-  activityType String
-  activityDate DateTime
-  organization String
-  sessionName  String
-  creditTime   Int
+  act          String ///  * 참석 발표. follower | following
+  activityName String ///  * 회의명
+  activityType String ///  * 회의 유형. '학술회의', '사례회의', '윤리교육'
+  activityDate DateTime ///  * 활동일 (*)
+  organization String ///  * 주관기관. '수련기관', '학회', '지회/연구회'
+  sessionName  String ///  * 발표명
+  creditTime   Int ///  * 인정시간. 분
   usable       Boolean  @default(false)
   createdAt    DateTime @default(now())
   modifiedAt   DateTime @updatedAt
@@ -81,21 +81,23 @@ model AcademicActivityLog {
 ///  * 연구로그
 model ResearchLog {
   id              Int      @id @default(autoincrement())
-  publishDate     DateTime
-  pagerName       String
-  journalName     String
-  participateType String
+  publishDate     DateTime ///  * 발간일 (*)
+  pagerName       String ///  * 논문이름
+  journalName     String ///  * 학회지
+  participateType String ///  * 저자구분. 1저자, 공동저자
   usable          Boolean  @default(false)
   createdAt       DateTime @default(now())
   modifiedAt      DateTime @updatedAt
 }
 
+/// *
+///  * 기타활동 로그
 model OtherActivityLog {
   id              Int      @id @default(autoincrement())
-  activitySummary String
-  activityType    String
-  startDate       DateTime
-  endDate         DateTime
+  activitySummary String /// *활동명, 간단한 활동 내용
+  activityType    String /// *활동유형. '대외협력', '기타 수련'
+  startDate       DateTime /// *활동시작일 (*)
+  endDate         DateTime /// *인정시간. 분
   creditTime      Int
   usable          Boolean  @default(false)
   createdAt       DateTime @default(now())

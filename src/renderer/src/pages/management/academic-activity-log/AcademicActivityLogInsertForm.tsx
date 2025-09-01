@@ -1,8 +1,119 @@
+import useAcademicActivityLogMutation from '@renderer/pages/management/academic-activity-log/hook/useAcademicActivityLogMutation'
+
 function AcademicActivityLogInsertForm() {
+  const {
+    forms: {
+      formData,
+    },
+    handleSubmit,
+    handleChange,
+  } = useAcademicActivityLogMutation()
 
   return (
     <fieldset>
+      <div>
+        <form onSubmit={handleSubmit} className="m-2 p-2 border border-gray-200 rounded-lg shadow-md font-sans space-y-4">
+          <h3 className="text-left mb-4">학술활동 기록 입력</h3>
+          <div className="mb-2 text-sm">
+            <label htmlFor="act" className="block font-bold">참석 발표</label>
+            <input
+              type="text"
+              id="act"
+              name="act"
+              value={formData.act}
+              onChange={handleChange}
+              required
+              className="w-full p-1 border border-gray-300 rounded box-border text-base"
+            />
+          </div>
 
+          <div className="mb-2 text-sm">
+            <label htmlFor="activityName" className="block font-bold">회의명</label>
+            <input
+              type="text"
+              id="activityName"
+              name="activityName"
+              value={formData.activityName}
+              onChange={handleChange}
+              required
+              className="w-full p-1 border border-gray-300 rounded box-border text-base"
+            />
+          </div>
+
+          <div className="mb-2 text-sm">
+            <label htmlFor="activityType" className="block font-bold">회의 유형</label>
+            <input
+              type="text"
+              id="activityType"
+              name="activityType"
+              value={formData.activityType}
+              onChange={handleChange}
+              required
+              className="w-full p-1 border border-gray-300 rounded box-border text-base"
+            />
+          </div>
+
+          <div className="mb-2 text-sm">
+            <label htmlFor="organization" className="block font-bold">주관기관</label>
+            <input
+              type="text"
+              id="organization"
+              name="organization"
+              value={formData.organization}
+              onChange={handleChange}
+              required
+              className="w-full p-1 border border-gray-300 rounded box-border text-base"
+            />
+          </div>
+
+          <div className="mb-2 text-sm">
+            <label htmlFor="sessionName" className="block font-bold">발표명</label>
+            <input
+              type="text"
+              id="sessionName"
+              name="sessionName"
+              value={formData.sessionName}
+              onChange={handleChange}
+              required
+              className="w-full p-1 border border-gray-300 rounded box-border text-base"
+            />
+          </div>
+
+          <div className="flex gap-4">
+            <div className="flex-1 mb-2 text-sm">
+              <label htmlFor="creditTime" className="block font-bold">인정시간 (분)</label>
+              <input
+                type="number"
+                id="creditTime"
+                name="creditTime"
+                value={formData.creditTime}
+                onChange={handleChange}
+                required
+                className="w-full p-1 border border-gray-300 rounded box-border text-base"
+              />
+            </div>
+          </div>
+
+          <div className="mb-2 text-sm">
+            <label htmlFor="activityDate" className="block font-bold">활동일</label>
+            <input
+              type="date"
+              id="activityDate"
+              name="activityDate"
+              value={formData.activityDate}
+              onChange={handleChange}
+              required
+              className="w-full p-1 border border-gray-300 rounded box-border text-base"
+            />
+          </div>
+
+          <button
+            className="w-full py-2 px-4 rounded bg-blue-600 text-sm font-bold text-white transition-colors duration-200 hover:bg-blue-700 cursor-pointer"
+          >
+            저장
+          </button>
+        </form>
+      </div>
     </fieldset>
   )
 }
