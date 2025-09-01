@@ -118,10 +118,19 @@ export type TypeAcademicActivityFormData = {
   usable?: boolean
 }
 
+export const ACT_OPTIONS = [
+  'follower',
+  'following'
+]
+
 export const ACTIVITY_TYPE_OPTIONS = [
-  '학술대회',
-  '워크샵',
-  '세미나',
-  '강의',
-  '기타'
+  '학술회의',
+  '사례회의',
+  '윤리교육'
+]
+
+export const ORGANIZATION_OPTIONS = [
+  '수련기관',
+  '학회',
+  '지회/연구회'
 ]

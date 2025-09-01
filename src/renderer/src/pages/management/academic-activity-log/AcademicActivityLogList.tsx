@@ -4,6 +4,7 @@ import useAcademicActivityLogSearch
   from '@renderer/pages/management/academic-activity-log/hook/useAcademicActivityLogSearch'
 import AcademicActivityLogCard from '@renderer/pages/management/academic-activity-log/AcademicActivityLogCard'
 import EditAcademicActivityLogModal from '@renderer/pages/management/academic-activity-log/EditAcademicActivityLogModal'
+import { ACT_OPTIONS, ACTIVITY_TYPE_OPTIONS, ORGANIZATION_OPTIONS } from '@shared/types'
 
 const AcademicActivityLogList = () => {
 
@@ -121,27 +122,27 @@ const AcademicActivityLogList = () => {
         {/* 기본 검색 필드 */}
         <div className="flex flex-wrap items-end gap-4 w-full">
           <div className="form-group text-sm flex-1">
-            <label htmlFor="search-act">참석 발표</label>
+            <label htmlFor="search-activityName">회의명 (부분 검색)</label>
             <input
               type="text"
-              id="search-act"
-              name="act"
-              value={searchFormData.act}
+              id="search-activityName"
+              name="activityName"
+              value={searchFormData.activityName}
               onChange={handleSearchChange}
-              placeholder="구분 검색"
+              placeholder="회의명 검색"
               className="w-full"
             />
           </div>
 
           <div className="form-group text-sm flex-1">
-            <label htmlFor="search-activityType">회의 유형</label>
+            <label htmlFor="search-sessionName">발표명 (부분 검색)</label>
             <input
               type="text"
-              id="search-activityType"
-              name="activityType"
-              value={searchFormData.activityType}
+              id="search-sessionName"
+              name="sessionName"
+              value={searchFormData.sessionName}
               onChange={handleSearchChange}
-              placeholder="활동 유형 검색"
+              placeholder="발표명 검색"
               className="w-full"
             />
           </div>
@@ -162,46 +163,64 @@ const AcademicActivityLogList = () => {
         {/* 상세 검색 영역 - 조건부 렌더링 */}
         {isDetailedSearchExpanded && (
           <div className="mt-4">
-            {/* 활동명 검색 (like 검색) */}
-            <div className="form-group text-sm mt-4">
-              <label htmlFor="search-activityName">회의명 (부분 검색)</label>
-              <input
-                type="text"
-                id="search-activityName"
-                name="activityName"
-                value={searchFormData.activityName}
-                onChange={handleSearchChange}
-                placeholder="활동명 검색"
-                className="w-full"
-              />
-            </div>
+            {/* 참석 발표 */}
+            <div className="form-group flex text-sm mt-4">
 
-            {/* 세션명 검색 (like 검색) */}
-            <div className="form-group text-sm mt-4">
-              <label htmlFor="search-sessionName">발표명 (부분 검색)</label>
-              <input
-                type="text"
-                id="search-sessionName"
-                name="sessionName"
-                value={searchFormData.sessionName}
-                onChange={handleSearchChange}
-                placeholder="세션명 검색"
-                className="w-full"
-              />
-            </div>
+              <div className="text-sm flex-1 mr-4">
+                <label htmlFor="search-act">참석 발표</label>
+                <select
+                  id="search-act"
+                  name="act"
+                  value={searchFormData.act}
+                  onChange={handleSearchChange}
+                  className="w-full"
+                >
+                  <option value="">전체</option>
+                  {ACT_OPTIONS.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-            {/* 기관 검색 */}
-            <div className="form-group text-sm mt-4">
-              <label htmlFor="search-organization">주관기관</label>
-              <input
-                type="text"
-                id="search-organization"
-                name="organization"
-                value={searchFormData.organization}
-                onChange={handleSearchChange}
-                placeholder="기관 검색"
-                className="w-full"
-              />
+              {/* 회의 유형 */}
+              <div className="text-sm flex-1 mr-4">
+                <label htmlFor="search-activityType">회의 유형</label>
+                <select
+                  id="search-activityType"
+                  name="activityType"
+                  value={searchFormData.activityType}
+                  onChange={handleSearchChange}
+                  className="w-full"
+                >
+                  <option value="">전체</option>
+                  {ACTIVITY_TYPE_OPTIONS.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* 주관기관 */}
+              <div className="text-sm flex-1">
+                <label htmlFor="search-organization">주관기관</label>
+                <select
+                  id="search-organization"
+                  name="organization"
+                  value={searchFormData.organization}
+                  onChange={handleSearchChange}
+                  className="w-full"
+                >
+                  <option value="">전체</option>
+                  {ORGANIZATION_OPTIONS.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
 
             {/* 인정 시간 범위 검색 */}

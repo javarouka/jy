@@ -1,6 +1,9 @@
 import { type AcademicActivityLog } from '@prisma/client'
 import {
   TypeAcademicActivityFormData,
+  ACT_OPTIONS,
+  ACTIVITY_TYPE_OPTIONS,
+  ORGANIZATION_OPTIONS
 } from '@shared/types'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 
@@ -75,15 +78,21 @@ const EditAcademicActivityLogModal = ({ isOpen, onClose, log, onSave }: Props) =
         <form onSubmit={handleSubmit} className="my-2 space-y-4">
           <div className="text-sm">
             <label htmlFor="edit-act" className="font-bold">참석 발표</label>
-            <input
-              type="text"
+            <select
               id="edit-act"
               name="act"
               value={formData.act}
               onChange={handleChange}
               required
               className="w-full p-1 border border-gray-300 rounded-md text-base"
-            />
+            >
+              <option value="">선택하세요</option>
+              {ACT_OPTIONS.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="text-sm">
@@ -115,15 +124,21 @@ const EditAcademicActivityLogModal = ({ isOpen, onClose, log, onSave }: Props) =
           <div className="flex gap-4">
             <div className="text-sm flex-1">
               <label htmlFor="edit-activityType" className="font-bold">회의 유형</label>
-              <input
-                type="text"
+              <select
                 id="edit-activityType"
                 name="activityType"
                 value={formData.activityType}
                 onChange={handleChange}
                 required
                 className="w-full p-1 border border-gray-300 rounded-md text-base"
-              />
+              >
+                <option value="">선택하세요</option>
+                {ACTIVITY_TYPE_OPTIONS.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div className="text-sm flex-1">
@@ -142,15 +157,21 @@ const EditAcademicActivityLogModal = ({ isOpen, onClose, log, onSave }: Props) =
 
           <div className="text-sm">
             <label htmlFor="edit-organization" className="font-bold">주관기관</label>
-            <input
-              type="text"
+            <select
               id="edit-organization"
               name="organization"
               value={formData.organization}
               onChange={handleChange}
               required
               className="w-full p-1 border border-gray-300 rounded-md text-base"
-            />
+            >
+              <option value="">선택하세요</option>
+              {ORGANIZATION_OPTIONS.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="text-sm">

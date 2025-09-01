@@ -30,10 +30,10 @@ const AcademicActivityLogCard = (props: Props) => {
   return (
     <div className="flex flex-col justify-between p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md transition-transform hover:scale-105">
       <div>
-        <div className="flex items-center justify-between mb-4">
+        <div className="w-full items-center justify-between mb-4">
           <h3 className="text-xl font-bold text-gray-900 dark:text-white">
             <div>{log.activityName} / {log.sessionName}</div>
-            <small>{log.organization}</small>
+            <small className="text-sm block text-right">{log.organization}</small>
           </h3>
         </div>
         <div className="space-y-2 text-sm text-gray-600 dark:text-gray-300">

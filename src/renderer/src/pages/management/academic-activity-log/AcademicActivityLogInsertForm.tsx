@@ -1,4 +1,5 @@
 import useAcademicActivityLogMutation from '@renderer/pages/management/academic-activity-log/hook/useAcademicActivityLogMutation'
+import { ACT_OPTIONS, ACTIVITY_TYPE_OPTIONS, ORGANIZATION_OPTIONS } from '@shared/types'
 
 function AcademicActivityLogInsertForm() {
   const {
@@ -14,13 +15,14 @@ function AcademicActivityLogInsertForm() {
       <div>
         <form onSubmit={handleSubmit} className="m-2 p-2 border border-gray-200 rounded-lg shadow-md font-sans space-y-4">
           <h3 className="text-left mb-4">학술활동 기록 입력</h3>
+
           <div className="mb-2 text-sm">
-            <label htmlFor="act" className="block font-bold">참석 발표</label>
+            <label htmlFor="sessionName" className="block font-bold">발표명</label>
             <input
               type="text"
-              id="act"
-              name="act"
-              value={formData.act}
+              id="sessionName"
+              name="sessionName"
+              value={formData.sessionName}
               onChange={handleChange}
               required
               className="w-full p-1 border border-gray-300 rounded box-border text-base"
@@ -41,42 +43,60 @@ function AcademicActivityLogInsertForm() {
           </div>
 
           <div className="mb-2 text-sm">
+            <label htmlFor="act" className="block font-bold">참석 발표</label>
+            <select
+              id="act"
+              name="act"
+              value={formData.act}
+              onChange={handleChange}
+              required
+              className="w-full p-1 border border-gray-300 rounded box-border text-base"
+            >
+              <option value="">선택하세요</option>
+              {ACT_OPTIONS.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="mb-2 text-sm">
             <label htmlFor="activityType" className="block font-bold">회의 유형</label>
-            <input
-              type="text"
+            <select
               id="activityType"
               name="activityType"
               value={formData.activityType}
               onChange={handleChange}
               required
               className="w-full p-1 border border-gray-300 rounded box-border text-base"
-            />
+            >
+              <option value="">선택하세요</option>
+              {ACTIVITY_TYPE_OPTIONS.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="mb-2 text-sm">
             <label htmlFor="organization" className="block font-bold">주관기관</label>
-            <input
-              type="text"
+            <select
               id="organization"
               name="organization"
               value={formData.organization}
               onChange={handleChange}
               required
               className="w-full p-1 border border-gray-300 rounded box-border text-base"
-            />
-          </div>
-
-          <div className="mb-2 text-sm">
-            <label htmlFor="sessionName" className="block font-bold">발표명</label>
-            <input
-              type="text"
-              id="sessionName"
-              name="sessionName"
-              value={formData.sessionName}
-              onChange={handleChange}
-              required
-              className="w-full p-1 border border-gray-300 rounded box-border text-base"
-            />
+            >
+              <option value="">선택하세요</option>
+              {ORGANIZATION_OPTIONS.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="flex gap-4">

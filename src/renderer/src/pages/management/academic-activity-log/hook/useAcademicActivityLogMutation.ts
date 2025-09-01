@@ -1,22 +1,29 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { QueryClient, useMutation, useQueryClient } from '@tanstack/react-query'
-import { TypeAcademicActivityFormData } from '@shared/types'
+import { TypeAcademicActivityFormData, ACT_OPTIONS, ACTIVITY_TYPE_OPTIONS, ORGANIZATION_OPTIONS } from '@shared/types'
 
 export default function useAcademicActivityLogMutation(_queryClient?: QueryClient) {
   const queryClient = _queryClient || useQueryClient()
   const [formData, setFormData] = useState<TypeAcademicActivityFormData>({
-    act: '',
+    act: ACT_OPTIONS[0],
     activityName: '',
-    activityType: '',
+    activityType: ACTIVITY_TYPE_OPTIONS[0],
     activityDate: '',
-    organization: '',
+    organization: ORGANIZATION_OPTIONS[0],
     sessionName: '',
     creditTime: 0,
     usable: true
   });
 
   const isValidateForm = (formData: TypeAcademicActivityFormData): boolean => {
-    return !!formData.activityName && !!formData.activityDate
+    return (
+      !!formData.act &&
+      !!formData.activityName &&
+      !!formData.activityType &&
+      !!formData.activityDate &&
+      !!formData.organization &&
+      !!formData.sessionName
+    )
   }
 
   const createAcademicActivityLogMutation = useMutation({
@@ -33,11 +40,11 @@ export default function useAcademicActivityLogMutation(_queryClient?: QueryClien
 
     // Reset form after submission
     setFormData({
-      act: '',
+      act: ACT_OPTIONS[0],
       activityName: '',
-      activityType: '',
+      activityType: ACTIVITY_TYPE_OPTIONS[0],
       activityDate: '',
-      organization: '',
+      organization: ORGANIZATION_OPTIONS[0],
       sessionName: '',
       creditTime: 0,
       usable: true
