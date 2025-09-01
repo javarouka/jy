@@ -1,17 +1,12 @@
-import { ResponsiveContainer } from 'recharts'
 import SubTitle from '@renderer/component/basic/SubTitle'
+import AssessmentLogChartOverview from '@renderer/pages/overview/assessment-log/AssessmentLogChartOverview'
 
 const ChartOverview = () => {
   return (
-    <ResponsiveContainer width="100%" height={400}>
-      <div>
-        <SubTitle>기간별 차트</SubTitle>
-        <div>
-          <h3>심리평가 기간별 인정시간</h3>
-          <div></div>
-        </div>
-      </div>
-    </ResponsiveContainer>
+    <div className="w-full space-y-4">
+      <SubTitle>기간별 차트</SubTitle>
+      <AssessmentLogChartOverview />
+    </div>
   );
 };
 
