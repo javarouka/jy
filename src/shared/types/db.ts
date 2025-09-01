@@ -125,10 +125,18 @@ export interface ResearchLikeSearchParams {
   journalName?: string
 }
 
+export interface ResearchRangeParams {
+  creditTime?: {
+    min?: number
+    max?: number
+  }
+}
+
 export interface ResearchLogQueryParams {
   sort?: SortParams
   search?: SearchParams
   likeSearch?: ResearchLikeSearchParams
+  rangeSearch?: ResearchRangeParams
   dateRange?: DateRangeParams // For publishDate range search
 }
 

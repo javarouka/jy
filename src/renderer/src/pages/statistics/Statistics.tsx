@@ -1,6 +1,13 @@
+import MainTitle from '@renderer/component/basic/MainTitle'
+
 function Statistics() {
   return (
-    <div>통계</div>
+    <div className="w-full flex flex-col p-4">
+      <MainTitle>통계</MainTitle>
+      <div className="flex">
+
+      </div>
+    </div>
   )
 }
 

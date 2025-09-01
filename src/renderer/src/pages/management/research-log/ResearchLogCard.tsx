@@ -47,10 +47,8 @@ const ResearchLogCard = ({ log, onDelete, onEdit }: ResearchLogCardProps) => {
       <div className="text-sm text-gray-600 mb-2">
         <p><span className="font-medium">학회지:</span> {log.journalName}</p>
         <p><span className="font-medium">저자구분:</span> {log.participateType}</p>
-      </div>
-
-      <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-        <p className="text-right text-sm font-medium text-indigo-600 dark:text-indigo-400"><span>발간일:</span> {format(new Date(log.publishDate), 'yyyy-MM-dd')}</p>
+        <p><span className="font-medium">발간일:</span> {format(new Date(log.publishDate), 'yyyy-MM-dd')}</p>
+        <p><span className="font-medium">인정시간:</span> {log.creditTime}분</p>
       </div>
 
     </div>

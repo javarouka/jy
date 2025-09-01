@@ -85,6 +85,7 @@ model ResearchLog {
   pagerName       String ///  * 논문이름
   journalName     String ///  * 학회지
   participateType String ///  * 저자구분. 1저자, 공동저자
+  creditTime      Int    ///  * 인정시간. 분
   usable          Boolean  @default(false)
   createdAt       DateTime @default(now())
   modifiedAt      DateTime @updatedAt

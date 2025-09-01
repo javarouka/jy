@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { format } from 'date-fns';
 
 export function useTime() {
     const [currentDate, setCurrentDate] = useState('');
@@ -7,11 +8,11 @@ export function useTime() {
     useEffect(() => {
         const timerId = setInterval(() => {
             const now = new Date();
-            setCurrentTime(now.toLocaleTimeString());
+            setCurrentTime(format(now, 'HH:mm:ss'));
         }, 1000);
 
         const now = new Date();
-        setCurrentDate(now.toLocaleDateString());
+        setCurrentDate(format(now, 'yyyy-MM-dd'));
 
         return () => clearInterval(timerId);
     }, []);

@@ -1,6 +1,6 @@
 import { format } from 'date-fns'
 import type { OtherActivityLog } from '@prisma/client'
-import { formatTime } from '@renderer/helpers/Times'
+import { convertMinuteToReader } from '@renderer/helpers/Times'
 
 interface OtherActivityLogCardProps {
   log: OtherActivityLog
@@ -53,7 +53,7 @@ const OtherActivityLogCard = ({ log, onDelete, onEdit }: OtherActivityLogCardPro
 
       <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
         <p className="text-sm font-medium text-indigo-600 dark:text-indigo-400">
-          인정시간: {formatTime(log.creditTime)}
+          인정시간: {convertMinuteToReader(log.creditTime)}
         </p>
       </div>
 

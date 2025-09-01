@@ -1,5 +1,6 @@
 import { AssessmentLog } from '@prisma/client'
-import { formatTime } from '@renderer/helpers/Times'
+import { convertMinuteToReader } from '@renderer/helpers/Times'
+import { format } from 'date-fns'
 
 type Props = {
   log: AssessmentLog
@@ -9,8 +10,8 @@ type Props = {
 
 const AssessmentLogCard = (props: Props) => {
   const { log, onEdit, onDelete } = props;
-  // 날짜 포맷팅 (실제 프로젝트에서는 date-fns, moment 등을 사용하는 것을 권장합니다)
-  const formattedResearchDate = new Date(log.researchDate).toLocaleDateString('ko-KR');
+  // 날짜 포맷팅 (date-fns 사용)
+  const formattedResearchDate = format(new Date(log.researchDate), 'yyyy-MM-dd');
 
   return (
     <div className="flex flex-col justify-between p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md transition-transform hover:scale-105">
@@ -59,7 +60,7 @@ const AssessmentLogCard = (props: Props) => {
       <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
         <p className="text-sm font-medium text-indigo-600 dark:text-indigo-400">
           {/* --- 변경: 시간 포맷팅 함수 적용 --- */}
-          인정 시간: {formatTime(log.creditTime)}
+          인정 시간: {convertMinuteToReader(log.creditTime)}
         </p>
       </div>
     </div>

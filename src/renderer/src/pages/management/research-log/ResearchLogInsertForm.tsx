@@ -74,6 +74,20 @@ function ResearchLogInsertForm() {
             />
           </div>
 
+          <div className="mb-2 text-sm">
+            <label htmlFor="creditTime" className="block font-bold">인정시간 (분)</label>
+            <input
+              type="number"
+              id="creditTime"
+              name="creditTime"
+              value={formData.creditTime}
+              onChange={handleChange}
+              required
+              min="1"
+              className="w-full p-1 border border-gray-300 rounded box-border text-base"
+            />
+          </div>
+
           <button
             className="w-full py-2 px-4 rounded bg-blue-600 text-sm font-bold text-white transition-colors duration-200 hover:bg-blue-700 cursor-pointer"
           >

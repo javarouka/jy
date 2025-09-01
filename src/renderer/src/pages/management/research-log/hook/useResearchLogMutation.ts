@@ -9,6 +9,7 @@ export default function useResearchLogMutation(_queryClient?: QueryClient) {
     pagerName: '',
     journalName: '',
     participateType: PARTICIPATE_TYPE_OPTIONS[0],
+    creditTime: 0,
     usable: true
   });
 
@@ -39,6 +40,7 @@ export default function useResearchLogMutation(_queryClient?: QueryClient) {
       pagerName: '',
       journalName: '',
       participateType: PARTICIPATE_TYPE_OPTIONS[0],
+      creditTime: 0,
       usable: true
     });
   };

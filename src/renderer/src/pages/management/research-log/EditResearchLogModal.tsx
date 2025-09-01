@@ -16,6 +16,7 @@ const EditResearchLogModal = ({ isOpen, onClose, log, onSave }: EditResearchLogM
     pagerName: '',
     journalName: '',
     participateType: PARTICIPATE_TYPE_OPTIONS[0],
+    creditTime: 0,
     usable: true
   })
 
@@ -27,6 +28,7 @@ const EditResearchLogModal = ({ isOpen, onClose, log, onSave }: EditResearchLogM
         pagerName: log.pagerName,
         journalName: log.journalName,
         participateType: log.participateType,
+        creditTime: log.creditTime,
         usable: log.usable
       })
     }
@@ -109,6 +111,20 @@ const EditResearchLogModal = ({ isOpen, onClose, log, onSave }: EditResearchLogM
               value={formData.publishDate}
               onChange={handleChange}
               required
+              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="creditTime" className="block text-sm font-medium text-gray-700">인정시간 (분)</label>
+            <input
+              type="number"
+              id="creditTime"
+              name="creditTime"
+              value={formData.creditTime}
+              onChange={handleChange}
+              required
+              min="1"
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
             />
           </div>

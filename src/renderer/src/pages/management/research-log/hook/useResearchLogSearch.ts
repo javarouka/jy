@@ -2,6 +2,7 @@ import { QueryClient, useMutation, useQuery, useQueryClient } from '@tanstack/re
 import {
   ResearchLikeSearchParams,
   ResearchLogQueryParams,
+  ResearchRangeParams,
   DateRangeParams,
   SearchParams,
   SortOrder
@@ -16,6 +17,8 @@ type ResearchLogSearchFormData = {
   participateType: string
   publishDateStart: string
   publishDateEnd: string
+  creditTimeMin: string
+  creditTimeMax: string
 }
 
 // Initial state for search form
@@ -24,7 +27,9 @@ const initialSearchFormData: ResearchLogSearchFormData = {
   journalName: '',
   participateType: '',
   publishDateStart: '',
-  publishDateEnd: ''
+  publishDateEnd: '',
+  creditTimeMin: '',
+  creditTimeMax: ''
 }
 
 export default function useResearchLogSearch(_queryClient?: QueryClient) {
@@ -75,12 +80,32 @@ export default function useResearchLogSearch(_queryClient?: QueryClient) {
     return Object.keys(params).length > 0 ? params : undefined
   }
 
+  // Helper function to build range search parameters for creditTime
+  const buildRangeSearchParams = (): ResearchRangeParams | undefined => {
+    if (searchFormData.creditTimeMin || searchFormData.creditTimeMax) {
+      const creditTimeRange: { min?: number; max?: number } = {}
+
+      if (searchFormData.creditTimeMin) {
+        creditTimeRange.min = parseInt(searchFormData.creditTimeMin, 10)
+      }
+
+      if (searchFormData.creditTimeMax) {
+        creditTimeRange.max = parseInt(searchFormData.creditTimeMax, 10)
+      }
+
+      return { creditTime: creditTimeRange }
+    }
+
+    return undefined
+  }
+
   // Apply search filters and update query parameters
   const applySearch = () => {
     const newParams: ResearchLogQueryParams = {
       likeSearch: buildLikeSearchParams(),
       search: buildExactSearchParams(),
-      dateRange: buildDateRangeParams()
+      dateRange: buildDateRangeParams(),
+      rangeSearch: buildRangeSearchParams()
     }
 
     // Preserve sort parameter if it exists

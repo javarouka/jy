@@ -1,5 +1,6 @@
 import { AcademicActivityLog } from '@prisma/client'
-import { formatTime } from '@renderer/helpers/Times'
+import { convertMinuteToReader } from '@renderer/helpers/Times'
+import { format } from 'date-fns'
 
 type Props = {
   log: AcademicActivityLog
@@ -9,7 +10,7 @@ type Props = {
 
 const AcademicActivityLogCard = (props: Props) => {
   const { log, onEdit, onDelete } = props;
-  const formattedActivityDateDate = new Date(log.activityDate).toLocaleDateString('ko-KR');
+  const formattedActivityDateDate = format(new Date(log.activityDate), 'yyyy-MM-dd');
 
   return (
     <div className="flex flex-col justify-between p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md transition-transform hover:scale-105">
@@ -60,7 +61,7 @@ const AcademicActivityLogCard = (props: Props) => {
       <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
         <div className="space-y-1">
           <p className="text-sm font-medium text-indigo-600 dark:text-indigo-400">
-            인정시간: {formatTime(log.creditTime)}
+            인정시간: {convertMinuteToReader(log.creditTime)}
           </p>
         </div>
       </div>

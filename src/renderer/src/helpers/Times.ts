@@ -1,4 +1,4 @@
-export const formatTime = (minutes: number): string => {
+export const convertMinuteToReader = (minutes: number): string => {
   if (!minutes || minutes <= 0) {
     return '0분';
   }

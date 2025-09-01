@@ -62,6 +62,23 @@ export function initResearchLogDB(prisma: PrismaClient) {
       }
     }
 
+    // Apply credit time range search if provided
+    if (params?.rangeSearch?.creditTime) {
+      const { min, max } = params.rangeSearch.creditTime
+
+      if (min !== undefined || max !== undefined) {
+        queryOptions.where.creditTime = {}
+
+        if (min !== undefined) {
+          queryOptions.where.creditTime.gte = min
+        }
+
+        if (max !== undefined) {
+          queryOptions.where.creditTime.lte = max
+        }
+      }
+    }
+
     return prisma.researchLog.findMany(queryOptions)
   })
 

@@ -1,8 +1,12 @@
-export const TRAINING_YEARS = {
-  1: { name: '1년차', period: '수련 1년차', target: 1000, status: 'not_started', actualHours: 0 },
-  2: { name: '2년차', period: '수련 2년차', target: 1000, status: 'not_started', actualHours: 0 },
-  3: { name: '3년차', period: '수련 3년차', target: 1000, status: 'not_started', actualHours: 0 },
-  0: { name: '전체', period: '전체 3년 과정', target: 3000, status: 'not_started', actualHours: 0 }
+type TypeTrainingYear = {
+  name: string
+  startDate: string
+  endDate: string
+  targetHours: number
 }
 
-export type TypeTrainingYear = number
+export const TRAINING_YEARS: TypeTrainingYear[] = [
+  { name: '1년차', startDate: '2023-01-01', endDate: '2023-12-31', targetHours: 1000 },
+  { name: '2년차', startDate: '2024-01-01', endDate: '2024-12-31', targetHours: 1000 },
+  { name: '3년차', startDate: '2025-01-01', endDate: '2025-12-31', targetHours: 1000 },
+]

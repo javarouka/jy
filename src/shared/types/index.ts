@@ -151,6 +151,7 @@ export type TypeResearchFormData = {
   pagerName: string
   journalName: string
   participateType: string
+  creditTime: number
   usable?: boolean
 }
 

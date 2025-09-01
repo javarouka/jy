@@ -170,6 +170,35 @@ const ResearchLogList = () => {
                 />
               </div>
             </div>
+
+            {/* 인정 시간 범위 검색 */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              <div className="form-group text-sm">
+                <label htmlFor="search-creditTimeMin">인정시간 (최소, 분)</label>
+                <input
+                  type="number"
+                  id="search-creditTimeMin"
+                  name="creditTimeMin"
+                  value={searchFormData.creditTimeMin}
+                  onChange={handleSearchChange}
+                  placeholder="최소 인정 시간"
+                  className="w-full"
+                />
+              </div>
+
+              <div className="form-group text-sm">
+                <label htmlFor="search-creditTimeMax">인정시간 (최대, 분)</label>
+                <input
+                  type="number"
+                  id="search-creditTimeMax"
+                  name="creditTimeMax"
+                  value={searchFormData.creditTimeMax}
+                  onChange={handleSearchChange}
+                  placeholder="최대 인정 시간"
+                  className="w-full"
+                />
+              </div>
+            </div>
           </div>
         )}
 
