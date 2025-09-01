@@ -16,9 +16,7 @@ const tabData: { title: string; content: ReactNode }[] = [
 
 function Statistics() {
   return (
-    <div className="w-full flex flex-col">
-      <Tabs tabData={tabData} />
-    </div>
+    <Tabs tabData={tabData} />
   )
 }
 

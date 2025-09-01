@@ -1,8 +1,8 @@
-import Overview from '@renderer/pages/overview/Overview'
+import Statistics from '@renderer/pages/statistics/Statistics'
 
 function Home() {
   return (
-    <Overview />
+    <Statistics />
   )
 }
 

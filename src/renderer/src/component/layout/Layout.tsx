@@ -10,7 +10,7 @@ const Layout: React.FC = () => {
       <main className="main-outlet">
         <Outlet />
       </main>
-      <footer className="p-2 text-right">
+      <footer className="p-2 text-right border-t-1 border-t-gray-300">
         <p>Copyright co Ltd.</p>
       </footer>
     </div>
