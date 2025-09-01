@@ -45,10 +45,12 @@ const OtherActivityLogCard = ({ log, onDelete, onEdit }: OtherActivityLogCardPro
         </div>
       </div>
 
-      <div className="text-sm text-gray-600 mb-2">
-        <p><span className="font-medium">활동유형:</span> {log.activityType}</p>
-        <p><span className="font-medium">활동기간:</span> {format(new Date(log.startDate), 'yyyy-MM-dd')} ~ {format(new Date(log.endDate), 'yyyy-MM-dd')}</p>
-        <p><span className="font-medium">인정시간:</span> {log.creditTime}분</p>
+      <div className="text-sm text-gray-600 mb-2 space-y-2">
+        <p><strong className="font-semibold text-gray-800 dark:text-gray-100">활동유형:</strong> {log.activityType}</p>
+        <p>
+          <strong className="font-semibold text-gray-800 dark:text-gray-100">활동기간</strong>
+          <p>{format(new Date(log.startDate), 'yyyy-MM-dd')} ~ {format(new Date(log.endDate), 'yyyy-MM-dd')}</p>
+        </p>
       </div>
 
       <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">

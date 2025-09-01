@@ -1,5 +1,6 @@
 import { format } from 'date-fns'
 import type { ResearchLog } from '@prisma/client'
+import { convertMinuteToReader } from '@renderer/helpers/Times'
 
 interface ResearchLogCardProps {
   log: ResearchLog
@@ -44,11 +45,16 @@ const ResearchLogCard = ({ log, onDelete, onEdit }: ResearchLogCardProps) => {
         </div>
       </div>
 
-      <div className="text-sm text-gray-600 mb-2">
-        <p><span className="font-medium">학회지:</span> {log.journalName}</p>
-        <p><span className="font-medium">저자구분:</span> {log.participateType}</p>
-        <p><span className="font-medium">발간일:</span> {format(new Date(log.publishDate), 'yyyy-MM-dd')}</p>
-        <p><span className="font-medium">인정시간:</span> {log.creditTime}분</p>
+      <div className="text-sm text-gray-600 mb-2 space-y-2">
+        <p><strong className="font-semibold text-gray-800 dark:text-gray-100">학회지:</strong> {log.journalName}</p>
+        <p><strong className="font-semibold text-gray-800 dark:text-gray-100">저자구분:</strong> {log.participateType}</p>
+        <p><strong className="font-semibold text-gray-800 dark:text-gray-100">발간일:</strong> {format(new Date(log.publishDate), 'yyyy-MM-dd')}</p>
+      </div>
+
+      <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+        <p className="text-sm font-medium text-indigo-600 dark:text-indigo-400">
+          인정시간: {convertMinuteToReader(log.creditTime)}
+        </p>
       </div>
 
     </div>
