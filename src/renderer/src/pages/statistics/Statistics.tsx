@@ -1,12 +1,23 @@
-import MainTitle from '@renderer/component/basic/MainTitle'
+import { ReactNode } from 'react'
+import Tabs from '@renderer/component/layout/Tabs'
+import ByYearStatistics from '@renderer/pages/statistics/by-years/ByYearStatistics'
+import TotalStatistics from '@renderer/pages/statistics/total/TotalStatistics'
+
+const tabData: { title: string; content: ReactNode }[] = [
+  {
+    title: '종합 통계',
+    content: <TotalStatistics />,
+  },
+  {
+    title: '연차별 통계',
+    content: <ByYearStatistics />,
+  }
+];
 
 function Statistics() {
   return (
-    <div className="w-full flex flex-col p-4">
-      <MainTitle>통계</MainTitle>
-      <div className="flex">
-
-      </div>
+    <div className="w-full flex flex-col">
+      <Tabs tabData={tabData} />
     </div>
   )
 }

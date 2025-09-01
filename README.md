@@ -1,5 +1,89 @@
 # 지윤 앱 프로젝트 가이드라인
 
+## 통계 목표치
+
+### 기준
+```md
+🌳 임상심리전문가 수련요건 (총 3,000시간 / 3년)
+│
+├── 🧠 *심리평가 총 시간* (필수: 300시간 이상)
+│   ├── 📊 종합심리평가 (필수: 30례 이상)
+│   └── 🧠 신경심리평가 (선택: 최대 50% 인정)
+│
+├── 💚 심리치료 (필수: 300시간 이상)
+│   ├── ⏳ 주치료자 시간 (필수: 100시간 이상)
+│   └── 👥 주치료자 사례 (필수: 10례 이상)
+│
+├── 🎓 학술활동 참석
+│   ├── 🗣️ 학술회의 참석 (필수: 30시간 이상)
+│   ├── 👨‍🏫 사례회의 참석 (필수: 10시간 이상)
+│   └── 📜 윤리교육 참석 (필수: 1회 이상)
+│
+├── 📝 연구/발표
+│   ├── ✒️ 연구논문 (필수: 제1저자 1편, A급 학술지)
+│   └── 🎤 사례발표 (필수: 2회)
+│       ├── 📄 학회/지회/연구회 사례발표 2회
+│       └── 📄 학회/지회/연구회 사례발표 1회 + 논문발표(포스터/구연) 1회
+│
+├─── 🤝 대외협력 지원 사업 (필수: 30시간 이상)
+│
+└─── ✨ 기타 수련 활동 (선택)
+
+
+🌳 연차별 기간
+│
+├── 1년차: 2023.3.1 ~ 2024.2.29
+├── 2년차: 2024.3.1 ~ 2025.2.28
+└── 3년차: 2025.3.1 ~ 2026.2.28
+```
+
+### AssessmentLog 에 대한 목표치
+1. 연차별 검사일 (researchDate) 기준으로 인정시간 (creditTime) 의 합 - 심리평가 총 시간
+2. 연차별 검사일 (researchDate) 기준으로 사례(row) 수의 합 - 심리평가 총 사례 수
+3. 검사 종류 (researchType) 가 종합심리평가인 경우 사례(row) 수의 합 - 종합심리평가 총 사례 수
+4. 검사 종류 (researchType) 가 종합심리평가인 경우 인정시간 (creditTime) 시간의 합 - 종합심리평가 총 인정시간
+
+### IndividualTherapyLog, GroupTherapyLog 에 대한 목표치
+
+**개인 및 집단 심리치료 데이터 전체에서 계산**
+
+1. 연차별 종료일 (endDate) 기준으로 인정시간 (prepareTime + sessionTime + supervisionTime) 의 합 - 심리치료 총 인정 시간
+2. 연차별 종료일 (endDate) 기준으로 인정시간 사례(row) 의 합 - 심리치료 총 사례 수
+3. 치료자 유형 (therapyType) 가 주치료자일 경우 인정시간 (prepareTime + sessionTime + supervisionTime) 의 합 - 주치료자 심리치료 총 인정 시간
+4. 치료자 유형 (therapyType) 가 주치료자일 경우 인정시간 사례(row) 의 합 - 주치료자 심리치료 총 사례 수
+
+### AcademicActivityLog 에 대한 목표치
+---
+
+### ResearchLog
+---
+
+### OtherActivityLog
+---
+
+### 연차별 총 인정시간
+1. AssessmentLog 에서 연차별 검사일 (researchDate) 기준으로 인정시간 (creditTime) 의 합 - 연차별 심리평가 인정시간
+2. IndividualTherapyLog, GroupTherapyLog 에서 연차별 종료일 (endDate) 기준으로 인정시간 (prepareTime + sessionTime + supervisionTime) 의 합 - 연차별 심리치료 인정 시간
+3. AcademicActivityLog 에서 연차별 (activityDate) 모든 인정시간 (creditTime) 의 합 - 연차별 학술활동 인정시간
+4. OtherActivityLog 에서 연차별 (endDate) 총 인정시간(creditTime) - 연차별 기타 수련 활동 인정시간
+5. 연차별 1,2,3,4 의 모든 인정시간의 합 - 연차별 총 인정시간
+
+### 모든 연차의 합
+1. AssessmentLog 에서 인정시간 (creditTime) 의 합 - 300 시간 이상
+2. AssessmentLog 에서 종합심리평가 사례 (row) 수 - 30례 이상
+3. IndividualTherapyLog, GroupTherapyLog 에서 인정시간 (prepareTime + sessionTime + supervisionTime) 의 합 - 300 시간 이상
+4. IndividualTherapyLog, GroupTherapyLog 에서 치료자 유형 (therapyType) 가 주치료자일 경우 인정시간 (prepareTime + sessionTime + supervisionTime) 의 합 - 100 시간 이상
+5. IndividualTherapyLog, GroupTherapyLog 에서 치료자 유형 (therapyType) 가 주치료자일 경우 인정시간 사례(row) 의 합 - 10 례 이상
+6. AcademicActivityLog 에서 모든 인정시간 (creditTime) 의 합
+7. AcademicActivityLog 에서 참여 형식(act)이 참석이고 activityType 이 윤리교육일 경우 사례 (row) 의 합 - 1회 이상
+8. AcademicActivityLog 에서 참여 형식(act)이 참석이고 activityType 이 학술회의일 경우 인정시간 (creditTime) 의 합 - 30시간 이상
+9. AcademicActivityLog 에서 참여 형식(act)이 참석이고 activityType 이 사례회의일 경우 인정시간 (creditTime) 의 합 - 10시간 이상
+10. AcademicActivityLog 에서 참여 형식(act)이 발표이고 activityType 이 사례회의일 경우 사례 (row) 의 합 - 2번 이상
+11. AcademicActivityLog 에서 참여 형식(act)이 발표이고 activityType 이 논문발표일 경우 사례 (row) 의 합 - 1번 이상
+12. ResearchLog 에서 총 사례(row) 수 - 총 연구 수 - 1건
+13. OtherActivityLog 대외협력(activityType) 총 인정시간(creditTime) - 대외협력 인정시간 - 30 시간 이상
+14. OtherActivityLog 기타수련(activityType) 총 인정시간(creditTime) - 기타수련 인정시간 - .
+15. 총 수련시간 - 항목 1 + 항목 3 + 항목 6 + 항목 13 + 항목 14 - 3000 시간 이상
 ---
 
 ## 프로젝트 개요

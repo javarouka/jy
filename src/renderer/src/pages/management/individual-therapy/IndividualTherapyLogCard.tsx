@@ -75,6 +75,9 @@ const IndividualTherapyLogCard = (props: Props) => {
           <p className="text-sm font-medium text-indigo-600 dark:text-indigo-400">
             지도감독 시간: {convertMinuteToReader(log.supervisionTime)}
           </p>
+          <p className="text-sm font-medium text-indigo-600 dark:text-indigo-400">
+            총 인정시간: {convertMinuteToReader(log.prepareTime + log.sessionTime + log.supervisionTime)}
+          </p>
         </div>
       </div>
     </div>

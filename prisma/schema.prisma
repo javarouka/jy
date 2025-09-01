@@ -17,7 +17,7 @@ model AssessmentLog {
   dx           String
   researchType String
   researchDate DateTime
-  creditTime   Int
+  creditTime   Int ///  * 인정시간. 분
   usable       Boolean  @default(false)
   createdAt    DateTime @default(now())
   modifiedAt   DateTime @updatedAt
@@ -31,7 +31,7 @@ model IndividualTherapyLog {
   age             Int
   gender          String
   therapyType     String
-  researchDate    DateTime
+  researchDate    DateTime /// * deprecated
   sessionCount    Int
   prepareTime     Int
   sessionTime     Int
@@ -49,7 +49,7 @@ model GroupTherapyLog {
   id              Int      @id @default(autoincrement())
   groupName       String
   therapyType     String
-  researchDate    DateTime
+  researchDate    DateTime /// * deprecated
   sessionCount    Int
   prepareTime     Int
   sessionTime     Int

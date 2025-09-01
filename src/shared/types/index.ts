@@ -126,7 +126,8 @@ export const ACT_OPTIONS = [
 export const ACTIVITY_TYPE_OPTIONS = [
   '학술회의',
   '사례회의',
-  '윤리교육'
+  '윤리교육',
+  '논문발표', // activityType 이 참석일 경우 입력 불가
 ]
 
 export const ORGANIZATION_OPTIONS = [
