@@ -1,9 +1,12 @@
 import useTotalStatistics from '@renderer/pages/statistics/total/hook/useTotalStatistics'
 import SubTitle from '@renderer/component/basic/SubTitle'
-import StatItem from '@renderer/pages/statistics/total/components/StatItem'
-import StatSection from '@renderer/pages/statistics/total/components/StatSection'
 import GrandTotal from '@renderer/pages/statistics/total/components/GrandTotal'
 import YearlyStatistics from '@renderer/pages/statistics/total/components/YearlyStatistics'
+import AssessmentStatistics from '@renderer/pages/statistics/total/components/AssessmentStatistics'
+import TherapyStatistics from '@renderer/pages/statistics/total/components/TherapyStatistics'
+import AcademicActivityStatistics from '@renderer/pages/statistics/total/components/AcademicActivityStatistics'
+import ResearchStatistics from '@renderer/pages/statistics/total/components/ResearchStatistics'
+import OtherActivityStatistics from '@renderer/pages/statistics/total/components/OtherActivityStatistics'
 
 export default function TotalStatistics() {
   const { totalStatistics, yearlyStatistics, isLoading, isError } = useTotalStatistics()
@@ -20,117 +23,64 @@ export default function TotalStatistics() {
         isSuccess={totalStatistics.grandTotalSuccess}
       />
 
-      {/* Yearly Statistics */}
-      <YearlyStatistics yearlyStats={yearlyStatistics} />
+      {/* Flex container for Yearly and Total Statistics */}
+      <div className="flex flex-col sm:flex-row gap-6 w-full" style={{ flexWrap: 'wrap' }}>
+        {/* Yearly Statistics */}
+        <div className="w-full sm:flex-1" style={{ minWidth: '300px', flex: '1 1 0%' }}>
+          <YearlyStatistics yearlyStats={yearlyStatistics} />
+        </div>
 
-      {/* Total Statistics for All Periods */}
-      <SubTitle className="mb-4">전체 기간 통계</SubTitle>
+        {/* Total Statistics for All Periods */}
+        <div className="w-full sm:flex-1" style={{ minWidth: '300px', flex: '1 1 0%' }}>
+          <SubTitle className="mb-4">전체 기간 통계</SubTitle>
 
-      {/* Assessment Statistics */}
-      <StatSection title="심리평가 통계">
-        <StatItem
-          label="심리평가 총 인정시간"
-          value={totalStatistics.assessmentTotalCreditTime}
-          isSuccess={totalStatistics.assessmentSuccess}
-          target="300 시간"
-        />
-        <StatItem
-          label="종합심리평가 사례 수"
-          value={totalStatistics.comprehensiveAssessmentCount}
-          isSuccess={totalStatistics.comprehensiveAssessmentSuccess}
-          unit="례"
-          target="30 례"
-        />
-      </StatSection>
+          {/* Assessment Statistics */}
+          <AssessmentStatistics
+            assessmentTotalCreditTime={totalStatistics.assessmentTotalCreditTime}
+            assessmentSuccess={totalStatistics.assessmentSuccess}
+            comprehensiveAssessmentCount={totalStatistics.comprehensiveAssessmentCount}
+            comprehensiveAssessmentSuccess={totalStatistics.comprehensiveAssessmentSuccess}
+          />
 
-      {/* Therapy Statistics */}
-      <StatSection title="심리치료 통계">
-        <StatItem
-          label="심리치료 총 인정시간"
-          value={totalStatistics.therapyTotalCreditTime}
-          isSuccess={totalStatistics.therapySuccess}
-          target="300 시간"
-        />
-        <StatItem
-          label="주치료자 인정시간"
-          value={totalStatistics.mainTherapistCreditTime}
-          isSuccess={totalStatistics.mainTherapistTimeSuccess}
-          target="100 시간"
-        />
-        <StatItem
-          label="주치료자 사례 수"
-          value={totalStatistics.mainTherapistCount}
-          isSuccess={totalStatistics.mainTherapistCountSuccess}
-          unit="례"
-          target="10 례"
-        />
-      </StatSection>
+          {/* Therapy Statistics */}
+          <TherapyStatistics
+            therapyTotalCreditTime={totalStatistics.therapyTotalCreditTime}
+            therapySuccess={totalStatistics.therapySuccess}
+            mainTherapistCreditTime={totalStatistics.mainTherapistCreditTime}
+            mainTherapistTimeSuccess={totalStatistics.mainTherapistTimeSuccess}
+            mainTherapistCount={totalStatistics.mainTherapistCount}
+            mainTherapistCountSuccess={totalStatistics.mainTherapistCountSuccess}
+          />
 
-      {/* Academic Activity Statistics */}
-      <StatSection title="학술활동 통계">
-        <StatItem
-          label="학술활동 총 인정시간"
-          value={totalStatistics.academicTotalCreditTime}
-        />
-        <StatItem
-          label="윤리교육 참석 횟수"
-          value={totalStatistics.ethicsEducationCount}
-          isSuccess={totalStatistics.ethicsEducationSuccess}
-          unit="회"
-          target="1 회"
-        />
-        <StatItem
-          label="학술회의 참석 인정시간"
-          value={totalStatistics.academicMeetingCreditTime}
-          isSuccess={totalStatistics.academicMeetingSuccess}
-          target="30 시간"
-        />
-        <StatItem
-          label="사례회의 참석 인정시간"
-          value={totalStatistics.caseMeetingCreditTime}
-          isSuccess={totalStatistics.caseMeetingSuccess}
-          target="10 시간"
-        />
-        <StatItem
-          label="사례회의 발표 횟수"
-          value={totalStatistics.casePresentationCount}
-          isSuccess={totalStatistics.casePresentationSuccess}
-          unit="회"
-          target="2 회"
-        />
-        <StatItem
-          label="논문발표 횟수"
-          value={totalStatistics.paperPresentationCount}
-          isSuccess={totalStatistics.paperPresentationSuccess}
-          unit="회"
-          target="1 회"
-        />
-      </StatSection>
+          {/* Academic Activity Statistics */}
+          <AcademicActivityStatistics
+            academicTotalCreditTime={totalStatistics.academicTotalCreditTime}
+            ethicsEducationCount={totalStatistics.ethicsEducationCount}
+            ethicsEducationSuccess={totalStatistics.ethicsEducationSuccess}
+            academicMeetingCreditTime={totalStatistics.academicMeetingCreditTime}
+            academicMeetingSuccess={totalStatistics.academicMeetingSuccess}
+            caseMeetingCreditTime={totalStatistics.caseMeetingCreditTime}
+            caseMeetingSuccess={totalStatistics.caseMeetingSuccess}
+            casePresentationCount={totalStatistics.casePresentationCount}
+            casePresentationSuccess={totalStatistics.casePresentationSuccess}
+            paperPresentationCount={totalStatistics.paperPresentationCount}
+            paperPresentationSuccess={totalStatistics.paperPresentationSuccess}
+          />
 
-      {/* Research Statistics */}
-      <StatSection title="연구 통계">
-        <StatItem
-          label="총 연구 수"
-          value={totalStatistics.researchTotalCount}
-          isSuccess={totalStatistics.researchSuccess}
-          unit="건"
-          target="1 건"
-        />
-      </StatSection>
+          {/* Research Statistics */}
+          <ResearchStatistics
+            researchTotalCount={totalStatistics.researchTotalCount}
+            researchSuccess={totalStatistics.researchSuccess}
+          />
 
-      {/* Other Activity Statistics */}
-      <StatSection title="기타 활동 통계">
-        <StatItem
-          label="대외협력 인정시간"
-          value={totalStatistics.externalCooperationCreditTime}
-          isSuccess={totalStatistics.externalCooperationSuccess}
-          target="30 시간"
-        />
-        <StatItem
-          label="기타수련 인정시간"
-          value={totalStatistics.otherTrainingCreditTime}
-        />
-      </StatSection>
+          {/* Other Activity Statistics */}
+          <OtherActivityStatistics
+            externalCooperationCreditTime={totalStatistics.externalCooperationCreditTime}
+            externalCooperationSuccess={totalStatistics.externalCooperationSuccess}
+            otherTrainingCreditTime={totalStatistics.otherTrainingCreditTime}
+          />
+        </div>
+      </div>
     </div>
   )
 }
