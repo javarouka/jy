@@ -32,7 +32,7 @@ export default function YearlyStatistics({ yearlyStats }: YearlyStatProps) {
             {/* Goal time and progress bar */}
             <div className="mb-4">
               <div className="flex justify-between items-center mb-1">
-                <span className="text-sm font-medium">목표시간: {convertMinuteToReader(year.targetHours * 60)} 분 ({year.targetHours} 시간)</span>
+                <span className="text-sm font-medium">목표시간: {convertMinuteToReader(year.targetHours * 60)} ({year.targetHours} 시간)</span>
                 <div className="flex items-center">
                   <span className={`text-sm font-medium ${year.success ? 'text-green-600' : 'text-red-600'}`}>
                     진행률: {year.actualProgressPercentage > 100
@@ -58,19 +58,19 @@ export default function YearlyStatistics({ yearlyStats }: YearlyStatProps) {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div>
                 <p className="text-sm text-gray-500">심리평가 인정시간</p>
-                <p className="text-lg font-semibold">{convertMinuteToReader(year.assessmentCreditTime)} 분</p>
+                <p className="text-lg font-semibold">{convertMinuteToReader(year.assessmentCreditTime)}</p>
               </div>
               <div>
                 <p className="text-sm text-gray-500">심리치료 인정시간</p>
-                <p className="text-lg font-semibold">{convertMinuteToReader(year.therapyCreditTime)} 분</p>
+                <p className="text-lg font-semibold">{convertMinuteToReader(year.therapyCreditTime)}</p>
               </div>
               <div>
                 <p className="text-sm text-gray-500">학술활동 인정시간</p>
-                <p className="text-lg font-semibold">{convertMinuteToReader(year.academicCreditTime)} 분</p>
+                <p className="text-lg font-semibold">{convertMinuteToReader(year.academicCreditTime)}</p>
               </div>
               <div>
                 <p className="text-sm text-gray-500">기타수련 인정시간</p>
-                <p className="text-lg font-semibold">{convertMinuteToReader(year.otherCreditTime)} 분</p>
+                <p className="text-lg font-semibold">{convertMinuteToReader(year.otherCreditTime)}</p>
               </div>
             </div>
 
@@ -81,7 +81,7 @@ export default function YearlyStatistics({ yearlyStats }: YearlyStatProps) {
                   총 인정시간
                 </p>
                 <p className={`text-base font-bold ${year.success ? 'text-green-700 dark:text-green-300' : 'text-red-700 dark:text-red-300'}`}>
-                  {convertMinuteToReader(year.totalCreditTime)} 분
+                  {convertMinuteToReader(year.totalCreditTime)}
                 </p>
               </div>
             </div>

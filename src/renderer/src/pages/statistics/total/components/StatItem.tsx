@@ -32,7 +32,9 @@ export default function StatItem({ label, value, isSuccess, unit = '분', target
       <div className="flex justify-between items-center">
         <div>
           <p className="text-xs text-gray-500">현재</p>
-          <p className="text-base font-semibold">{typeof value === 'number' ? convertMinuteToReader(value) : value} {unit}</p>
+          <p className="text-base font-semibold">
+            {typeof value === 'number' ? convertMinuteToReader(value) : `${value} ${unit}`}
+          </p>
         </div>
         {target && (
           <div>

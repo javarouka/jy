@@ -25,7 +25,7 @@ export default function TherapyLogStatistics() {
                 {/* Goal time and progress bar - moved directly below the year title */}
                 <div className="mb-4">
                   <div className="flex justify-between items-center mb-1">
-                    <span className="text-sm font-medium">목표시간: {convertMinuteToReader(data.targetHours * 60)} 분 ({convertMinuteToReader(data.targetHours)} 시간)</span>
+                    <span className="text-sm font-medium">목표시간: {convertMinuteToReader(data.targetHours * 60)} ({convertMinuteToReader(data.targetHours)} 시간)</span>
                     <span className="text-sm font-medium">진행률: {data.progressPercentage.toFixed(1)}%</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">

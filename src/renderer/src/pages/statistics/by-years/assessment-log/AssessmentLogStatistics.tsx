@@ -26,7 +26,7 @@ export default function AssessmentLogStatistics() {
                 {/* Goal time and progress bar - moved directly below the year title */}
                 <div className="mb-4">
                   <div className="flex justify-between items-center mb-1">
-                    <span className="text-sm font-medium">목표시간: {convertMinuteToReader(data.targetHours * 60)} 분 ({convertMinuteToReader(data.targetHours)} 시간)</span>
+                    <span className="text-sm font-medium">목표시간: {convertMinuteToReader(data.targetHours * 60)} ({convertMinuteToReader(data.targetHours)})</span>
                     <span className="text-sm font-medium">진행률: {data.progressPercentage.toFixed(1)}%</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
@@ -40,7 +40,7 @@ export default function AssessmentLogStatistics() {
                 <div className="grid grid-cols-2 gap-4 mb-4">
                   <div>
                     <p className="text-sm text-gray-500">총 인정시간</p>
-                    <p className="text-lg font-semibold">{convertMinuteToReader(data.totalCreditTime)} 분</p>
+                    <p className="text-lg font-semibold">{convertMinuteToReader(data.totalCreditTime)}</p>
                   </div>
                   <div>
                     <p className="text-sm text-gray-500">총 사례 수</p>
@@ -76,7 +76,7 @@ export default function AssessmentLogStatistics() {
                           </div>
                           <div>
                             <p className="text-xs text-gray-500">인정시간</p>
-                            <p className="text-base font-semibold">{convertMinuteToReader(typeStat.creditTime)} 분</p>
+                            <p className="text-base font-semibold">{convertMinuteToReader(typeStat.creditTime)}</p>
                           </div>
                         </div>
                       </div>
