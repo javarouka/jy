@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { QueryClient, useMutation, useQueryClient } from '@tanstack/react-query'
-import { TypeResearchFormData, PARTICIPATE_TYPE_OPTIONS } from '@shared/types'
+import { TypeResearchFormData } from '@shared/types'
+import { PARTICIPATE_TYPE_OPTIONS } from '@shared/constants'
 
 export default function useResearchLogMutation(_queryClient?: QueryClient) {
   const queryClient = _queryClient || useQueryClient()
@@ -8,7 +9,7 @@ export default function useResearchLogMutation(_queryClient?: QueryClient) {
     publishDate: '',
     pagerName: '',
     journalName: '',
-    participateType: PARTICIPATE_TYPE_OPTIONS[0],
+    participateType: PARTICIPATE_TYPE_OPTIONS[0].id,
     creditTime: 0,
     usable: true
   });
@@ -39,7 +40,7 @@ export default function useResearchLogMutation(_queryClient?: QueryClient) {
       publishDate: '',
       pagerName: '',
       journalName: '',
-      participateType: PARTICIPATE_TYPE_OPTIONS[0],
+      participateType: PARTICIPATE_TYPE_OPTIONS[0].id,
       creditTime: 0,
       usable: true
     });

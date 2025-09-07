@@ -1,6 +1,8 @@
 import { AssessmentLog } from '@prisma/client'
-import { RESEARCH_TYPE_OPTIONS, TypeAssessmentFormData } from '@shared/types'
+import { TypeAssessmentFormData } from '@shared/types'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
+import { RESEARCH_TYPE_OPTIONS } from '@shared/constants'
+import { getTranslatedText } from '@renderer/helpers/translateConstants'
 
 type Props = {
   isOpen: boolean
@@ -15,7 +17,7 @@ const EditAssessmentLogModal = ({ isOpen, onClose, log, onSave }: Props) => {
     age: 0,
     gender: '',
     dx: '',
-    researchType: RESEARCH_TYPE_OPTIONS[0],
+    researchType: RESEARCH_TYPE_OPTIONS[0].id,
     researchDate: '',
     creditTime: 0
   })
@@ -138,8 +140,8 @@ const EditAssessmentLogModal = ({ isOpen, onClose, log, onSave }: Props) => {
                 className="w-full p-1 border border-gray-300 rounded-md text-base"
               >
                 {RESEARCH_TYPE_OPTIONS.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
+                  <option key={type.id} value={type.id}>
+                    {getTranslatedText(type)}
                   </option>
                 ))}
               </select>

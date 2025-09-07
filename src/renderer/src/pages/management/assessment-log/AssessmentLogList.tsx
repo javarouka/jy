@@ -1,6 +1,5 @@
 import AssessmentLogCard from '@renderer/pages/management/assessment-log/AssessmentLogCard'
 import type { TypeAssessmentFormData } from '@shared/types'
-import { RESEARCH_TYPE_OPTIONS } from '@shared/types'
 import useAssessmentLogSearch from './hook/useAssessmentLogSearch'
 import type { FormEvent } from 'react'
 import { useState } from 'react'
@@ -8,6 +7,8 @@ import EditAssessmentLogModal from './EditAssessmentLogModal'
 import type { AssessmentLog } from '@prisma/client'
 import LoadingSpinner from '@renderer/component/basic/LoadingSpinner'
 import FetchError from '@renderer/component/basic/FetchError'
+import { RESEARCH_TYPE_OPTIONS } from '@shared/constants'
+import { getTranslatedText } from '@renderer/helpers/translateConstants'
 
 const AssessmentLogList = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
@@ -143,8 +144,8 @@ const AssessmentLogList = () => {
             >
               <option value="">전체</option>
               {RESEARCH_TYPE_OPTIONS.map((type) => (
-                <option key={type} value={type}>
-                  {type}
+                <option key={type.id} value={type.id}>
+                  {getTranslatedText(type)}
                 </option>
               ))}
             </select>

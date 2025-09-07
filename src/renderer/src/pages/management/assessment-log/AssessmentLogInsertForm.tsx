@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from 'react'
 import useAssessmentLogMutation from '@renderer/pages/management/assessment-log/hook/useAssessmentLogMutation'
-import { RESEARCH_TYPE_OPTIONS } from '@shared/types'
+import { RESEARCH_TYPE_OPTIONS } from '@shared/constants'
+import { getTranslatedText } from '@renderer/helpers/translateConstants'
 
 function AssessmentLogInsertForm() {
   const {
@@ -18,7 +19,7 @@ function AssessmentLogInsertForm() {
     // Use setTimeout to ensure DOM has been updated
     const timer = setTimeout(() => {
       if (etcDescRef.current) {
-        if (formData.researchType === '기타') {
+        if (formData.researchType === 'OTHER') {
           // Make sure the element is visible for measurement
           const tempHeight = etcDescRef.current.scrollHeight
           setEtcDescHeight(tempHeight)
@@ -119,8 +120,8 @@ function AssessmentLogInsertForm() {
                 className="w-full p-1 border border-gray-300 rounded box-border text-base"
               >
                 {RESEARCH_TYPE_OPTIONS.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
+                  <option key={type.id} value={type.id}>
+                    {getTranslatedText(type)}
                   </option>
                 ))}
               </select>
@@ -154,7 +155,7 @@ function AssessmentLogInsertForm() {
                 name="etcDescription"
                 value={formData.etcDescription}
                 onChange={handleChange}
-                required={formData.researchType === '기타'}
+                required={formData.researchType === 'OTHER'}
                 placeholder="기타 검사 종류를 입력해주세요"
                 className="w-full p-1 border border-gray-300 rounded box-border text-base"
               />

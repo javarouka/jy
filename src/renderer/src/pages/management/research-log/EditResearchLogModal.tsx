@@ -1,7 +1,9 @@
 import { useState, useEffect, ChangeEvent, FormEvent } from 'react'
 import type { ResearchLog } from '@prisma/client'
-import { TypeResearchFormData, PARTICIPATE_TYPE_OPTIONS } from '@shared/types'
+import { TypeResearchFormData } from '@shared/types'
 import { format } from 'date-fns'
+import { PARTICIPATE_TYPE_OPTIONS } from '@shared/constants'
+import { getTranslatedText } from '@renderer/helpers/translateConstants'
 
 interface EditResearchLogModalProps {
   isOpen: boolean
@@ -15,7 +17,7 @@ const EditResearchLogModal = ({ isOpen, onClose, log, onSave }: EditResearchLogM
     publishDate: '',
     pagerName: '',
     journalName: '',
-    participateType: PARTICIPATE_TYPE_OPTIONS[0],
+    participateType: PARTICIPATE_TYPE_OPTIONS[0].id,
     creditTime: 0,
     usable: true
   })
@@ -97,7 +99,7 @@ const EditResearchLogModal = ({ isOpen, onClose, log, onSave }: EditResearchLogM
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
             >
               {PARTICIPATE_TYPE_OPTIONS.map(option => (
-                <option key={option} value={option}>{option}</option>
+                <option key={option.id} value={option.id}>{getTranslatedText(option)}</option>
               ))}
             </select>
           </div>

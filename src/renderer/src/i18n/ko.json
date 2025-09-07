@@ -1,0 +1,26 @@
+{
+  "research.type.COMPREHENSIVE_PSYCHOLOGICAL_ASSESSMENT": "종합심리평가",
+  "research.type.NEUROPSYCHOLOGICAL_ASSESSMENT": "신경심리평가",
+  "research.type.OTHER": "기타",
+
+  "other.activity.type.EXTERNAL_COOPERATION": "대외협력",
+  "other.activity.type.OTHER_TRAINING": "기타 수련",
+
+  "participate.type.FIRST_AUTHOR": "1저자",
+  "participate.type.CO_AUTHOR": "공동저자",
+
+  "common.base.ASSISTING": "보조",
+  "common.base.ATTENDING": "참석",
+
+  "activity.type.ACADEMIC_CONFERENCE": "학술회의",
+  "activity.type.CASE_CONFERENCE": "사례회의",
+  "activity.type.ETHICS_EDUCATION": "윤리교육",
+  "activity.type.PAPER_PRESENTATION": "논문발표",
+
+  "organization.TRAINING_INSTITUTION": "수련기관",
+  "organization.ACADEMIC_SOCIETY": "학회",
+  "organization.BRANCH_RESEARCH_GROUP": "지회/연구회",
+
+  "therapy.type.MAIN_THERAPIST": "주치료자",
+  "therapy.type.ASSISTANT_THERAPIST": "보조치료자"
+}

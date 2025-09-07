@@ -1,6 +1,7 @@
 import { AssessmentLog } from '@prisma/client'
 import { convertMinuteToReader } from '@renderer/helpers/Times'
 import { format } from 'date-fns'
+import { getTranslatedTextById } from '@renderer/helpers/translateConstants'
 
 type Props = {
   log: AssessmentLog
@@ -49,9 +50,9 @@ const AssessmentLogCard = (props: Props) => {
             <strong className="font-semibold text-gray-800 dark:text-gray-100">진단명:</strong> {log.dx}
           </p>
           <p>
-            <strong className="font-semibold text-gray-800 dark:text-gray-100">검사 종류:</strong> {log.researchType}
+            <strong className="font-semibold text-gray-800 dark:text-gray-100">검사 종류:</strong> {getTranslatedTextById(log.researchType, "research.type", log.researchType)}
           </p>
-          {log.researchType === '기타' && log.etcDescription && (
+          {log.researchType === 'OTHER' && log.etcDescription && (
             <p>
               <strong className="font-semibold text-gray-800 dark:text-gray-100">기타사항:</strong> {log.etcDescription}
             </p>

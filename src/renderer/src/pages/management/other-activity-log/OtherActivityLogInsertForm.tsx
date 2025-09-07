@@ -1,5 +1,6 @@
 import useOtherActivityLogMutation from '@renderer/pages/management/other-activity-log/hook/useOtherActivityLogMutation'
-import { OTHER_ACTIVITY_TYPE_OPTIONS } from '@shared/types'
+import { OTHER_ACTIVITY_TYPE_OPTIONS } from '@shared/constants'
+import { getTranslatedText } from '@renderer/helpers/translateConstants'
 
 function OtherActivityLogInsertForm() {
   const {
@@ -41,8 +42,8 @@ function OtherActivityLogInsertForm() {
             >
               <option value="">선택하세요</option>
               {OTHER_ACTIVITY_TYPE_OPTIONS.map((option) => (
-                <option key={option} value={option}>
-                  {option}
+                <option key={option.id} value={option.id}>
+                  {getTranslatedText(option)}
                 </option>
               ))}
             </select>

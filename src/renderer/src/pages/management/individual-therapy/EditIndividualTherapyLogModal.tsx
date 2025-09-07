@@ -1,6 +1,8 @@
 import { IndividualTherapyLog } from '@prisma/client'
-import { THERAPY_TYPE_OPTIONS, TypeIndividualTherapyFormData } from '@shared/types'
+import { TypeIndividualTherapyFormData } from '@shared/types'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
+import { THERAPY_TYPE_OPTIONS } from '@shared/constants'
+import { getTranslatedText } from '@renderer/helpers/translateConstants'
 
 type Props = {
   isOpen: boolean
@@ -14,7 +16,7 @@ const EditIndividualTherapyLogModal = ({ isOpen, onClose, log, onSave }: Props) 
     clientName: '',
     age: 0,
     gender: '',
-    therapyType: THERAPY_TYPE_OPTIONS[0],
+    therapyType: THERAPY_TYPE_OPTIONS[0].id,
     researchDate: '',
     sessionCount: 0,
     prepareTime: 0,
@@ -176,8 +178,8 @@ const EditIndividualTherapyLogModal = ({ isOpen, onClose, log, onSave }: Props) 
                 className="w-full p-1 border border-gray-300 rounded-md text-base"
               >
                 {THERAPY_TYPE_OPTIONS.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
+                  <option key={type.id} value={type.id}>
+                    {getTranslatedText(type)}
                   </option>
                 ))}
               </select>

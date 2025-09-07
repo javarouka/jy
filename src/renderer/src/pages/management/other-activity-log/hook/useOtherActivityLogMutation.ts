@@ -1,12 +1,13 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { QueryClient, useMutation, useQueryClient } from '@tanstack/react-query'
-import { TypeOtherActivityFormData, OTHER_ACTIVITY_TYPE_OPTIONS } from '@shared/types'
+import { TypeOtherActivityFormData } from '@shared/types'
+import { OTHER_ACTIVITY_TYPE_OPTIONS } from '@shared/constants'
 
 export default function useOtherActivityLogMutation(_queryClient?: QueryClient) {
   const queryClient = _queryClient || useQueryClient()
   const [formData, setFormData] = useState<TypeOtherActivityFormData>({
     activitySummary: '',
-    activityType: OTHER_ACTIVITY_TYPE_OPTIONS[0],
+    activityType: OTHER_ACTIVITY_TYPE_OPTIONS[0].id,
     startDate: '',
     endDate: '',
     creditTime: 0,
@@ -38,7 +39,7 @@ export default function useOtherActivityLogMutation(_queryClient?: QueryClient) 
     // Reset form after submission
     setFormData({
       activitySummary: '',
-      activityType: OTHER_ACTIVITY_TYPE_OPTIONS[0],
+      activityType: OTHER_ACTIVITY_TYPE_OPTIONS[0].id,
       startDate: '',
       endDate: '',
       creditTime: 0,

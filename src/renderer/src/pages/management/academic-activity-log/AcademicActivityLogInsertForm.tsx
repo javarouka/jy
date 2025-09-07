@@ -1,5 +1,6 @@
 import useAcademicActivityLogMutation from '@renderer/pages/management/academic-activity-log/hook/useAcademicActivityLogMutation'
-import { ACT_OPTIONS, ACTIVITY_TYPE_OPTIONS, ORGANIZATION_OPTIONS } from '@shared/types'
+import { ACT_OPTIONS, ACTIVITY_TYPE_OPTIONS, ORGANIZATION_OPTIONS } from '@shared/constants'
+import { getTranslatedText } from '@renderer/helpers/translateConstants'
 
 function AcademicActivityLogInsertForm() {
   const {
@@ -54,8 +55,8 @@ function AcademicActivityLogInsertForm() {
             >
               <option value="">선택하세요</option>
               {ACT_OPTIONS.map((option) => (
-                <option key={option} value={option}>
-                  {option}
+                <option key={option.id} value={option.id}>
+                  {getTranslatedText(option)}
                 </option>
               ))}
             </select>
@@ -73,8 +74,8 @@ function AcademicActivityLogInsertForm() {
             >
               <option value="">선택하세요</option>
               {ACTIVITY_TYPE_OPTIONS.map((option) => (
-                <option key={option} value={option}>
-                  {option}
+                <option key={option.id} value={option.id}>
+                  {getTranslatedText(option)}
                 </option>
               ))}
             </select>
@@ -92,8 +93,8 @@ function AcademicActivityLogInsertForm() {
             >
               <option value="">선택하세요</option>
               {ORGANIZATION_OPTIONS.map((option) => (
-                <option key={option} value={option}>
-                  {option}
+                <option key={option.id} value={option.id}>
+                  {getTranslatedText(option)}
                 </option>
               ))}
             </select>

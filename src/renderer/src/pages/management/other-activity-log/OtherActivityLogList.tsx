@@ -3,9 +3,10 @@ import type { OtherActivityLog } from '@prisma/client'
 import useOtherActivityLogSearch from '@renderer/pages/management/other-activity-log/hook/useOtherActivityLogSearch'
 import OtherActivityLogCard from '@renderer/pages/management/other-activity-log/OtherActivityLogCard'
 import EditOtherActivityLogModal from '@renderer/pages/management/other-activity-log/EditOtherActivityLogModal'
-import { OTHER_ACTIVITY_TYPE_OPTIONS } from '@shared/types'
 import LoadingSpinner from '@renderer/component/basic/LoadingSpinner'
 import FetchError from '@renderer/component/basic/FetchError'
+import { OTHER_ACTIVITY_TYPE_OPTIONS } from '@shared/constants'
+import { getTranslatedText } from '@renderer/helpers/translateConstants'
 
 const OtherActivityLogList = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
@@ -125,8 +126,8 @@ const OtherActivityLogList = () => {
                 >
                   <option value="">전체</option>
                   {OTHER_ACTIVITY_TYPE_OPTIONS.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
+                    <option key={option.id} value={option.id}>
+                      {getTranslatedText(option)}
                     </option>
                   ))}
                 </select>

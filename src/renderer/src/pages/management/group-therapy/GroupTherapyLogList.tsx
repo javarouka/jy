@@ -1,5 +1,4 @@
 import GroupTherapyLogCard from '@renderer/pages/management/group-therapy/GroupTherapyLogCard'
-import { THERAPY_TYPE_OPTIONS } from '@shared/types'
 import useGroupTherapyLogSearch from './hook/useGroupTherapyLogSearch'
 import type { FormEvent } from 'react'
 import { useState } from 'react'
@@ -7,6 +6,8 @@ import EditGroupTherapyLogModal from './EditGroupTherapyLogModal'
 import type { GroupTherapyLog } from '@prisma/client'
 import LoadingSpinner from '@renderer/component/basic/LoadingSpinner'
 import FetchError from '@renderer/component/basic/FetchError'
+import { THERAPY_TYPE_OPTIONS } from '@shared/constants'
+import { getTranslatedText } from '@renderer/helpers/translateConstants'
 
 const GroupTherapyLogList = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
@@ -146,8 +147,8 @@ const GroupTherapyLogList = () => {
             >
               <option value="">전체</option>
               {THERAPY_TYPE_OPTIONS.map((type) => (
-                <option key={type} value={type}>
-                  {type}
+                <option key={type.id} value={type.id}>
+                  {getTranslatedText(type)}
                 </option>
               ))}
             </select>

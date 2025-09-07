@@ -1,5 +1,6 @@
 import useIndividualTherapyLogMutation from '@renderer/pages/management/individual-therapy/hook/useIndividualTherapyLogMutation'
-import { THERAPY_TYPE_OPTIONS } from '@shared/types'
+import { THERAPY_TYPE_OPTIONS } from '@shared/constants'
+import { getTranslatedText } from '@renderer/helpers/translateConstants'
 
 function IndividualTherapyLogInsertForm() {
   const {
@@ -107,8 +108,8 @@ function IndividualTherapyLogInsertForm() {
                 onChange={handleChange}
                 className="w-full p-1 border border-gray-300 rounded box-border text-base"
               >
-                <option value={THERAPY_TYPE_OPTIONS[0]}>
-                  {THERAPY_TYPE_OPTIONS[0]}
+                <option value={THERAPY_TYPE_OPTIONS[0].id}>
+                  {getTranslatedText(THERAPY_TYPE_OPTIONS[0])}
                 </option>
               </select>
             </div>

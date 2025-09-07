@@ -14,7 +14,7 @@ model AssessmentLog {
   clientName   String
   age          Int
   gender       String
-  dx           String
+  dx           String /// * 진단명
   researchType String
   researchDate DateTime
   etcDescription  String @default("") /// * 기타
@@ -31,9 +31,9 @@ model IndividualTherapyLog {
   clientName      String
   age             Int
   gender          String
-  therapyType     String
+  therapyType     String /// * '주치료자', '보조치료자'
   researchDate    DateTime /// * deprecated
-  sessionCount    Int
+  sessionCount    Int /// * 회기수
   prepareTime     Int
   sessionTime     Int
   supervisionTime Int

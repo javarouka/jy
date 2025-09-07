@@ -1,15 +1,16 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { QueryClient, useMutation, useQueryClient } from '@tanstack/react-query'
-import { TypeAcademicActivityFormData, ACT_OPTIONS, ACTIVITY_TYPE_OPTIONS, ORGANIZATION_OPTIONS } from '@shared/types'
+import { TypeAcademicActivityFormData } from '@shared/types'
+import { ACT_OPTIONS, ACTIVITY_TYPE_OPTIONS, ORGANIZATION_OPTIONS } from '@shared/constants'
 
 export default function useAcademicActivityLogMutation(_queryClient?: QueryClient) {
   const queryClient = _queryClient || useQueryClient()
   const [formData, setFormData] = useState<TypeAcademicActivityFormData>({
-    act: ACT_OPTIONS[0],
+    act: ACT_OPTIONS[0].id,
     activityName: '',
-    activityType: ACTIVITY_TYPE_OPTIONS[0],
+    activityType: ACTIVITY_TYPE_OPTIONS[0].id,
     activityDate: '',
-    organization: ORGANIZATION_OPTIONS[0],
+    organization: ORGANIZATION_OPTIONS[0].id,
     sessionName: '',
     creditTime: 0,
     usable: true
@@ -40,11 +41,11 @@ export default function useAcademicActivityLogMutation(_queryClient?: QueryClien
 
     // Reset form after submission
     setFormData({
-      act: ACT_OPTIONS[0],
+      act: ACT_OPTIONS[0].id,
       activityName: '',
-      activityType: ACTIVITY_TYPE_OPTIONS[0],
+      activityType: ACTIVITY_TYPE_OPTIONS[0].id,
       activityDate: '',
-      organization: ORGANIZATION_OPTIONS[0],
+      organization: ORGANIZATION_OPTIONS[0].id,
       sessionName: '',
       creditTime: 0,
       usable: true

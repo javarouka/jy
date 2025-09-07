@@ -4,9 +4,10 @@ import useAcademicActivityLogSearch
   from '@renderer/pages/management/academic-activity-log/hook/useAcademicActivityLogSearch'
 import AcademicActivityLogCard from '@renderer/pages/management/academic-activity-log/AcademicActivityLogCard'
 import EditAcademicActivityLogModal from '@renderer/pages/management/academic-activity-log/EditAcademicActivityLogModal'
-import { ACT_OPTIONS, ACTIVITY_TYPE_OPTIONS, ORGANIZATION_OPTIONS } from '@shared/types'
 import LoadingSpinner from '@renderer/component/basic/LoadingSpinner'
 import FetchError from '@renderer/component/basic/FetchError'
+import { ACT_OPTIONS, ACTIVITY_TYPE_OPTIONS, ORGANIZATION_OPTIONS } from '@shared/constants'
+import { getTranslatedText } from '@renderer/helpers/translateConstants'
 
 const AcademicActivityLogList = () => {
 
@@ -179,8 +180,8 @@ const AcademicActivityLogList = () => {
                 >
                   <option value="">전체</option>
                   {ACT_OPTIONS.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
+                    <option key={option.id} value={option.id}>
+                      {getTranslatedText(option)}
                     </option>
                   ))}
                 </select>
@@ -198,8 +199,8 @@ const AcademicActivityLogList = () => {
                 >
                   <option value="">전체</option>
                   {ACTIVITY_TYPE_OPTIONS.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
+                    <option key={option.id} value={option.id}>
+                      {getTranslatedText(option)}
                     </option>
                   ))}
                 </select>
@@ -217,8 +218,8 @@ const AcademicActivityLogList = () => {
                 >
                   <option value="">전체</option>
                   {ORGANIZATION_OPTIONS.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
+                    <option key={option.id} value={option.id}>
+                      {getTranslatedText(option)}
                     </option>
                   ))}
                 </select>

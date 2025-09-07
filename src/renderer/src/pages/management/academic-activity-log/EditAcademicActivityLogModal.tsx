@@ -1,11 +1,10 @@
 import { type AcademicActivityLog } from '@prisma/client'
 import {
-  TypeAcademicActivityFormData,
-  ACT_OPTIONS,
-  ACTIVITY_TYPE_OPTIONS,
-  ORGANIZATION_OPTIONS
+  TypeAcademicActivityFormData
 } from '@shared/types'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
+import { ACT_OPTIONS, ACTIVITY_TYPE_OPTIONS, ORGANIZATION_OPTIONS } from '@shared/constants'
+import { getTranslatedText } from '@renderer/helpers/translateConstants'
 
 type Props = {
   isOpen: boolean
@@ -88,8 +87,8 @@ const EditAcademicActivityLogModal = ({ isOpen, onClose, log, onSave }: Props) =
             >
               <option value="">선택하세요</option>
               {ACT_OPTIONS.map((option) => (
-                <option key={option} value={option}>
-                  {option}
+                <option key={option.id} value={option.id}>
+                  {getTranslatedText(option)}
                 </option>
               ))}
             </select>
@@ -134,8 +133,8 @@ const EditAcademicActivityLogModal = ({ isOpen, onClose, log, onSave }: Props) =
               >
                 <option value="">선택하세요</option>
                 {ACTIVITY_TYPE_OPTIONS.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
+                  <option key={option.id} value={option.id}>
+                    {getTranslatedText(option)}
                   </option>
                 ))}
               </select>
@@ -167,8 +166,8 @@ const EditAcademicActivityLogModal = ({ isOpen, onClose, log, onSave }: Props) =
             >
               <option value="">선택하세요</option>
               {ORGANIZATION_OPTIONS.map((option) => (
-                <option key={option} value={option}>
-                  {option}
+                <option key={option.id} value={option.id}>
+                  {getTranslatedText(option)}
                 </option>
               ))}
             </select>

@@ -1,5 +1,6 @@
 import useGroupTherapyLogMutation from '@renderer/pages/management/group-therapy/hook/useGroupTherapyLogMutation'
-import { THERAPY_TYPE_OPTIONS } from '@shared/types'
+import { THERAPY_TYPE_OPTIONS } from '@shared/constants'
+import { getTranslatedText } from '@renderer/helpers/translateConstants'
 
 function GroupTherapyLogInsertForm() {
   const {
@@ -38,8 +39,8 @@ function GroupTherapyLogInsertForm() {
               className="w-full p-1 border border-gray-300 rounded box-border text-base"
             >
               {THERAPY_TYPE_OPTIONS.map((type) => (
-                <option key={type} value={type}>
-                  {type}
+                <option key={type.id} value={type.id}>
+                  {getTranslatedText(type)}
                 </option>
               ))}
             </select>

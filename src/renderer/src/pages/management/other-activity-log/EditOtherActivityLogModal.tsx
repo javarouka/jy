@@ -1,7 +1,9 @@
 import { useState, useEffect, ChangeEvent, FormEvent } from 'react'
 import type { OtherActivityLog } from '@prisma/client'
-import { TypeOtherActivityFormData, OTHER_ACTIVITY_TYPE_OPTIONS } from '@shared/types'
+import { TypeOtherActivityFormData } from '@shared/types'
 import { format } from 'date-fns'
+import { OTHER_ACTIVITY_TYPE_OPTIONS } from '@shared/constants'
+import { getTranslatedText } from '@renderer/helpers/translateConstants'
 
 interface EditOtherActivityLogModalProps {
   isOpen: boolean
@@ -13,7 +15,7 @@ interface EditOtherActivityLogModalProps {
 const EditOtherActivityLogModal = ({ isOpen, onClose, log, onSave }: EditOtherActivityLogModalProps) => {
   const [formData, setFormData] = useState<TypeOtherActivityFormData>({
     activitySummary: '',
-    activityType: OTHER_ACTIVITY_TYPE_OPTIONS[0],
+    activityType: OTHER_ACTIVITY_TYPE_OPTIONS[0].id,
     startDate: '',
     endDate: '',
     creditTime: 0,
@@ -86,7 +88,7 @@ const EditOtherActivityLogModal = ({ isOpen, onClose, log, onSave }: EditOtherAc
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
             >
               {OTHER_ACTIVITY_TYPE_OPTIONS.map(option => (
-                <option key={option} value={option}>{option}</option>
+                <option key={option.id} value={option.id}>{getTranslatedText(option)}</option>
               ))}
             </select>
           </div>

@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { QueryClient, useMutation, useQueryClient } from '@tanstack/react-query'
-import { THERAPY_TYPE_OPTIONS, TypeIndividualTherapyFormData } from '@shared/types'
+import { TypeIndividualTherapyFormData } from '@shared/types'
+import { THERAPY_TYPE_OPTIONS } from '@shared/constants'
 
 export default function useIndividualTherapyLogMutation(_queryClient?: QueryClient) {
 
@@ -9,7 +10,7 @@ export default function useIndividualTherapyLogMutation(_queryClient?: QueryClie
     clientName: '',
     age: 0,
     gender: '',
-    therapyType: THERAPY_TYPE_OPTIONS[0],
+    therapyType: THERAPY_TYPE_OPTIONS[0].id,
     researchDate: '',
     sessionCount: 0,
     prepareTime: 0,

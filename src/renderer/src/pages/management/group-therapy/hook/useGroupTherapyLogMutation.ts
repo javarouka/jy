@@ -1,13 +1,14 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { QueryClient, useMutation, useQueryClient } from '@tanstack/react-query'
-import { THERAPY_TYPE_OPTIONS, TypeGroupTherapyFormData } from '@shared/types'
+import { TypeGroupTherapyFormData } from '@shared/types'
+import { THERAPY_TYPE_OPTIONS } from '@shared/constants'
 
 export default function useGroupTherapyLogMutation(_queryClient?: QueryClient) {
 
   const queryClient = _queryClient || useQueryClient()
   const [formData, setFormData] = useState<TypeGroupTherapyFormData>({
     groupName: '',
-    therapyType: THERAPY_TYPE_OPTIONS[0],
+    therapyType: THERAPY_TYPE_OPTIONS[0].id,
     researchDate: '',
     sessionCount: 0,
     prepareTime: 0,
@@ -37,7 +38,7 @@ export default function useGroupTherapyLogMutation(_queryClient?: QueryClient) {
     // Reset form after submission
     setFormData({
       groupName: '',
-      therapyType: THERAPY_TYPE_OPTIONS[0],
+      therapyType: THERAPY_TYPE_OPTIONS[0].id,
       researchDate: '',
       sessionCount: 0,
       prepareTime: 0,

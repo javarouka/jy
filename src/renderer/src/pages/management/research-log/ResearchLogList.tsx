@@ -3,9 +3,10 @@ import type { ResearchLog } from '@prisma/client'
 import useResearchLogSearch from '@renderer/pages/management/research-log/hook/useResearchLogSearch'
 import ResearchLogCard from '@renderer/pages/management/research-log/ResearchLogCard'
 import EditResearchLogModal from '@renderer/pages/management/research-log/EditResearchLogModal'
-import { PARTICIPATE_TYPE_OPTIONS } from '@shared/types'
 import LoadingSpinner from '@renderer/component/basic/LoadingSpinner'
 import FetchError from '@renderer/component/basic/FetchError'
+import { PARTICIPATE_TYPE_OPTIONS } from '@shared/constants'
+import { getTranslatedText } from '@renderer/helpers/translateConstants'
 
 const ResearchLogList = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
@@ -138,8 +139,8 @@ const ResearchLogList = () => {
                 >
                   <option value="">전체</option>
                   {PARTICIPATE_TYPE_OPTIONS.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
+                    <option key={option.id} value={option.id}>
+                      {getTranslatedText(option)}
                     </option>
                   ))}
                 </select>

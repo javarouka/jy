@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { QueryClient, useMutation, useQueryClient } from '@tanstack/react-query'
-import { RESEARCH_TYPE_OPTIONS, TypeAssessmentFormData } from '@shared/types'
+import { TypeAssessmentFormData } from '@shared/types'
+import { RESEARCH_TYPE_OPTIONS } from '@shared/constants'
 
 export default function useAssessmentLogMutation(_queryClient?: QueryClient) {
 
@@ -10,7 +11,7 @@ export default function useAssessmentLogMutation(_queryClient?: QueryClient) {
     age: 0,
     gender: '',
     dx: '',
-    researchType: RESEARCH_TYPE_OPTIONS[0],
+    researchType: RESEARCH_TYPE_OPTIONS[0].id,
     researchDate: '',
     etcDescription: '',
     creditTime: 0
@@ -22,8 +23,8 @@ export default function useAssessmentLogMutation(_queryClient?: QueryClient) {
       return false
     }
 
-    // researchType이 '기타'인 경우 etcDescription이 필수
-    return !(formData.researchType === '기타' && !formData.etcDescription.trim());
+    // researchType이 'OTHER'인 경우 etcDescription이 필수
+    return !(formData.researchType === 'OTHER' && !formData.etcDescription.trim());
   }
 
   const createAssessmentLogMutation = useMutation({

@@ -1,5 +1,6 @@
 import useResearchLogMutation from '@renderer/pages/management/research-log/hook/useResearchLogMutation'
-import { PARTICIPATE_TYPE_OPTIONS } from '@shared/types'
+import { PARTICIPATE_TYPE_OPTIONS } from '@shared/constants'
+import { getTranslatedText } from '@renderer/helpers/translateConstants'
 
 function ResearchLogInsertForm() {
   const {
@@ -54,8 +55,8 @@ function ResearchLogInsertForm() {
             >
               <option value="">선택하세요</option>
               {PARTICIPATE_TYPE_OPTIONS.map((option) => (
-                <option key={option} value={option}>
-                  {option}
+                <option key={option.id} value={option.id}>
+                  {getTranslatedText(option)}
                 </option>
               ))}
             </select>
