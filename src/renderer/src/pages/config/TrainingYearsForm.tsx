@@ -17,7 +17,7 @@ function TrainingYearsForm() {
 
   return (
     <div className="flex flex-col md:flex-row gap-4">
-      <div className="w-full md:w-1/3">
+      <div className="w-full md:w-1/4">
         <div className="m-2 p-2 border border-gray-200 shadow-md font-sans">
           <h3 className="text-left mb-4">{editMode ? '수련 연차 수정' : '수련 연차 추가'}</h3>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -96,7 +96,7 @@ function TrainingYearsForm() {
         </div>
       </div>
 
-      <div className="w-full md:w-2/3">
+      <div className="w-full md:w-3/4">
         <div className="m-2 p-2 border border-gray-200 shadow-md font-sans">
           <h3 className="text-left mb-4">수련 연차 목록</h3>
           {isLoading ? (
