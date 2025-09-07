@@ -97,3 +97,13 @@ export const THERAPY_TARGET_CHANNELS = {
   UPDATE: 'db:update-therapyTarget',
   DELETE: 'db:delete-therapyTarget'
 }
+
+// Define custom channel names for overview charts
+export const OVERVIEW_CHANNELS = {
+  GET_ASSESSMENT_LOGS: 'db:overview-assessment-logs',
+  GET_INDIVIDUAL_THERAPY_LOGS: 'db:overview-individual-therapy-logs',
+  GET_GROUP_THERAPY_LOGS: 'db:overview-group-therapy-logs',
+  GET_ACADEMIC_ACTIVITY_LOGS: 'db:overview-academic-activity-logs',
+  GET_RESEARCH_LOGS: 'db:overview-research-logs',
+  GET_OTHER_ACTIVITY_LOGS: 'db:overview-other-activity-logs'
+}

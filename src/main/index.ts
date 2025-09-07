@@ -15,6 +15,7 @@ import { initAcademicTargetDB } from './training/initAcademicTargetDB'
 import { initOtherActivityTargetDB } from './training/initOtherActivityTargetDB'
 import { initResearchTargetDB } from './training/initResearchTargetDB'
 import { initTherapyTargetDB } from './training/initTherapyTargetDB'
+import { initOverviewCharts } from './overview/initOverviewCharts'
 import log, { initPrisma } from './mainLogger'
 import { autoMigrate } from './prisma/autoMigrate'
 
@@ -49,13 +50,14 @@ initAcademicActivityLogDB(prisma)
 initResearchLogDB(prisma)
 initOtherActivityLogDB(prisma)
 
-// target data
 initTrainingYearDB(prisma)
 initAssessmentTargetDB(prisma)
 initAcademicTargetDB(prisma)
 initOtherActivityTargetDB(prisma)
 initResearchTargetDB(prisma)
 initTherapyTargetDB(prisma)
+
+initOverviewCharts(prisma)
 
 function createWindow(): void {
   // Create the browser window.

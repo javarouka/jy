@@ -20,7 +20,7 @@ import {
   ACADEMIC_TARGET_CHANNELS,
   OTHER_ACTIVITY_TARGET_CHANNELS,
   RESEARCH_TARGET_CHANNELS,
-  THERAPY_TARGET_CHANNELS
+  THERAPY_TARGET_CHANNELS, OVERVIEW_CHANNELS
 } from '@shared/constants/ipcChannels'
 import {
   AssessmentLogQueryParams,
@@ -39,6 +39,11 @@ import {
   OtherActivityLog,
   ResearchLog,
   OtherActivityTarget,
+  TrainingYear,
+  AssessmentTarget,
+  AcademicTarget,
+  ResearchTarget,
+  TherapyTarget
 } from '@prisma/client'
 
 export const api = {
@@ -135,6 +140,13 @@ export const db = {
   updateTherapyTarget: (id: number, therapyTarget: any): Promise<TherapyTarget> =>
     ipcRenderer.invoke(THERAPY_TARGET_CHANNELS.UPDATE, id, therapyTarget),
   deleteTherapyTarget: (id: number): Promise<TherapyTarget> => ipcRenderer.invoke(THERAPY_TARGET_CHANNELS.DELETE, id),
+
+  overviewGetAssessmentLogs: (): Promise<AssessmentLog[]> => ipcRenderer.invoke(OVERVIEW_CHANNELS.GET_ASSESSMENT_LOGS),
+  overviewGetResearchLogs: (): Promise<ResearchLog[]> => ipcRenderer.invoke(OVERVIEW_CHANNELS.GET_RESEARCH_LOGS),
+  overviewGetAcademicLogs: (): Promise<AcademicActivityLog[]> => ipcRenderer.invoke(OVERVIEW_CHANNELS.GET_ACADEMIC_ACTIVITY_LOGS),
+  overviewGetGroupTherapyLogs: (): Promise<GroupTherapyLog[]> => ipcRenderer.invoke(OVERVIEW_CHANNELS.GET_GROUP_THERAPY_LOGS),
+  overviewGetIndividualTherapyLogs: (): Promise<IndividualTherapyLog[]> => ipcRenderer.invoke(OVERVIEW_CHANNELS.GET_INDIVIDUAL_THERAPY_LOGS),
+  overviewGetOtherActivityLogs: (): Promise<OtherActivityLog[]> => ipcRenderer.invoke(OVERVIEW_CHANNELS.GET_OTHER_ACTIVITY_LOGS),
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to
@@ -142,15 +154,10 @@ export const db = {
 // just add to the DOM global.
 if (process.contextIsolated) {
   try {
-    // `api` 객체를 window.db 이름으로 노출시킵니다.
     contextBridge.exposeInMainWorld('db', db)
     contextBridge.exposeInMainWorld('electron', electronAPI)
     contextBridge.exposeInMainWorld('api', api)
     contextBridge.exposeInMainWorld('log', log)
-    // contextBridge.exposeInMainWorld('fs', {
-    //   createFile: () => ipcRenderer.invoke('create-file'),
-    //   readFile: () => ipcRenderer.invoke('read-file'),
-    // })
   } catch (error) {
     console.error(error)
   }
