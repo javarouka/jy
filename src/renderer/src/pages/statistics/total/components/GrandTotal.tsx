@@ -23,24 +23,24 @@ export default function GrandTotal({ creditTime, isSuccess }: GrandTotalProps) {
   return (
     <div className={`p-4 rounded-lg ${bgColorClass} mb-8`}>
       <div className="flex justify-between items-center mb-2">
-        <h4 className={`text-lg font-bold ${textColorClass} flex items-center gap-2`}>
-          <div><CompletedIcon isSuccess={isSuccess}/></div>
+        <h4 className={`text-base font-bold ${textColorClass} flex items-center gap-2`}>
+          <div><CompletedIcon isSuccess={isSuccess} size={18}/></div>
           <div>총 수련시간</div>
         </h4>
         {exceeds100Percent && (
-          <span className={`text-sm font-medium ${textColorClass}`}>
+          <span className={`text-xs font-medium ${textColorClass}`}>
             {displayPercentage}% 달성
           </span>
         )}
       </div>
       <div className="flex justify-between items-center">
         <div>
-          <p className="text-sm text-gray-500">현재</p>
-          <p className="text-xl font-bold">{convertMinuteToReader(creditTime)}</p>
+          <p className="text-xs text-gray-500">현재</p>
+          <p className="text-lg font-bold">{convertMinuteToReader(creditTime)}</p>
         </div>
         <div>
-          <p className="text-sm text-gray-500">목표</p>
-          <p className="text-xl font-bold">3,000 시간</p>
+          <p className="text-xs text-gray-500">목표</p>
+          <p className="text-lg font-bold">3,000 시간</p>
         </div>
       </div>
       <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mt-2">

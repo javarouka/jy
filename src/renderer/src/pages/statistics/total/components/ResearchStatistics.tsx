@@ -1,5 +1,6 @@
 import StatSection from '@renderer/pages/statistics/total/components/StatSection'
 import CountStatItem from '@renderer/component/stat-item/CountStatItem'
+import { ResearchTarget } from '@renderer/data/TrainingYears'
 
 type ResearchStatisticsProps = {
   researchTotalCount: number
@@ -18,7 +19,7 @@ export default function ResearchStatistics({
           value={researchTotalCount}
           isSuccess={researchSuccess}
           unit="건"
-          target="1 건"
+          target={ResearchTarget.totalResearchCount}
         />
       </StatSection>
     </div>

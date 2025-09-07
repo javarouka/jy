@@ -1,5 +1,6 @@
 import StatSection from '@renderer/pages/statistics/total/components/StatSection'
 import MinuteStatItem from '@renderer/component/stat-item/MinuteStatItem'
+import { OtherActivityTarget } from '@renderer/data/TrainingYears'
 
 type OtherActivityStatisticsProps = {
   externalCooperationCreditTime: number
@@ -19,12 +20,9 @@ export default function OtherActivityStatistics({
           label="대외협력 인정시간"
           value={externalCooperationCreditTime}
           isSuccess={externalCooperationSuccess}
-          target="30 시간"
+          target={OtherActivityTarget.externalCooperationCreditMinutes}
         />
-        <MinuteStatItem
-          label="기타수련 인정시간"
-          value={otherTrainingCreditTime}
-        />
+        <MinuteStatItem label="기타수련 인정시간" value={otherTrainingCreditTime} />
       </StatSection>
     </div>
   )

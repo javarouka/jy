@@ -5,9 +5,9 @@ export type StatItemProps = {
   label: string
   value: number
   isSuccess?: boolean
-  target?: string
+  target?: number
 }
 
 export default function MinuteStatItem({ label, value, isSuccess, target }: StatItemProps) {
-  return <RawStatItem label={label} value={convertMinuteToReader(value)} isSuccess={isSuccess} target={target}/>
+  return <RawStatItem label={label} value={convertMinuteToReader(value)} isSuccess={isSuccess} target={target ? convertMinuteToReader(target) : undefined}/>
 }

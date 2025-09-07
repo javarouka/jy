@@ -5,9 +5,9 @@ export type StatItemProps = {
   value: number
   unit: string
   isSuccess?: boolean
-  target?: string
+  target?: number
 }
 
 export default function CountStatItem({ label, value, unit, isSuccess, target }: StatItemProps) {
-  return <RawStatItem label={label} value={`${value}${unit}`} isSuccess={isSuccess} target={target}/>
+  return <RawStatItem label={label} value={`${value}`} unit={unit} isSuccess={isSuccess} target={target}/>
 }

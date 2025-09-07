@@ -5,9 +5,13 @@ export type StatItemProps = {
   value: string
   isSuccess?: boolean
   target?: string
+  unit?: string
 }
 
-export default function RawStatItem({ label, value, isSuccess, target }: StatItemProps) {
+export default function RawStatItem({ label, value, isSuccess, target, unit: _unit }: StatItemProps) {
+
+  const unit = _unit || ''
+
   const bgColorClass = isSuccess === undefined
     ? 'bg-gray-50 dark:bg-gray-800/20'
     : isSuccess
@@ -23,22 +27,22 @@ export default function RawStatItem({ label, value, isSuccess, target }: StatIte
   return (
     <div className={`p-3 rounded-lg ${bgColorClass}`}>
       <div className="flex justify-between items-center mb-2">
-        <h6 className={`text-sm font-medium ${textColorClass} flex gap-2 items-center`}>
-          {target ? <div><CompletedIcon isSuccess={isSuccess} /></div> : null}
+        <h6 className={`text-xs font-medium ${textColorClass} flex gap-2 items-center`}>
+          {target ? <div><CompletedIcon isSuccess={isSuccess} size={14} /></div> : null}
           <div>{label}</div>
         </h6>
       </div>
       <div className="flex justify-between items-center">
         <div>
           <p className="text-xs text-gray-500">현재</p>
-          <p className="text-base font-semibold">
-            {value}
+          <p className="text-sm font-semibold">
+            {value}{unit ? `${unit}`: ''}
           </p>
         </div>
         {target && (
           <div>
             <p className="text-xs text-gray-500">목표</p>
-            <p className="text-base font-semibold">{target}</p>
+            <p className="text-sm font-semibold">{target}{unit ? `${unit}`: ''}</p>
           </div>
         )}
       </div>

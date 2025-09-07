@@ -25,22 +25,22 @@ export default function YearlyStatistics({ yearlyStats }: YearlyStatProps) {
       <div className="space-y-4">
         {yearlyStats.map((year) => (
           <div key={year.name} className="border rounded-lg p-4 border-gray-200 dark:border-gray-700">
-            <h4 className="text-base font-medium mb-2">
+            <h4 className="text-sm font-medium mb-2">
               {year.name} ({year.startDate} ~ {year.endDate})
             </h4>
 
             {/* Goal time and progress bar */}
             <div className="mb-4">
               <div className="flex justify-between items-center mb-1">
-                <span className="text-sm font-medium">목표시간: {convertMinuteToReader(year.targetHours * 60)} ({year.targetHours} 시간)</span>
+                <span className="text-xs font-medium">목표시간: {convertMinuteToReader(year.targetHours * 60)} ({year.targetHours} 시간)</span>
                 <div className="flex items-center">
-                  <span className={`text-sm font-medium ${year.success ? 'text-green-600' : 'text-red-600'}`}>
+                  <span className={`text-xs font-medium ${year.success ? 'text-green-600' : 'text-red-600'}`}>
                     진행률: {year.actualProgressPercentage > 100
                       ? `100%`
                       : `${year.progressPercentage.toFixed(1)}%`}
                   </span>
                   {year.actualProgressPercentage > 100 && (
-                    <span className={`ml-2 text-sm font-medium ${year.success ? 'text-green-600' : 'text-red-600'}`}>
+                    <span className={`ml-2 text-xs font-medium ${year.success ? 'text-green-600' : 'text-red-600'}`}>
                       ({year.actualProgressPercentage.toFixed(1)}% 달성)
                     </span>
                   )}
@@ -57,30 +57,30 @@ export default function YearlyStatistics({ yearlyStats }: YearlyStatProps) {
             {/* Statistics grid */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div>
-                <p className="text-sm text-gray-500">심리평가 인정시간</p>
-                <p className="text-lg font-semibold">{convertMinuteToReader(year.assessmentCreditTime)}</p>
+                <p className="text-xs text-gray-500">심리평가 인정시간</p>
+                <p className="text-base font-semibold">{convertMinuteToReader(year.assessmentCreditTime)}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-500">심리치료 인정시간</p>
-                <p className="text-lg font-semibold">{convertMinuteToReader(year.therapyCreditTime)}</p>
+                <p className="text-xs text-gray-500">심리치료 인정시간</p>
+                <p className="text-base font-semibold">{convertMinuteToReader(year.therapyCreditTime)}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-500">학술활동 인정시간</p>
-                <p className="text-lg font-semibold">{convertMinuteToReader(year.academicCreditTime)}</p>
+                <p className="text-xs text-gray-500">학술활동 인정시간</p>
+                <p className="text-base font-semibold">{convertMinuteToReader(year.academicCreditTime)}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-500">기타수련 인정시간</p>
-                <p className="text-lg font-semibold">{convertMinuteToReader(year.otherCreditTime)}</p>
+                <p className="text-xs text-gray-500">기타수련 인정시간</p>
+                <p className="text-base font-semibold">{convertMinuteToReader(year.otherCreditTime)}</p>
               </div>
             </div>
 
             {/* Total for this year */}
             <div className={`mt-4 p-3 rounded-lg ${year.success ? 'bg-green-50 dark:bg-green-900/20' : 'bg-red-50 dark:bg-red-900/20'}`}>
               <div className="flex justify-between items-center">
-                <p className={`text-base font-medium ${year.success ? 'text-green-700 dark:text-green-300' : 'text-red-700 dark:text-red-300'}`}>
+                <p className={`text-sm font-medium ${year.success ? 'text-green-700 dark:text-green-300' : 'text-red-700 dark:text-red-300'}`}>
                   총 인정시간
                 </p>
-                <p className={`text-base font-bold ${year.success ? 'text-green-700 dark:text-green-300' : 'text-red-700 dark:text-red-300'}`}>
+                <p className={`text-sm font-bold ${year.success ? 'text-green-700 dark:text-green-300' : 'text-red-700 dark:text-red-300'}`}>
                   {convertMinuteToReader(year.totalCreditTime)}
                 </p>
               </div>

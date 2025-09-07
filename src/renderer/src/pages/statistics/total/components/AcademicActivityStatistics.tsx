@@ -1,6 +1,7 @@
 import StatSection from '@renderer/pages/statistics/total/components/StatSection'
 import MinuteStatItem from '@renderer/component/stat-item/MinuteStatItem'
 import CountStatItem from '@renderer/component/stat-item/CountStatItem'
+import { AcademicTarget } from '@renderer/data/TrainingYears'
 
 type AcademicActivityStatisticsProps = {
   academicTotalCreditTime: number
@@ -37,38 +38,35 @@ export default function AcademicActivityStatistics({
           value={ethicsEducationCount}
           isSuccess={ethicsEducationSuccess}
           unit="회"
-          target="1 회"
+          target={AcademicTarget.ethicsEducationJoinCount}
         />
         <MinuteStatItem
           label="학술회의 참석 인정시간"
           value={academicMeetingCreditTime}
           isSuccess={academicMeetingSuccess}
-          target="30 시간"
+          target={AcademicTarget.academicConferenceJoinMinutes}
         />
         <MinuteStatItem
           label="사례회의 참석 인정시간"
           value={caseMeetingCreditTime}
           isSuccess={caseMeetingSuccess}
-          target="10 시간"
+          target={AcademicTarget.caseConferenceJoinMinutes}
         />
         <CountStatItem
           label="사례회의 발표 횟수"
           value={casePresentationCount}
           isSuccess={casePresentationSuccess}
           unit="회"
-          target="2 회"
+          target={AcademicTarget.caseConferencePresentationCount}
         />
         <CountStatItem
           label="논문발표 횟수"
           value={paperPresentationCount}
           isSuccess={paperPresentationSuccess}
           unit="회"
-          target="1 회"
+          target={AcademicTarget.thesisPresentationCount}
         />
-        <MinuteStatItem
-          label="학술활동 총 인정시간"
-          value={academicTotalCreditTime}
-        />
+        <MinuteStatItem label="학술활동 총 인정시간" value={academicTotalCreditTime} />
       </StatSection>
     </div>
   )

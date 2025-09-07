@@ -5,6 +5,8 @@ import useAcademicActivityLogSearch
 import AcademicActivityLogCard from '@renderer/pages/management/academic-activity-log/AcademicActivityLogCard'
 import EditAcademicActivityLogModal from '@renderer/pages/management/academic-activity-log/EditAcademicActivityLogModal'
 import { ACT_OPTIONS, ACTIVITY_TYPE_OPTIONS, ORGANIZATION_OPTIONS } from '@shared/types'
+import LoadingSpinner from '@renderer/component/basic/LoadingSpinner'
+import FetchError from '@renderer/component/basic/FetchError'
 
 const AcademicActivityLogList = () => {
 
