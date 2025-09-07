@@ -123,7 +123,7 @@ export default function useAssessmentLogSearch(_queryClient?: QueryClient) {
 
   return {
     data: {
-      assessmentLog,
+      assessmentLog: assessmentLog || [],
       isError,
       isLoading,
     },

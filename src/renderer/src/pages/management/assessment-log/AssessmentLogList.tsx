@@ -6,6 +6,8 @@ import type { FormEvent } from 'react'
 import { useState } from 'react'
 import EditAssessmentLogModal from './EditAssessmentLogModal'
 import type { AssessmentLog } from '@prisma/client'
+import LoadingSpinner from '@renderer/component/basic/LoadingSpinner'
+import FetchError from '@renderer/component/basic/FetchError'
 
 const AssessmentLogList = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
@@ -59,8 +61,8 @@ const AssessmentLogList = () => {
     setSelectedLog(null)
   }
 
-  if (isLoading) return <div>로딩 중...</div>
-  if (isError) return <div>에러가 발생했습니다.</div>
+  if (isLoading) return <LoadingSpinner />
+  if (isError) return <FetchError />
 
   return (
     <div>
