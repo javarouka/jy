@@ -21,13 +21,18 @@ import {
   groupTherapyTimesByMonth
 } from '../utils';
 import { useIndividualTherapyLogs } from '../hook/useIndividualTherapyLogs';
+import { TypeTrainingYear } from '@shared/types';
 
 // Colors for charts
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d'];
 
-const IndividualTherapyLogCharts = () => {
+interface IndividualTherapyLogChartsProps {
+  trainingYear?: TypeTrainingYear;
+}
+
+const IndividualTherapyLogCharts = ({ trainingYear }: IndividualTherapyLogChartsProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const { data: therapyLogs, isLoading, error } = useIndividualTherapyLogs();
+  const { data: therapyLogs, isLoading, error } = useIndividualTherapyLogs(trainingYear);
 
   if (isLoading) {
     return <div className="flex justify-center items-center h-64">로딩 중...</div>;

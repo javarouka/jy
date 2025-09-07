@@ -5,13 +5,18 @@ import {
 } from 'recharts';
 import { groupByMonth, groupByYear, groupByField } from '../utils';
 import { useAcademicActivityLogs } from '../hook/useAcademicActivityLogs';
+import { TypeTrainingYear } from '@shared/types';
 
 // Colors for charts
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d'];
 
-const AcademicActivityLogCharts = () => {
+interface AcademicActivityLogChartsProps {
+  trainingYear?: TypeTrainingYear;
+}
+
+const AcademicActivityLogCharts = ({ trainingYear }: AcademicActivityLogChartsProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const { data: academicLogs, isLoading, error } = useAcademicActivityLogs();
+  const { data: academicLogs, isLoading, error } = useAcademicActivityLogs(trainingYear);
 
   if (isLoading) {
     return <div className="flex justify-center items-center h-64">로딩 중...</div>;

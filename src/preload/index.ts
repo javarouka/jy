@@ -6,7 +6,7 @@ import {
   TypeGroupTherapyFormData,
   TypeAcademicActivityFormData,
   TypeResearchFormData,
-  TypeOtherActivityFormData
+  TypeOtherActivityFormData, TypeTrainingYear
 } from '@shared/types'
 import {
   ASSESSMENT_LOG_CHANNELS,
@@ -141,12 +141,18 @@ export const db = {
     ipcRenderer.invoke(THERAPY_TARGET_CHANNELS.UPDATE, id, therapyTarget),
   deleteTherapyTarget: (id: number): Promise<TherapyTarget> => ipcRenderer.invoke(THERAPY_TARGET_CHANNELS.DELETE, id),
 
-  overviewGetAssessmentLogs: (): Promise<AssessmentLog[]> => ipcRenderer.invoke(OVERVIEW_CHANNELS.GET_ASSESSMENT_LOGS),
-  overviewGetResearchLogs: (): Promise<ResearchLog[]> => ipcRenderer.invoke(OVERVIEW_CHANNELS.GET_RESEARCH_LOGS),
-  overviewGetAcademicLogs: (): Promise<AcademicActivityLog[]> => ipcRenderer.invoke(OVERVIEW_CHANNELS.GET_ACADEMIC_ACTIVITY_LOGS),
-  overviewGetGroupTherapyLogs: (): Promise<GroupTherapyLog[]> => ipcRenderer.invoke(OVERVIEW_CHANNELS.GET_GROUP_THERAPY_LOGS),
-  overviewGetIndividualTherapyLogs: (): Promise<IndividualTherapyLog[]> => ipcRenderer.invoke(OVERVIEW_CHANNELS.GET_INDIVIDUAL_THERAPY_LOGS),
-  overviewGetOtherActivityLogs: (): Promise<OtherActivityLog[]> => ipcRenderer.invoke(OVERVIEW_CHANNELS.GET_OTHER_ACTIVITY_LOGS),
+  overviewGetAssessmentLogs: (trainingYear?: TypeTrainingYear): Promise<AssessmentLog[]> =>
+    ipcRenderer.invoke(OVERVIEW_CHANNELS.GET_ASSESSMENT_LOGS, trainingYear),
+  overviewGetResearchLogs: (trainingYear?: TypeTrainingYear): Promise<ResearchLog[]> =>
+    ipcRenderer.invoke(OVERVIEW_CHANNELS.GET_RESEARCH_LOGS, trainingYear),
+  overviewGetAcademicLogs: (trainingYear?: TypeTrainingYear): Promise<AcademicActivityLog[]> =>
+    ipcRenderer.invoke(OVERVIEW_CHANNELS.GET_ACADEMIC_ACTIVITY_LOGS, trainingYear),
+  overviewGetGroupTherapyLogs: (trainingYear?: TypeTrainingYear): Promise<GroupTherapyLog[]> =>
+    ipcRenderer.invoke(OVERVIEW_CHANNELS.GET_GROUP_THERAPY_LOGS, trainingYear),
+  overviewGetIndividualTherapyLogs: (trainingYear?: TypeTrainingYear): Promise<IndividualTherapyLog[]> =>
+    ipcRenderer.invoke(OVERVIEW_CHANNELS.GET_INDIVIDUAL_THERAPY_LOGS, trainingYear),
+  overviewGetOtherActivityLogs: (trainingYear?: TypeTrainingYear): Promise<OtherActivityLog[]> =>
+    ipcRenderer.invoke(OVERVIEW_CHANNELS.GET_OTHER_ACTIVITY_LOGS, trainingYear),
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to
