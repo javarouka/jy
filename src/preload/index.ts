@@ -25,6 +25,14 @@ import {
   OtherActivityLogQueryParams
 } from '@shared/types/db'
 import _log from './preloadLogger'
+import {
+  AcademicActivityLog,
+  AssessmentLog,
+  GroupTherapyLog,
+  IndividualTherapyLog,
+  OtherActivityLog,
+  ResearchLog
+} from '@prisma/client'
 
 export const api = {
 }
@@ -38,46 +46,46 @@ export const log = {
 
 export const db = {
   // Assessment Log API functions
-  getAssessmentLogs: (params?: AssessmentLogQueryParams) => ipcRenderer.invoke(ASSESSMENT_LOG_CHANNELS.GET, params),
-  createAssessmentLog: (form: TypeAssessmentFormData) => ipcRenderer.invoke(ASSESSMENT_LOG_CHANNELS.CREATE, form),
-  updateAssessmentLog: (id: number, form: TypeAssessmentFormData) =>
+  getAssessmentLogs: (params?: AssessmentLogQueryParams): Promise<AssessmentLog[]> => ipcRenderer.invoke(ASSESSMENT_LOG_CHANNELS.GET, params),
+  createAssessmentLog: (form: TypeAssessmentFormData): Promise<AssessmentLog> => ipcRenderer.invoke(ASSESSMENT_LOG_CHANNELS.CREATE, form),
+  updateAssessmentLog: (id: number, form: TypeAssessmentFormData): Promise<AssessmentLog> =>
     ipcRenderer.invoke(ASSESSMENT_LOG_CHANNELS.UPDATE, id, form),
-  deleteAssessmentLog: (id: number) => ipcRenderer.invoke(ASSESSMENT_LOG_CHANNELS.DELETE, id),
+  deleteAssessmentLog: (id: number): Promise<AssessmentLog> => ipcRenderer.invoke(ASSESSMENT_LOG_CHANNELS.DELETE, id),
 
   // Individual Therapy Log API functions
-  getIndividualTherapyLogs: (params?: IndividualTherapyLogQueryParams) => ipcRenderer.invoke(INDIVIDUAL_THERAPY_LOG_CHANNELS.GET, params),
-  createIndividualTherapyLog: (form: TypeIndividualTherapyFormData) => ipcRenderer.invoke(INDIVIDUAL_THERAPY_LOG_CHANNELS.CREATE, form),
-  updateIndividualTherapyLog: (id: number, form: TypeIndividualTherapyFormData) =>
+  getIndividualTherapyLogs: (params?: IndividualTherapyLogQueryParams): Promise<IndividualTherapyLog[]> => ipcRenderer.invoke(INDIVIDUAL_THERAPY_LOG_CHANNELS.GET, params),
+  createIndividualTherapyLog: (form: TypeIndividualTherapyFormData): Promise<IndividualTherapyLog> => ipcRenderer.invoke(INDIVIDUAL_THERAPY_LOG_CHANNELS.CREATE, form),
+  updateIndividualTherapyLog: (id: number, form: TypeIndividualTherapyFormData): Promise<IndividualTherapyLog> =>
     ipcRenderer.invoke(INDIVIDUAL_THERAPY_LOG_CHANNELS.UPDATE, id, form),
-  deleteIndividualTherapyLog: (id: number) => ipcRenderer.invoke(INDIVIDUAL_THERAPY_LOG_CHANNELS.DELETE, id),
+  deleteIndividualTherapyLog: (id: number): Promise<IndividualTherapyLog> => ipcRenderer.invoke(INDIVIDUAL_THERAPY_LOG_CHANNELS.DELETE, id),
 
   // Group Therapy Log API functions
-  getGroupTherapyLogs: (params?: GroupTherapyLogQueryParams) => ipcRenderer.invoke(GROUP_THERAPY_LOG_CHANNELS.GET, params),
-  createGroupTherapyLog: (form: TypeGroupTherapyFormData) => ipcRenderer.invoke(GROUP_THERAPY_LOG_CHANNELS.CREATE, form),
-  updateGroupTherapyLog: (id: number, form: TypeGroupTherapyFormData) =>
+  getGroupTherapyLogs: (params?: GroupTherapyLogQueryParams): Promise<GroupTherapyLog[]> => ipcRenderer.invoke(GROUP_THERAPY_LOG_CHANNELS.GET, params),
+  createGroupTherapyLog: (form: TypeGroupTherapyFormData): Promise<GroupTherapyLog> => ipcRenderer.invoke(GROUP_THERAPY_LOG_CHANNELS.CREATE, form),
+  updateGroupTherapyLog: (id: number, form: TypeGroupTherapyFormData): Promise<GroupTherapyLog> =>
     ipcRenderer.invoke(GROUP_THERAPY_LOG_CHANNELS.UPDATE, id, form),
-  deleteGroupTherapyLog: (id: number) => ipcRenderer.invoke(GROUP_THERAPY_LOG_CHANNELS.DELETE, id),
+  deleteGroupTherapyLog: (id: number): Promise<GroupTherapyLog> => ipcRenderer.invoke(GROUP_THERAPY_LOG_CHANNELS.DELETE, id),
 
   // Academic Activity Log API functions
-  getAcademicActivityLogs: (params?: AcademicActivityLogQueryParams) => ipcRenderer.invoke(ACADEMIC_ACTIVITY_LOG_CHANNELS.GET, params),
-  createAcademicActivityLog: (form: TypeAcademicActivityFormData) => ipcRenderer.invoke(ACADEMIC_ACTIVITY_LOG_CHANNELS.CREATE, form),
-  updateAcademicActivityLog: (id: number, form: TypeAcademicActivityFormData) =>
+  getAcademicActivityLogs: (params?: AcademicActivityLogQueryParams): Promise<AcademicActivityLog[]> => ipcRenderer.invoke(ACADEMIC_ACTIVITY_LOG_CHANNELS.GET, params),
+  createAcademicActivityLog: (form: TypeAcademicActivityFormData): Promise<AcademicActivityLog> => ipcRenderer.invoke(ACADEMIC_ACTIVITY_LOG_CHANNELS.CREATE, form),
+  updateAcademicActivityLog: (id: number, form: TypeAcademicActivityFormData): Promise<AcademicActivityLog> =>
     ipcRenderer.invoke(ACADEMIC_ACTIVITY_LOG_CHANNELS.UPDATE, id, form),
-  deleteAcademicActivityLog: (id: number) => ipcRenderer.invoke(ACADEMIC_ACTIVITY_LOG_CHANNELS.DELETE, id),
+  deleteAcademicActivityLog: (id: number): Promise<AcademicActivityLog> => ipcRenderer.invoke(ACADEMIC_ACTIVITY_LOG_CHANNELS.DELETE, id),
 
   // Research Log API functions
-  getResearchLogs: (params?: ResearchLogQueryParams) => ipcRenderer.invoke(RESEARCH_LOG_CHANNELS.GET, params),
-  createResearchLog: (form: TypeResearchFormData) => ipcRenderer.invoke(RESEARCH_LOG_CHANNELS.CREATE, form),
-  updateResearchLog: (id: number, form: TypeResearchFormData) =>
+  getResearchLogs: (params?: ResearchLogQueryParams): Promise<ResearchLog[]> => ipcRenderer.invoke(RESEARCH_LOG_CHANNELS.GET, params),
+  createResearchLog: (form: TypeResearchFormData): Promise<ResearchLog> => ipcRenderer.invoke(RESEARCH_LOG_CHANNELS.CREATE, form),
+  updateResearchLog: (id: number, form: TypeResearchFormData): Promise<ResearchLog> =>
     ipcRenderer.invoke(RESEARCH_LOG_CHANNELS.UPDATE, id, form),
-  deleteResearchLog: (id: number) => ipcRenderer.invoke(RESEARCH_LOG_CHANNELS.DELETE, id),
+  deleteResearchLog: (id: number): Promise<ResearchLog> => ipcRenderer.invoke(RESEARCH_LOG_CHANNELS.DELETE, id),
 
   // Other Activity Log API functions
-  getOtherActivityLogs: (params?: OtherActivityLogQueryParams) => ipcRenderer.invoke(OTHER_ACTIVITY_LOG_CHANNELS.GET, params),
-  createOtherActivityLog: (form: TypeOtherActivityFormData) => ipcRenderer.invoke(OTHER_ACTIVITY_LOG_CHANNELS.CREATE, form),
-  updateOtherActivityLog: (id: number, form: TypeOtherActivityFormData) =>
+  getOtherActivityLogs: (params?: OtherActivityLogQueryParams): Promise<OtherActivityLog[]> => ipcRenderer.invoke(OTHER_ACTIVITY_LOG_CHANNELS.GET, params),
+  createOtherActivityLog: (form: TypeOtherActivityFormData): Promise<OtherActivityLog> => ipcRenderer.invoke(OTHER_ACTIVITY_LOG_CHANNELS.CREATE, form),
+  updateOtherActivityLog: (id: number, form: TypeOtherActivityFormData): Promise<OtherActivityLog> =>
     ipcRenderer.invoke(OTHER_ACTIVITY_LOG_CHANNELS.UPDATE, id, form),
-  deleteOtherActivityLog: (id: number) => ipcRenderer.invoke(OTHER_ACTIVITY_LOG_CHANNELS.DELETE, id),
+  deleteOtherActivityLog: (id: number): Promise<OtherActivityLog> => ipcRenderer.invoke(OTHER_ACTIVITY_LOG_CHANNELS.DELETE, id),
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { TRAINING_YEARS } from '@renderer/data/TrainingYears'
 import { useMemo } from 'react'
 import { TypeGroupTherapyLog, TypeIndividualTherapyLog } from '@shared/types'
+import { IndividualTherapyLog } from '@prisma/client'
 
 // Combined type for therapy logs
 type TherapyLog = TypeIndividualTherapyLog | TypeGroupTherapyLog & { isIndividual?: boolean }
@@ -32,7 +33,7 @@ export default function useTherapyLogStatistics() {
     queryKey: ['IndividualTherapyLogStatistics'],
     queryFn: async () => {
       // Create an array of promises for each training year
-      const promises = TRAINING_YEARS.map(year =>
+      const promises: Promise<IndividualTherapyLog[]>[] = TRAINING_YEARS.map(year =>
         window.db.getIndividualTherapyLogs({
           dateRange: {
             startDate: year.startDate,

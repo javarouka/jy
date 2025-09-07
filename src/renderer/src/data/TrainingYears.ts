@@ -1,4 +1,4 @@
-type TypeTrainingYear = {
+export type TypeTrainingYear = {
   name: string
   startDate: string
   endDate: string

@@ -12,8 +12,7 @@ export default function useAssessmentLogMutation(_queryClient?: QueryClient) {
     dx: '',
     researchType: RESEARCH_TYPE_OPTIONS[0],
     researchDate: '',
-    creditTime: 0,
-    usable: true
+    creditTime: 0
   });
 
   const isValidateForm = (formData: TypeAssessmentFormData): boolean => {
@@ -21,7 +20,9 @@ export default function useAssessmentLogMutation(_queryClient?: QueryClient) {
   }
 
   const createAssessmentLogMutation = useMutation({
-    mutationFn: (log: TypeAssessmentFormData) => window.db.createAssessmentLog(log),
+    mutationFn: (log: TypeAssessmentFormData) => {
+      return window.db.createAssessmentLog(log)
+    },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['AssessmentLog'] }),
   })
 
