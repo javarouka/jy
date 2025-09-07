@@ -174,7 +174,7 @@ export default function useTotalStatistics() {
     // Calculate assessment statistics
     const assessmentTotalCreditTime = assessmentLogs.reduce((sum, log) => sum + log.creditTime, 0)
     const assessmentTotalCount = assessmentLogs.length
-    const comprehensiveAssessmentLogs = assessmentLogs.filter(log => log.researchType === '종합심리평가')
+    const comprehensiveAssessmentLogs = assessmentLogs.filter(log => log.researchType === 'COMPREHENSIVE_PSYCHOLOGICAL_ASSESSMENT')
     const comprehensiveAssessmentCount = comprehensiveAssessmentLogs.length
     const assessmentSuccess = assessmentTotalCreditTime >= 300 * 60 // 300 hours in minutes
     const comprehensiveAssessmentSuccess = comprehensiveAssessmentCount >= 30
@@ -183,7 +183,7 @@ export default function useTotalStatistics() {
     const therapyTotalCreditTime = allTherapyLogs.reduce((sum, log) =>
       sum + log.prepareTime + log.sessionTime + log.supervisionTime, 0)
     const therapyTotalCount = allTherapyLogs.length
-    const mainTherapistLogs = allTherapyLogs.filter(log => log.therapyType === '주치료자')
+    const mainTherapistLogs = allTherapyLogs.filter(log => log.therapyType === 'MAIN_THERAPIST')
     const mainTherapistCreditTime = mainTherapistLogs.reduce((sum, log) =>
       sum + log.prepareTime + log.sessionTime + log.supervisionTime, 0)
     const mainTherapistCount = mainTherapistLogs.length
@@ -197,31 +197,31 @@ export default function useTotalStatistics() {
 
     // Ethics education attendance
     const ethicsEducationLogs = academicActivityLogs.filter(log =>
-      log.act === '참석' && log.activityType === '윤리교육')
+      log.act === 'ATTENDING' && log.activityType === 'ETHICS_EDUCATION')
     const ethicsEducationCount = ethicsEducationLogs.length
     const ethicsEducationSuccess = ethicsEducationCount >= 1
 
     // Academic meeting attendance
     const academicMeetingLogs = academicActivityLogs.filter(log =>
-      log.act === '참석' && log.activityType === '학술회의')
+      log.act === 'ATTENDING' && log.activityType === 'ACADEMIC_CONFERENCE')
     const academicMeetingCreditTime = academicMeetingLogs.reduce((sum, log) => sum + log.creditTime, 0)
     const academicMeetingSuccess = academicMeetingCreditTime >= 30 * 60 // 30 hours in minutes
 
     // Case meeting attendance
     const caseMeetingLogs = academicActivityLogs.filter(log =>
-      log.act === '참석' && log.activityType === '사례회의')
+      log.act === 'ATTENDING' && log.activityType === 'CASE_CONFERENCE')
     const caseMeetingCreditTime = caseMeetingLogs.reduce((sum, log) => sum + log.creditTime, 0)
     const caseMeetingSuccess = caseMeetingCreditTime >= 10 * 60 // 10 hours in minutes
 
     // Case presentation
     const casePresentationLogs = academicActivityLogs.filter(log =>
-      log.act === '발표' && log.activityType === '사례회의')
+      log.act === 'ASSISTING' && log.activityType === 'CASE_CONFERENCE')
     const casePresentationCount = casePresentationLogs.length
     const casePresentationSuccess = casePresentationCount >= 2
 
     // Paper presentation
     const paperPresentationLogs = academicActivityLogs.filter(log =>
-      log.act === '발표' && log.activityType === '논문발표')
+      log.act === 'ASSISTING' && log.activityType === 'PAPER_PRESENTATION')
     const paperPresentationCount = paperPresentationLogs.length
     const paperPresentationSuccess = paperPresentationCount >= 1
 
@@ -230,11 +230,11 @@ export default function useTotalStatistics() {
     const researchSuccess = researchTotalCount >= 1
 
     // Calculate other activity statistics
-    const externalCooperationLogs = otherActivityLogs.filter(log => log.activityType === '대외협력')
+    const externalCooperationLogs = otherActivityLogs.filter(log => log.activityType === 'EXTERNAL_COOPERATION')
     const externalCooperationCreditTime = externalCooperationLogs.reduce((sum, log) => sum + log.creditTime, 0)
     const externalCooperationSuccess = externalCooperationCreditTime >= 30 * 60 // 30 hours in minutes
 
-    const otherTrainingLogs = otherActivityLogs.filter(log => log.activityType === '기타수련')
+    const otherTrainingLogs = otherActivityLogs.filter(log => log.activityType === 'OTHER_TRAINING')
     const otherTrainingCreditTime = otherTrainingLogs.reduce((sum, log) => sum + log.creditTime, 0)
 
     // Calculate grand total

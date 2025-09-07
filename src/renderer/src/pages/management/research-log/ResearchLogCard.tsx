@@ -1,6 +1,7 @@
 import { format } from 'date-fns'
 import type { ResearchLog } from '@prisma/client'
 import { convertMinuteToReader } from '@renderer/helpers/Times'
+import { getTranslatedTextById } from '@renderer/helpers/translateConstants'
 
 interface ResearchLogCardProps {
   log: ResearchLog
@@ -47,7 +48,7 @@ const ResearchLogCard = ({ log, onDelete, onEdit }: ResearchLogCardProps) => {
 
       <div className="text-sm text-gray-600 mb-2 space-y-2">
         <p><strong className="font-semibold text-gray-800 dark:text-gray-100">학회지:</strong> {log.journalName}</p>
-        <p><strong className="font-semibold text-gray-800 dark:text-gray-100">저자구분:</strong> {log.participateType}</p>
+        <p><strong className="font-semibold text-gray-800 dark:text-gray-100">저자구분:</strong> {getTranslatedTextById(log.participateType, "participate.type", log.participateType)}</p>
         <p><strong className="font-semibold text-gray-800 dark:text-gray-100">발간일:</strong> {format(new Date(log.publishDate), 'yyyy-MM-dd')}</p>
       </div>
 

@@ -1,6 +1,7 @@
 import { format } from 'date-fns'
 import type { OtherActivityLog } from '@prisma/client'
 import { convertMinuteToReader } from '@renderer/helpers/Times'
+import { getTranslatedTextById } from '@renderer/helpers/translateConstants'
 
 interface OtherActivityLogCardProps {
   log: OtherActivityLog
@@ -46,7 +47,7 @@ const OtherActivityLogCard = ({ log, onDelete, onEdit }: OtherActivityLogCardPro
       </div>
 
       <div className="text-sm text-gray-600 mb-2 space-y-2">
-        <p><strong className="font-semibold text-gray-800 dark:text-gray-100">활동유형:</strong> {log.activityType}</p>
+        <p><strong className="font-semibold text-gray-800 dark:text-gray-100">활동유형:</strong> {getTranslatedTextById(log.activityType, "other.activity.type", log.activityType)}</p>
         <p>
           <strong className="font-semibold text-gray-800 dark:text-gray-100">활동기간</strong>
           <p>{format(new Date(log.startDate), 'yyyy-MM-dd')} ~ {format(new Date(log.endDate), 'yyyy-MM-dd')}</p>

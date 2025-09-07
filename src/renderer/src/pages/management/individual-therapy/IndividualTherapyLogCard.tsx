@@ -1,6 +1,7 @@
 import { IndividualTherapyLog } from '@prisma/client'
 import { convertMinuteToReader } from '@renderer/helpers/Times'
 import { format } from 'date-fns'
+import { getTranslatedTextById } from '@renderer/helpers/translateConstants'
 
 type Props = {
   log: IndividualTherapyLog
@@ -49,7 +50,7 @@ const IndividualTherapyLogCard = (props: Props) => {
         </div>
         <div className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
           <p>
-            <strong className="font-semibold text-gray-800 dark:text-gray-100">치료자 유형:</strong> {log.therapyType}
+            <strong className="font-semibold text-gray-800 dark:text-gray-100">치료자 유형:</strong> {getTranslatedTextById(log.therapyType, "therapy.type", log.therapyType)}
           </p>
           <p>
             <strong className="font-semibold text-gray-800 dark:text-gray-100">검사일:</strong> {formattedResearchDate}

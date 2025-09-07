@@ -1,6 +1,7 @@
 import { AcademicActivityLog } from '@prisma/client'
 import { convertMinuteToReader } from '@renderer/helpers/Times'
 import { format } from 'date-fns'
+import { getTranslatedTextById } from '@renderer/helpers/translateConstants'
 
 type Props = {
   log: AcademicActivityLog
@@ -18,7 +19,6 @@ const AcademicActivityLogCard = (props: Props) => {
         <div className="flex justify-between items-start mb-4">
           <h3 className="text-xl font-bold text-gray-900 dark:text-white">
             <div>{log.activityName} / {log.sessionName}</div>
-            <small className="text-sm block text-right">{log.organization}</small>
           </h3>
           <div className="flex space-x-2">
             <button
@@ -43,13 +43,13 @@ const AcademicActivityLogCard = (props: Props) => {
         </div>
         <div className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
           <p>
-            <strong className="font-semibold text-gray-800 dark:text-gray-100">참석 발표:</strong> {log.act}
+            <strong className="font-semibold text-gray-800 dark:text-gray-100">참석 발표:</strong> {getTranslatedTextById(log.act, "common.base", log.act)}
           </p>
           <p>
-            <strong className="font-semibold text-gray-800 dark:text-gray-100">회의 유형:</strong> {log.activityType}
+            <strong className="font-semibold text-gray-800 dark:text-gray-100">회의 유형:</strong> {getTranslatedTextById(log.activityType, "activity.type", log.activityType)}
           </p>
           <p>
-            <strong className="font-semibold text-gray-800 dark:text-gray-100">주관기관:</strong> {log.organization}
+            <strong className="font-semibold text-gray-800 dark:text-gray-100">주관기관:</strong> {getTranslatedTextById(log.organization, "organization", log.organization)}
           </p>
           <p>
             <strong className="font-semibold text-gray-800 dark:text-gray-100">활동일:</strong> {formattedActivityDateDate}
