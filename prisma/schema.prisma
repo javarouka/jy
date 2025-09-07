@@ -65,7 +65,7 @@ model GroupTherapyLog {
 ///  * 학술활동
 model AcademicActivityLog {
   id           Int      @id @default(autoincrement())
-  act          String ///  * 참석 발표. follower, following
+  act          String ///  * 참석 발표. 보조, 참석
   activityName String ///  * 회의명
   activityType String ///  * 회의 유형. '학술회의', '사례회의', '윤리교육'
   activityDate DateTime ///  * 활동일 (*)

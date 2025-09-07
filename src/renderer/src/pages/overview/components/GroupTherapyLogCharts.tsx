@@ -1,39 +1,27 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   PieChart, Pie, Cell, Sector
 } from 'recharts';
-import { GroupTherapyLog } from '@prisma/client';
 import { groupByMonth, groupByYear, groupByField, groupTherapyTimesByMonth } from '../utils';
+import { useGroupTherapyLogs } from '../hook/useGroupTherapyLogs';
 
 // Colors for charts
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d'];
 
 const GroupTherapyLogCharts = () => {
-  const [therapyLogs, setTherapyLogs] = useState<GroupTherapyLog[]>([]);
-  const [loading, setLoading] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
+  const { data: therapyLogs, isLoading, error } = useGroupTherapyLogs();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await window.db.overviewGetGroupTherapyLogs()
-        setTherapyLogs(response);
-      } catch (error) {
-        console.error('Error fetching group therapy logs:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return <div className="flex justify-center items-center h-64">로딩 중...</div>;
   }
 
-  if (therapyLogs.length === 0) {
+  if (error) {
+    return <div className="flex justify-center items-center h-64">데이터를 불러오는 중 오류가 발생했습니다.</div>;
+  }
+
+  if (!therapyLogs || therapyLogs.length === 0) {
     return <div className="flex justify-center items-center h-64">데이터가 없습니다.</div>;
   }
 
@@ -166,7 +154,7 @@ const GroupTherapyLogCharts = () => {
         <ResponsiveContainer width="100%" height={300}>
           <PieChart>
             <Pie
-              activeIndex={activeIndex}
+              {...{ activeIndex } as any}
               activeShape={renderActiveShape}
               data={therapyTypeData}
               cx="50%"
@@ -177,11 +165,12 @@ const GroupTherapyLogCharts = () => {
               dataKey="count"
               onMouseEnter={onPieEnter}
             >
-              {therapyTypeData.map((entry, index) => (
+              {therapyTypeData.map((_, index) => (
                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
               ))}
             </Pie>
             <Tooltip />
+            <Legend />
           </PieChart>
         </ResponsiveContainer>
       </div>

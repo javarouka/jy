@@ -1,39 +1,43 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
-  PieChart, Pie, Cell, Sector, StackedBarChart
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+  Sector
 } from 'recharts';
-import { IndividualTherapyLog } from '@prisma/client';
-import { getAgeGroup, groupByMonth, groupByYear, groupByField, groupTherapyTimesByMonth } from '../utils';
+import {
+  getAgeGroup,
+  groupByMonth,
+  groupByYear,
+  groupByField,
+  groupTherapyTimesByMonth
+} from '../utils';
+import { useIndividualTherapyLogs } from '../hook/useIndividualTherapyLogs';
 
 // Colors for charts
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d'];
 
 const IndividualTherapyLogCharts = () => {
-  const [therapyLogs, setTherapyLogs] = useState<IndividualTherapyLog[]>([]);
-  const [loading, setLoading] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
+  const { data: therapyLogs, isLoading, error } = useIndividualTherapyLogs();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await window.db.overviewGetIndividualTherapyLogs();
-        setTherapyLogs(response);
-      } catch (error) {
-        console.error('Error fetching individual therapy logs:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return <div className="flex justify-center items-center h-64">로딩 중...</div>;
   }
 
-  if (therapyLogs.length === 0) {
+  if (error) {
+    return <div className="flex justify-center items-center h-64">데이터를 불러오는 중 오류가 발생했습니다.</div>;
+  }
+
+  if (!therapyLogs || therapyLogs.length === 0) {
     return <div className="flex justify-center items-center h-64">데이터가 없습니다.</div>;
   }
 
@@ -190,7 +194,7 @@ const IndividualTherapyLogCharts = () => {
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
               <Pie
-                activeIndex={activeIndex}
+                {...{ activeIndex } as any}
                 activeShape={renderActiveShape}
                 data={genderData}
                 cx="50%"
@@ -206,6 +210,7 @@ const IndividualTherapyLogCharts = () => {
                 ))}
               </Pie>
               <Tooltip />
+              <Legend />
             </PieChart>
           </ResponsiveContainer>
         </div>
@@ -215,6 +220,8 @@ const IndividualTherapyLogCharts = () => {
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
               <Pie
+                {...{ activeIndex } as any}
+                activeShape={renderActiveShape}
                 data={ageData}
                 cx="50%"
                 cy="50%"
@@ -222,13 +229,14 @@ const IndividualTherapyLogCharts = () => {
                 outerRadius={80}
                 fill="#8884d8"
                 dataKey="count"
-                label={({ name, percent }) => `${name} ${((percent || 0) * 100).toFixed(0)}%`}
+                onMouseEnter={onPieEnter}
               >
                 {ageData.map((_, index) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>
               <Tooltip />
+              <Legend />
             </PieChart>
           </ResponsiveContainer>
         </div>
@@ -238,6 +246,8 @@ const IndividualTherapyLogCharts = () => {
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
               <Pie
+                {...{ activeIndex } as any}
+                activeShape={renderActiveShape}
                 data={therapyTypeData}
                 cx="50%"
                 cy="50%"
@@ -245,13 +255,14 @@ const IndividualTherapyLogCharts = () => {
                 outerRadius={80}
                 fill="#8884d8"
                 dataKey="count"
-                label={({ name, percent }) => `${name} ${((percent || 0) * 100).toFixed(0)}%`}
+                onMouseEnter={onPieEnter}
               >
                 {therapyTypeData.map((_, index) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>
               <Tooltip />
+              <Legend />
             </PieChart>
           </ResponsiveContainer>
         </div>

@@ -1,39 +1,27 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   PieChart, Pie, Cell, Sector
 } from 'recharts';
-import { OtherActivityLog } from '@prisma/client';
 import { groupByMonth, groupByYear, groupByField } from '../utils';
+import { useOtherActivityLogs } from '../hook/useOtherActivityLogs';
 
 // Colors for charts
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d'];
 
 const OtherActivityLogCharts = () => {
-  const [activityLogs, setActivityLogs] = useState<OtherActivityLog[]>([]);
-  const [loading, setLoading] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
+  const { data: activityLogs, isLoading, error } = useOtherActivityLogs();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await window.db.overviewGetOtherActivityLogs()
-        setActivityLogs(response);
-      } catch (error) {
-        console.error('Error fetching other activity logs:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return <div className="flex justify-center items-center h-64">로딩 중...</div>;
   }
 
-  if (activityLogs.length === 0) {
+  if (error) {
+    return <div className="flex justify-center items-center h-64">데이터를 불러오는 중 오류가 발생했습니다.</div>;
+  }
+
+  if (!activityLogs || activityLogs.length === 0) {
     return <div className="flex justify-center items-center h-64">데이터가 없습니다.</div>;
   }
 
@@ -138,7 +126,7 @@ const OtherActivityLogCharts = () => {
         <ResponsiveContainer width="100%" height={300}>
           <PieChart>
             <Pie
-              activeIndex={activeIndex}
+              {...{ activeIndex } as any}
               activeShape={renderActiveShape}
               data={activityTypeData}
               cx="50%"
@@ -154,6 +142,7 @@ const OtherActivityLogCharts = () => {
               ))}
             </Pie>
             <Tooltip />
+            <Legend />
           </PieChart>
         </ResponsiveContainer>
       </div>

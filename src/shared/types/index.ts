@@ -126,8 +126,8 @@ export type TypeAcademicActivityFormData = {
 }
 
 export const ACT_OPTIONS = [
-  'follower',
-  'following'
+  '보조',
+  '참석'
 ]
 
 export const ACTIVITY_TYPE_OPTIONS = [

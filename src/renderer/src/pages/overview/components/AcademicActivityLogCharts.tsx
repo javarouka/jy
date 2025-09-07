@@ -1,39 +1,27 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   PieChart, Pie, Cell, Sector
 } from 'recharts';
-import { AcademicActivityLog } from '@prisma/client';
 import { groupByMonth, groupByYear, groupByField } from '../utils';
+import { useAcademicActivityLogs } from '../hook/useAcademicActivityLogs';
 
 // Colors for charts
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d'];
 
 const AcademicActivityLogCharts = () => {
-  const [academicLogs, setAcademicLogs] = useState<AcademicActivityLog[]>([]);
-  const [loading, setLoading] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
+  const { data: academicLogs, isLoading, error } = useAcademicActivityLogs();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await window.db.overviewGetAcademicLogs()
-        setAcademicLogs(response);
-      } catch (error) {
-        console.error('Error fetching academic activity logs:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return <div className="flex justify-center items-center h-64">로딩 중...</div>;
   }
 
-  if (academicLogs.length === 0) {
+  if (error) {
+    return <div className="flex justify-center items-center h-64">데이터를 불러오는 중 오류가 발생했습니다.</div>;
+  }
+
+  if (!academicLogs || academicLogs.length === 0) {
     return <div className="flex justify-center items-center h-64">데이터가 없습니다.</div>;
   }
 
@@ -95,6 +83,8 @@ const AcademicActivityLogCharts = () => {
     setActiveIndex(index);
   };
 
+  console.log(monthlyData);
+
   return (
     <div className="space-y-8">
       <div>
@@ -141,7 +131,7 @@ const AcademicActivityLogCharts = () => {
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
               <Pie
-                activeIndex={activeIndex}
+                {...{ activeIndex } as any}
                 activeShape={renderActiveShape}
                 data={actData}
                 cx="50%"
@@ -157,6 +147,7 @@ const AcademicActivityLogCharts = () => {
                 ))}
               </Pie>
               <Tooltip />
+              <Legend />
             </PieChart>
           </ResponsiveContainer>
         </div>
@@ -166,6 +157,8 @@ const AcademicActivityLogCharts = () => {
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
               <Pie
+                {...{ activeIndex } as any}
+                activeShape={renderActiveShape}
                 data={activityTypeData}
                 cx="50%"
                 cy="50%"
@@ -173,13 +166,14 @@ const AcademicActivityLogCharts = () => {
                 outerRadius={80}
                 fill="#8884d8"
                 dataKey="count"
-                label={({ name, percent }) => `${name} ${((percent || 0) * 100).toFixed(0)}%`}
+                onMouseEnter={onPieEnter}
               >
                 {activityTypeData.map((_, index) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>
               <Tooltip />
+              <Legend />
             </PieChart>
           </ResponsiveContainer>
         </div>
@@ -189,6 +183,8 @@ const AcademicActivityLogCharts = () => {
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
               <Pie
+                {...{ activeIndex } as any}
+                activeShape={renderActiveShape}
                 data={organizationData}
                 cx="50%"
                 cy="50%"
@@ -196,13 +192,14 @@ const AcademicActivityLogCharts = () => {
                 outerRadius={80}
                 fill="#8884d8"
                 dataKey="count"
-                label={({ name, percent }) => `${name} ${((percent || 0) * 100).toFixed(0)}%`}
+                onMouseEnter={onPieEnter}
               >
                 {organizationData.map((_, index) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>
               <Tooltip />
+              <Legend />
             </PieChart>
           </ResponsiveContainer>
         </div>

@@ -1,39 +1,27 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   PieChart, Pie, Cell, Sector
 } from 'recharts';
-import { ResearchLog } from '@prisma/client';
 import { groupByMonth, groupByYear, groupByField } from '../utils';
+import { useResearchLogs } from '../hook/useResearchLogs';
 
 // Colors for charts
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d'];
 
 const ResearchLogCharts = () => {
-  const [researchLogs, setResearchLogs] = useState<ResearchLog[]>([]);
-  const [loading, setLoading] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
+  const { data: researchLogs, isLoading, error } = useResearchLogs();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await window.db.overviewGetResearchLogs()
-        setResearchLogs(response);
-      } catch (error) {
-        console.error('Error fetching research logs:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return <div className="flex justify-center items-center h-64">로딩 중...</div>;
   }
 
-  if (researchLogs.length === 0) {
+  if (error) {
+    return <div className="flex justify-center items-center h-64">데이터를 불러오는 중 오류가 발생했습니다.</div>;
+  }
+
+  if (!researchLogs || researchLogs.length === 0) {
     return <div className="flex justify-center items-center h-64">데이터가 없습니다.</div>;
   }
 
@@ -138,7 +126,7 @@ const ResearchLogCharts = () => {
         <ResponsiveContainer width="100%" height={300}>
           <PieChart>
             <Pie
-              activeIndex={activeIndex}
+              {...{ activeIndex } as any}
               activeShape={renderActiveShape}
               data={participateTypeData}
               cx="50%"
@@ -154,6 +142,7 @@ const ResearchLogCharts = () => {
               ))}
             </Pie>
             <Tooltip />
+            <Legend />
           </PieChart>
         </ResponsiveContainer>
       </div>

@@ -166,3 +166,4 @@ npm run typecheck
 - Electron의 메인 프로세스와 렌더러 프로세스 분리에 주의해야 합니다.
 - typescript 에서 함수가 어떤 값을 반환할 때에는 가능할 경우 반드시 타입 선언을 해야 합니다
 - SQLite3 에서 조회한 데이터 타입(AssessmentLog 등)의 경우에는 `@prisma/client` 에 있습니다.
+- react 컴포넌트에서 서버 데이터 fetch 시에는 반드시 react-query 를 사용해야 합니다.
