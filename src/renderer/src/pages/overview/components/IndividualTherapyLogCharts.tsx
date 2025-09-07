@@ -17,6 +17,7 @@ import {
   getAgeGroup,
   groupByMonth,
   groupByField,
+  groupByFieldWithTranslation,
   groupTherapyTimesByMonth
 } from '../utils';
 import { useIndividualTherapyLogs } from '../hook/useIndividualTherapyLogs';
@@ -81,7 +82,7 @@ const IndividualTherapyLogCharts = ({ trainingYear }: IndividualTherapyLogCharts
   });
 
   // Process therapy type data
-  const therapyTypeData = groupByField(therapyLogs, 'therapyType');
+  const therapyTypeData = groupByFieldWithTranslation(therapyLogs, 'therapyType', 'therapy.type');
 
   // Custom active shape for pie charts
   const renderActiveShape = (props: any) => {

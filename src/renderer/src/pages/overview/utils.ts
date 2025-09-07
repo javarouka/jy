@@ -1,4 +1,5 @@
 import { format, getYear, parse, addMonths, isBefore, isEqual } from 'date-fns';
+import { getTranslatedTextById } from '@renderer/helpers/translateConstants';
 
 /**
  * Groups age into categories (10대, 20대, etc.)
@@ -163,6 +164,42 @@ export function groupByField<T>(
 
   return Object.entries(groupedData).map(([name, count]) => ({
     name,
+    count,
+    percentage: (count / total) * 100,
+  }));
+}
+
+/**
+ * Groups data by a specific field and calculates count and percentage
+ * with translation for constant values
+ * @param data Array of data
+ * @param field The field to group by
+ * @param category The category for translation
+ * @returns Array of objects with name, count, and percentage
+ */
+export function groupByFieldWithTranslation<T>(
+  data: T[],
+  field: keyof T,
+  category: string
+): { name: string; originalId: string; count: number; percentage: number }[] {
+  const groupedData: Record<string, number> = {};
+  const total = data.length;
+
+  data.forEach((item) => {
+    const value = String(item[field] || 'Unknown');
+
+    if (!groupedData[value]) {
+      groupedData[value] = 0;
+    }
+
+    groupedData[value] += 1;
+  });
+
+  // getTranslatedTextById is now imported at the top of the file
+
+  return Object.entries(groupedData).map(([id, count]) => ({
+    name: getTranslatedTextById(id, category, id),
+    originalId: id,
     count,
     percentage: (count / total) * 100,
   }));

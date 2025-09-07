@@ -3,7 +3,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   PieChart, Pie, Cell, Sector
 } from 'recharts';
-import { groupByMonth, groupByField, groupTherapyTimesByMonth } from '../utils';
+import { groupByMonth, groupByFieldWithTranslation, groupTherapyTimesByMonth } from '../utils';
 import { useGroupTherapyLogs } from '../hook/useGroupTherapyLogs';
 import { TypeTrainingYear } from '@shared/types';
 
@@ -43,7 +43,7 @@ const GroupTherapyLogCharts = ({ trainingYear }: GroupTherapyLogChartsProps) => 
   const monthlyTimeData = groupTherapyTimesByMonth(therapyLogs, 'endDate', trainingYear);
 
   // Process therapy type data
-  const therapyTypeData = groupByField(therapyLogs, 'therapyType');
+  const therapyTypeData = groupByFieldWithTranslation(therapyLogs, 'therapyType', 'therapy.type');
 
   // Custom active shape for pie charts
   const renderActiveShape = (props: any) => {

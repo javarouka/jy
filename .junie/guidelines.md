@@ -167,3 +167,4 @@ npm run typecheck
 - typescript 에서 함수가 어떤 값을 반환할 때에는 가능할 경우 반드시 타입 선언을 해야 합니다
 - SQLite3 에서 조회한 데이터 타입(AssessmentLog 등)의 경우에는 `@prisma/client` 에 있습니다.
 - react 컴포넌트에서 서버 데이터 fetch 시에는 반드시 react-query 를 사용해야 합니다.
+- 모듈은 es6 스타일(import, export)로 사용한다.

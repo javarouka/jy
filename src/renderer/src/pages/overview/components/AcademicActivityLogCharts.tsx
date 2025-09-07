@@ -3,7 +3,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   PieChart, Pie, Cell, Sector
 } from 'recharts';
-import { groupByMonth, groupByField } from '../utils';
+import { groupByMonth, groupByFieldWithTranslation } from '../utils';
 import { useAcademicActivityLogs } from '../hook/useAcademicActivityLogs';
 import { TypeTrainingYear } from '@shared/types';
 
@@ -34,9 +34,9 @@ const AcademicActivityLogCharts = ({ trainingYear }: AcademicActivityLogChartsPr
   const monthlyData = groupByMonth(academicLogs, 'activityDate', 'creditTime', trainingYear);
 
   // Process data for pie charts
-  const actData = groupByField(academicLogs, 'act');
-  const activityTypeData = groupByField(academicLogs, 'activityType');
-  const organizationData = groupByField(academicLogs, 'organization');
+  const actData = groupByFieldWithTranslation(academicLogs, 'act', 'common.base');
+  const activityTypeData = groupByFieldWithTranslation(academicLogs, 'activityType', 'activity.type');
+  const organizationData = groupByFieldWithTranslation(academicLogs, 'organization', 'organization');
 
   // Custom active shape for pie charts
   const renderActiveShape = (props: any) => {
