@@ -103,8 +103,8 @@ const AcademicActivityLogList = () => {
     setIsDetailedSearchExpanded(!isDetailedSearchExpanded)
   }
 
-  if (isLoading) return <div>로딩 중...</div>
-  if (isError) return <div>에러가 발생했습니다.</div>
+  if (isLoading) return <LoadingSpinner />
+  if (isError) return <FetchError />
 
   return (
     <div>

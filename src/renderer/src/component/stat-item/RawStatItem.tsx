@@ -1,14 +1,13 @@
-import { convertMinuteToReader } from '@renderer/helpers/Times'
+import CompletedIcon from '@renderer/component/stat-item/CompletedIcon'
 
 export type StatItemProps = {
   label: string
-  value: string | number
+  value: string
   isSuccess?: boolean
-  unit?: string
   target?: string
 }
 
-export default function StatItem({ label, value, isSuccess, unit = '분', target }: StatItemProps) {
+export default function RawStatItem({ label, value, isSuccess, target }: StatItemProps) {
   const bgColorClass = isSuccess === undefined
     ? 'bg-gray-50 dark:bg-gray-800/20'
     : isSuccess
@@ -24,16 +23,16 @@ export default function StatItem({ label, value, isSuccess, unit = '분', target
   return (
     <div className={`p-3 rounded-lg ${bgColorClass}`}>
       <div className="flex justify-between items-center mb-2">
-        <h6 className={`text-sm font-medium ${textColorClass}`}>
-          {label}
-          {isSuccess !== undefined && (isSuccess ? ' ✓' : ' ✗')}
+        <h6 className={`text-sm font-medium ${textColorClass} flex gap-2 items-center`}>
+          {target ? <div><CompletedIcon isSuccess={isSuccess} /></div> : null}
+          <div>{label}</div>
         </h6>
       </div>
       <div className="flex justify-between items-center">
         <div>
           <p className="text-xs text-gray-500">현재</p>
           <p className="text-base font-semibold">
-            {typeof value === 'number' ? convertMinuteToReader(value) : `${value} ${unit}`}
+            {value}
           </p>
         </div>
         {target && (

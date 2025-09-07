@@ -1,5 +1,5 @@
 import StatSection from '@renderer/pages/statistics/total/components/StatSection'
-import StatItem from '@renderer/pages/statistics/total/components/StatItem'
+import CountStatItem from '@renderer/component/stat-item/CountStatItem'
 
 type ResearchStatisticsProps = {
   researchTotalCount: number
@@ -13,7 +13,7 @@ export default function ResearchStatistics({
   return (
     <div className="border rounded-lg p-4 border-gray-200 dark:border-gray-700 mb-6">
       <StatSection title="연구 통계">
-        <StatItem
+        <CountStatItem
           label="총 연구 수"
           value={researchTotalCount}
           isSuccess={researchSuccess}

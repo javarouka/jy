@@ -34,7 +34,7 @@ export default function Tabs({ tabData }: Props) {
           {tabData.map((tab, idx) => (
             <TabPanel
               key={idx}
-              className="rounded-xl bg-white p-4 ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
+              className="bg-white p-4 ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
             >
               {tab.content}
             </TabPanel>

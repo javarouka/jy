@@ -1,5 +1,6 @@
 import StatSection from '@renderer/pages/statistics/total/components/StatSection'
-import StatItem from '@renderer/pages/statistics/total/components/StatItem'
+import MinuteStatItem from '@renderer/component/stat-item/MinuteStatItem'
+import CountStatItem from '@renderer/component/stat-item/CountStatItem'
 
 type TherapyStatisticsProps = {
   therapyTotalCreditTime: number
@@ -21,19 +22,19 @@ export default function TherapyStatistics({
   return (
     <div className="border rounded-lg p-4 border-gray-200 dark:border-gray-700 mb-6">
       <StatSection title="심리치료 통계">
-        <StatItem
+        <MinuteStatItem
           label="심리치료 총 인정시간"
           value={therapyTotalCreditTime}
           isSuccess={therapySuccess}
           target="300 시간"
         />
-        <StatItem
+        <MinuteStatItem
           label="주치료자 인정시간"
           value={mainTherapistCreditTime}
           isSuccess={mainTherapistTimeSuccess}
           target="100 시간"
         />
-        <StatItem
+        <CountStatItem
           label="주치료자 사례 수"
           value={mainTherapistCount}
           isSuccess={mainTherapistCountSuccess}

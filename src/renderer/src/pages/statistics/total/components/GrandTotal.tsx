@@ -1,4 +1,5 @@
 import { convertMinuteToReader } from '@renderer/helpers/Times'
+import CompletedIcon from '@renderer/component/stat-item/CompletedIcon'
 
 export type GrandTotalProps = {
   creditTime: number
@@ -22,9 +23,9 @@ export default function GrandTotal({ creditTime, isSuccess }: GrandTotalProps) {
   return (
     <div className={`p-4 rounded-lg ${bgColorClass} mb-8`}>
       <div className="flex justify-between items-center mb-2">
-        <h4 className={`text-lg font-bold ${textColorClass}`}>
-          총 수련시간
-          {isSuccess ? ' ✓' : ' ✗'}
+        <h4 className={`text-lg font-bold ${textColorClass} flex items-center gap-2`}>
+          <div><CompletedIcon isSuccess={isSuccess}/></div>
+          <div>총 수련시간</div>
         </h4>
         {exceeds100Percent && (
           <span className={`text-sm font-medium ${textColorClass}`}>
@@ -35,7 +36,7 @@ export default function GrandTotal({ creditTime, isSuccess }: GrandTotalProps) {
       <div className="flex justify-between items-center">
         <div>
           <p className="text-sm text-gray-500">현재</p>
-          <p className="text-xl font-bold">{convertMinuteToReader(creditTime)} 분 ({Math.floor(creditTime / 60)} 시간)</p>
+          <p className="text-xl font-bold">{convertMinuteToReader(creditTime)}</p>
         </div>
         <div>
           <p className="text-sm text-gray-500">목표</p>

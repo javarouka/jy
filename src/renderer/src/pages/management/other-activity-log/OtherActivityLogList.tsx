@@ -4,6 +4,8 @@ import useOtherActivityLogSearch from '@renderer/pages/management/other-activity
 import OtherActivityLogCard from '@renderer/pages/management/other-activity-log/OtherActivityLogCard'
 import EditOtherActivityLogModal from '@renderer/pages/management/other-activity-log/EditOtherActivityLogModal'
 import { OTHER_ACTIVITY_TYPE_OPTIONS } from '@shared/types'
+import LoadingSpinner from '@renderer/component/basic/LoadingSpinner'
+import FetchError from '@renderer/component/basic/FetchError'
 
 const OtherActivityLogList = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
@@ -63,8 +65,8 @@ const OtherActivityLogList = () => {
     setIsDetailedSearchExpanded(!isDetailedSearchExpanded)
   }
 
-  if (isLoading) return <div>로딩 중...</div>
-  if (isError) return <div>에러가 발생했습니다.</div>
+  if (isLoading) return <LoadingSpinner />
+  if (isError) return <FetchError />
 
   return (
     <div>
