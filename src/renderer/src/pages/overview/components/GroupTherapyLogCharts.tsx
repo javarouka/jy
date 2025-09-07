@@ -3,7 +3,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   PieChart, Pie, Cell, Sector
 } from 'recharts';
-import { groupByMonth, groupByYear, groupByField, groupTherapyTimesByMonth } from '../utils';
+import { groupByMonth, groupByField, groupTherapyTimesByMonth } from '../utils';
 import { useGroupTherapyLogs } from '../hook/useGroupTherapyLogs';
 import { TypeTrainingYear } from '@shared/types';
 
@@ -37,13 +37,10 @@ const GroupTherapyLogCharts = ({ trainingYear }: GroupTherapyLogChartsProps) => 
   }));
 
   // Process data for monthly bar charts
-  const monthlyData = groupByMonth(logsWithCreditTime, 'endDate', 'creditTime' as any);
-
-  // Process data for yearly bar charts
-  const yearlyData = groupByYear(logsWithCreditTime, 'endDate', 'creditTime' as any);
+  const monthlyData = groupByMonth(logsWithCreditTime, 'endDate', 'creditTime' as any, trainingYear);
 
   // Process data for monthly stacked bar chart
-  const monthlyTimeData = groupTherapyTimesByMonth(therapyLogs, 'endDate');
+  const monthlyTimeData = groupTherapyTimesByMonth(therapyLogs, 'endDate', trainingYear);
 
   // Process therapy type data
   const therapyTypeData = groupByField(therapyLogs, 'therapyType');
@@ -131,25 +128,6 @@ const GroupTherapyLogCharts = ({ trainingYear }: GroupTherapyLogChartsProps) => 
             <Bar dataKey="prepareTime" name="준비시간" stackId="a" fill="#8884d8" />
             <Bar dataKey="sessionTime" name="세션시간" stackId="a" fill="#82ca9d" />
             <Bar dataKey="supervisionTime" name="수퍼비전시간" stackId="a" fill="#ffc658" />
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
-
-      <div>
-        <h3 className="text-lg font-semibold mb-4">연도별 집단치료 건수 및 인정시간</h3>
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart
-            data={yearlyData}
-            margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="year" />
-            <YAxis yAxisId="left" orientation="left" stroke="#8884d8" />
-            <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" />
-            <Tooltip />
-            <Legend />
-            <Bar yAxisId="left" dataKey="count" name="건수" fill="#8884d8" />
-            <Bar yAxisId="right" dataKey="totalCreditTime" name="인정시간 (분)" fill="#82ca9d" />
           </BarChart>
         </ResponsiveContainer>
       </div>

@@ -1,4 +1,4 @@
-import { format, getYear } from 'date-fns';
+import { format, getYear, parse, addMonths, isBefore, isEqual } from 'date-fns';
 
 /**
  * Groups age into categories (10대, 20대, etc.)
@@ -20,18 +20,23 @@ export function formatYearMonth(date: Date): string {
 }
 
 /**
- * Groups data by month and calculates count and total credit time
- * @param data Array of data with date and creditTime fields
- * @param dateField The field name containing the date
- * @returns Array of objects with month, count, and totalCreditTime
+ * Parses a YYYY-MM string to a Date object
+ * @param yearMonth The YYYY-MM string to parse
+ * @returns Date object set to the first day of the month
  */
+export function parseYearMonth(yearMonth: string): Date {
+  return parse(yearMonth, 'yyyy-MM', new Date());
+}
+
 export function groupByMonth<T>(
   data: T[],
   dateField: keyof T,
-  creditTimeField: keyof T = 'creditTime' as keyof T
+  creditTimeField: keyof T = 'creditTime' as keyof T,
+  trainingYear?: { startDate: string; endDate: string }
 ): { month: string; count: number; totalCreditTime: number }[] {
   const groupedData: Record<string, { count: number; totalCreditTime: number }> = {};
 
+  // First, collect data for months that have entries
   data.forEach((item) => {
     const date = item[dateField] as unknown as Date;
     if (!date) return;
@@ -47,19 +52,63 @@ export function groupByMonth<T>(
     groupedData[month].totalCreditTime += creditTime;
   });
 
-  return Object.entries(groupedData).map(([month, { count, totalCreditTime }]) => ({
-    month,
-    count,
-    totalCreditTime,
-  }));
+  // Determine start and end dates for the range
+  let startDate: Date;
+  let endDate: Date;
+
+  if (trainingYear) {
+    // If training year is provided, use its start and end dates
+    startDate = new Date(trainingYear.startDate);
+    endDate = new Date(trainingYear.endDate);
+  } else if (data.length > 0) {
+    // Otherwise, find min and max dates from the data
+    let minDate = new Date(8640000000000000); // Max date value
+    let maxDate = new Date(-8640000000000000); // Min date value
+
+    data.forEach(item => {
+      const date = item[dateField] as unknown as Date;
+      if (!date) return;
+
+      if (date < minDate) minDate = new Date(date);
+      if (date > maxDate) maxDate = new Date(date);
+    });
+
+    startDate = minDate;
+    endDate = maxDate;
+  } else {
+    // If no data and no training year, return empty array
+    return [];
+  }
+
+  // Generate entries for all months in the range
+  const result: { month: string; count: number; totalCreditTime: number }[] = [];
+  let currentDate = new Date(startDate);
+  currentDate.setDate(1); // Set to first day of month
+
+  while (isBefore(currentDate, endDate) || isEqual(currentDate, endDate)) {
+    const monthStr = formatYearMonth(currentDate);
+
+    // Use existing data if available, otherwise set to 0
+    const monthData = groupedData[monthStr] || { count: 0, totalCreditTime: 0 };
+
+    result.push({
+      month: monthStr,
+      count: monthData.count,
+      totalCreditTime: monthData.totalCreditTime
+    });
+
+    // Move to next month
+    currentDate = addMonths(currentDate, 1);
+  }
+
+  // Sort by month
+  return result.sort((a, b) => {
+    const dateA = parseYearMonth(a.month);
+    const dateB = parseYearMonth(b.month);
+    return dateA.getTime() - dateB.getTime();
+  });
 }
 
-/**
- * Groups data by year and calculates count and total credit time
- * @param data Array of data with date and creditTime fields
- * @param dateField The field name containing the date
- * @returns Array of objects with year, count, and totalCreditTime
- */
 export function groupByYear<T>(
   data: T[],
   dateField: keyof T,
@@ -121,16 +170,20 @@ export function groupByField<T>(
 
 /**
  * Groups therapy data by month and calculates different time components
+ * Ensures all months in the range are included, even those with no data
  * @param data Array of therapy data
  * @param dateField The field name containing the date
+ * @param trainingYear Optional training year to determine date range
  * @returns Array of objects with month and time components
  */
 export function groupTherapyTimesByMonth<T>(
   data: T[],
-  dateField: keyof T
+  dateField: keyof T,
+  trainingYear?: { startDate: string; endDate: string }
 ): { month: string; prepareTime: number; sessionTime: number; supervisionTime: number }[] {
   const groupedData: Record<string, { prepareTime: number; sessionTime: number; supervisionTime: number }> = {};
 
+  // First, collect data for months that have entries
   data.forEach((item) => {
     const date = item[dateField] as unknown as Date;
     if (!date) return;
@@ -149,8 +202,60 @@ export function groupTherapyTimesByMonth<T>(
     groupedData[month].supervisionTime += supervisionTime;
   });
 
-  return Object.entries(groupedData).map(([month, times]) => ({
-    month,
-    ...times,
-  }));
+  // Determine start and end dates for the range
+  let startDate: Date;
+  let endDate: Date;
+
+  if (trainingYear) {
+    // If training year is provided, use its start and end dates
+    startDate = new Date(trainingYear.startDate);
+    endDate = new Date(trainingYear.endDate);
+  } else if (data.length > 0) {
+    // Otherwise, find min and max dates from the data
+    let minDate = new Date(8640000000000000); // Max date value
+    let maxDate = new Date(-8640000000000000); // Min date value
+
+    data.forEach(item => {
+      const date = item[dateField] as unknown as Date;
+      if (!date) return;
+
+      if (date < minDate) minDate = new Date(date);
+      if (date > maxDate) maxDate = new Date(date);
+    });
+
+    startDate = minDate;
+    endDate = maxDate;
+  } else {
+    // If no data and no training year, return empty array
+    return [];
+  }
+
+  // Generate entries for all months in the range
+  const result: { month: string; prepareTime: number; sessionTime: number; supervisionTime: number }[] = [];
+  let currentDate = new Date(startDate);
+  currentDate.setDate(1); // Set to first day of month
+
+  while (isBefore(currentDate, endDate) || isEqual(currentDate, endDate)) {
+    const monthStr = formatYearMonth(currentDate);
+
+    // Use existing data if available, otherwise set to 0
+    const monthData = groupedData[monthStr] || { prepareTime: 0, sessionTime: 0, supervisionTime: 0 };
+
+    result.push({
+      month: monthStr,
+      prepareTime: monthData.prepareTime,
+      sessionTime: monthData.sessionTime,
+      supervisionTime: monthData.supervisionTime
+    });
+
+    // Move to next month
+    currentDate = addMonths(currentDate, 1);
+  }
+
+  // Sort by month
+  return result.sort((a, b) => {
+    const dateA = parseYearMonth(a.month);
+    const dateB = parseYearMonth(b.month);
+    return dateA.getTime() - dateB.getTime();
+  });
 }

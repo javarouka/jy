@@ -51,7 +51,7 @@ function Overview() {
   }
 
   return (
-    <div className="w-full flex flex-col p-4">
+    <div className="w-full flex flex-col p-4 space-y-3">
       <MainTitle>둘러보기</MainTitle>
       <div className="mb-4">
         <label htmlFor="trainingYear" className="mr-2 font-medium">연차 선택:</label>

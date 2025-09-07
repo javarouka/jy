@@ -3,7 +3,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   PieChart, Pie, Cell, Sector
 } from 'recharts';
-import { groupByMonth, groupByYear, groupByField } from '../utils';
+import { groupByMonth, groupByField } from '../utils';
 import { useResearchLogs } from '../hook/useResearchLogs';
 import { TypeTrainingYear } from '@shared/types';
 
@@ -31,10 +31,7 @@ const ResearchLogCharts = ({ trainingYear }: ResearchLogChartsProps) => {
   }
 
   // Process data for monthly bar charts
-  const monthlyData = groupByMonth(researchLogs, 'publishDate');
-
-  // Process data for yearly bar charts
-  const yearlyData = groupByYear(researchLogs, 'publishDate');
+  const monthlyData = groupByMonth(researchLogs, 'publishDate', 'creditTime', trainingYear);
 
   // Process data for pie charts
   const participateTypeData = groupByField(researchLogs, 'participateType');
@@ -97,25 +94,6 @@ const ResearchLogCharts = ({ trainingYear }: ResearchLogChartsProps) => {
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="month" />
-            <YAxis yAxisId="left" orientation="left" stroke="#8884d8" />
-            <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" />
-            <Tooltip />
-            <Legend />
-            <Bar yAxisId="left" dataKey="count" name="건수" fill="#8884d8" />
-            <Bar yAxisId="right" dataKey="totalCreditTime" name="인정시간 (분)" fill="#82ca9d" />
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
-
-      <div>
-        <h3 className="text-lg font-semibold mb-4">연도별 연구활동 건수 및 인정시간</h3>
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart
-            data={yearlyData}
-            margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="year" />
             <YAxis yAxisId="left" orientation="left" stroke="#8884d8" />
             <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" />
             <Tooltip />
