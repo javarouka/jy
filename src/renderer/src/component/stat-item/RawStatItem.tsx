@@ -4,7 +4,7 @@ export type StatItemProps = {
   label: string
   value: string
   isSuccess?: boolean
-  target?: string
+  target?: number
   unit?: string
 }
 
@@ -36,13 +36,13 @@ export default function RawStatItem({ label, value, isSuccess, target, unit: _un
         <div>
           <p className="text-xs text-gray-500">현재</p>
           <p className="text-sm font-semibold">
-            {value}{unit ? `${unit}`: ''}
+            {value}{unit ? ` ${unit}`: ''}
           </p>
         </div>
         {target && (
           <div>
             <p className="text-xs text-gray-500">목표</p>
-            <p className="text-sm font-semibold">{target}{unit ? `${unit}`: ''}</p>
+            <p className="text-sm font-semibold">{target}{unit ? ` ${unit}`: ''}</p>
           </div>
         )}
       </div>

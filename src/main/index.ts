@@ -9,6 +9,12 @@ import { initGroupTherapyLogDB } from './group-therapy/initGroupTherapyLogDB'
 import { initAcademicActivityLogDB } from './academic-activity/initAcademicActivityLogDB'
 import { initResearchLogDB } from './research/initResearchLogDB'
 import { initOtherActivityLogDB } from './other-activity/initOtherActivityLogDB'
+import { initTrainingYearDB } from './training/initTrainingYearDB'
+import { initAssessmentTargetDB } from './training/initAssessmentTargetDB'
+import { initAcademicTargetDB } from './training/initAcademicTargetDB'
+import { initOtherActivityTargetDB } from './training/initOtherActivityTargetDB'
+import { initResearchTargetDB } from './training/initResearchTargetDB'
+import { initTherapyTargetDB } from './training/initTherapyTargetDB'
 import log, { initPrisma } from './mainLogger'
 import { autoMigrate } from './prisma/autoMigrate'
 
@@ -42,6 +48,14 @@ initGroupTherapyLogDB(prisma)
 initAcademicActivityLogDB(prisma)
 initResearchLogDB(prisma)
 initOtherActivityLogDB(prisma)
+
+// target data
+initTrainingYearDB(prisma)
+initAssessmentTargetDB(prisma)
+initAcademicTargetDB(prisma)
+initOtherActivityTargetDB(prisma)
+initResearchTargetDB(prisma)
+initTherapyTargetDB(prisma)
 
 function createWindow(): void {
   // Create the browser window.

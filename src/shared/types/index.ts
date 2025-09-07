@@ -1,3 +1,10 @@
+export type TypeTrainingYear = {
+  name: string
+  startDate: string
+  endDate: string
+  targetHours: number
+}
+
 export interface TypeAssessmentLog {
   id: number
   clientName: string

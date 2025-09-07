@@ -119,7 +119,7 @@ const AcademicActivityLogList = () => {
       />
 
       {/* 검색 폼 */}
-      <div className="mb-6 p-4 border rounded-md">
+      <div className="mb-6 p-4 border border-gray-200 rounded-md">
         <h3 className="text-lg font-medium mb-4">검색</h3>
         {/* 기본 검색 필드 */}
         <div className="flex flex-wrap items-end gap-4 w-full">

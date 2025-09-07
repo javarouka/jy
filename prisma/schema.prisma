@@ -104,3 +104,67 @@ model OtherActivityLog {
   createdAt       DateTime @default(now())
   modifiedAt      DateTime @updatedAt
 }
+
+/// *
+///  * 수련 연차 정보
+model TrainingYear {
+  id          Int      @id @default(autoincrement())
+  name        String   // 연차 이름 (예: '1년차')
+  startDate   DateTime // 시작일
+  endDate     DateTime // 종료일
+  targetHours Int      // 목표 시간
+  createdAt   DateTime @default(now())
+  modifiedAt  DateTime @updatedAt
+}
+
+/// *
+///  * 심리평가 목표
+model AssessmentTarget {
+  id                 Int      @id @default(autoincrement())
+  totalCreditMinutes Int      // 심리평가 총 인정시간
+  caseCount          Int      // 종합심리평가 사례 수
+  createdAt          DateTime @default(now())
+  modifiedAt         DateTime @updatedAt
+}
+
+/// *
+///  * 학술활동 목표
+model AcademicTarget {
+  id                             Int      @id @default(autoincrement())
+  ethicsEducationJoinCount       Int      // 윤리교육 참여
+  caseConferencePresentationCount Int      // 사례회의 발표 횟수
+  thesisPresentationCount        Int      // 논문발표 횟수
+  academicConferenceJoinMinutes  Int      // 학술회의 참여 인정시간
+  caseConferenceJoinMinutes      Int      // 사례회의 참여 인정시간
+  createdAt                      DateTime @default(now())
+  modifiedAt                     DateTime @updatedAt
+}
+
+/// *
+///  * 기타활동 목표
+model OtherActivityTarget {
+  id                           Int      @id @default(autoincrement())
+  externalCooperationCreditMinutes Int      // 대외협력 인정시간
+  createdAt                    DateTime @default(now())
+  modifiedAt                   DateTime @updatedAt
+}
+
+/// *
+///  * 연구 목표
+model ResearchTarget {
+  id                Int      @id @default(autoincrement())
+  totalResearchCount Int      // 총 연구 수
+  createdAt         DateTime @default(now())
+  modifiedAt        DateTime @updatedAt
+}
+
+/// *
+///  * 심리치료 목표
+model TherapyTarget {
+  id                         Int      @id @default(autoincrement())
+  totalCreditMinutes         Int      // 심리치료 총 인정시간
+  primaryTherapistCreditMinutes Int      // 주치료자 인정시간
+  primaryTherapistCaseCount  Int      // 주치료자 사례 수
+  createdAt                  DateTime @default(now())
+  modifiedAt                 DateTime @updatedAt
+}

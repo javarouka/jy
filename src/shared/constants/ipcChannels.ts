@@ -49,3 +49,51 @@ export const OTHER_ACTIVITY_LOG_CHANNELS = {
   UPDATE: 'db:update-otherActivityLog',
   DELETE: 'db:delete-otherActivityLog'
 }
+
+// Training Year IPC channels
+export const TRAINING_YEAR_CHANNELS = {
+  GET: 'db:get-trainingYear',
+  CREATE: 'db:create-trainingYear',
+  UPDATE: 'db:update-trainingYear',
+  DELETE: 'db:delete-trainingYear'
+}
+
+// Assessment Target IPC channels
+export const ASSESSMENT_TARGET_CHANNELS = {
+  GET: 'db:get-assessmentTarget',
+  CREATE: 'db:create-assessmentTarget',
+  UPDATE: 'db:update-assessmentTarget',
+  DELETE: 'db:delete-assessmentTarget'
+}
+
+// Academic Target IPC channels
+export const ACADEMIC_TARGET_CHANNELS = {
+  GET: 'db:get-academicTarget',
+  CREATE: 'db:create-academicTarget',
+  UPDATE: 'db:update-academicTarget',
+  DELETE: 'db:delete-academicTarget'
+}
+
+// Other Activity Target IPC channels
+export const OTHER_ACTIVITY_TARGET_CHANNELS = {
+  GET: 'db:get-otherActivityTarget',
+  CREATE: 'db:create-otherActivityTarget',
+  UPDATE: 'db:update-otherActivityTarget',
+  DELETE: 'db:delete-otherActivityTarget'
+}
+
+// Research Target IPC channels
+export const RESEARCH_TARGET_CHANNELS = {
+  GET: 'db:get-researchTarget',
+  CREATE: 'db:create-researchTarget',
+  UPDATE: 'db:update-researchTarget',
+  DELETE: 'db:delete-researchTarget'
+}
+
+// Therapy Target IPC channels
+export const THERAPY_TARGET_CHANNELS = {
+  GET: 'db:get-therapyTarget',
+  CREATE: 'db:create-therapyTarget',
+  UPDATE: 'db:update-therapyTarget',
+  DELETE: 'db:delete-therapyTarget'
+}

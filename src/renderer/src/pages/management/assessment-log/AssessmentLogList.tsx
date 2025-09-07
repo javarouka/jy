@@ -75,7 +75,7 @@ const AssessmentLogList = () => {
       />
 
       {/* 검색 폼 */}
-      <div className="mb-6 p-4 border rounded-md">
+      <div className="mb-6 p-4 border border-gray-200 rounded-md">
         <h3 className="text-lg font-medium mb-4">검색</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <div className="mb-2 text-sm">

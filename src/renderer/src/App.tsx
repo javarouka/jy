@@ -5,6 +5,7 @@ import NotFound from '@renderer/pages/NotFound'
 import ManagementRoot from '@renderer/pages/management/ManagementRoot'
 import Statistics from '@renderer/pages/statistics/Statistics'
 import Overview from '@renderer/pages/overview/Overview'
+import TrainingConstantsSettings from '@renderer/pages/config/TrainingConstantsSettings'
 
 export default function App(){
   return (
@@ -14,6 +15,7 @@ export default function App(){
           <Route path="/" element={<Statistics />} />
           <Route path="/management" element={<ManagementRoot />} />
           <Route path="/overview" element={<Overview />} />
+          <Route path="/config" element={<TrainingConstantsSettings />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

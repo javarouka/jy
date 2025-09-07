@@ -14,7 +14,13 @@ import {
   GROUP_THERAPY_LOG_CHANNELS,
   ACADEMIC_ACTIVITY_LOG_CHANNELS,
   RESEARCH_LOG_CHANNELS,
-  OTHER_ACTIVITY_LOG_CHANNELS
+  OTHER_ACTIVITY_LOG_CHANNELS,
+  TRAINING_YEAR_CHANNELS,
+  ASSESSMENT_TARGET_CHANNELS,
+  ACADEMIC_TARGET_CHANNELS,
+  OTHER_ACTIVITY_TARGET_CHANNELS,
+  RESEARCH_TARGET_CHANNELS,
+  THERAPY_TARGET_CHANNELS
 } from '@shared/constants/ipcChannels'
 import {
   AssessmentLogQueryParams,
@@ -31,7 +37,8 @@ import {
   GroupTherapyLog,
   IndividualTherapyLog,
   OtherActivityLog,
-  ResearchLog
+  ResearchLog,
+  OtherActivityTarget,
 } from '@prisma/client'
 
 export const api = {
@@ -86,6 +93,48 @@ export const db = {
   updateOtherActivityLog: (id: number, form: TypeOtherActivityFormData): Promise<OtherActivityLog> =>
     ipcRenderer.invoke(OTHER_ACTIVITY_LOG_CHANNELS.UPDATE, id, form),
   deleteOtherActivityLog: (id: number): Promise<OtherActivityLog> => ipcRenderer.invoke(OTHER_ACTIVITY_LOG_CHANNELS.DELETE, id),
+
+  // Training Year API functions
+  getTrainingYears: (): Promise<TrainingYear[]> => ipcRenderer.invoke(TRAINING_YEAR_CHANNELS.GET),
+  createTrainingYear: (trainingYear: any): Promise<TrainingYear> => ipcRenderer.invoke(TRAINING_YEAR_CHANNELS.CREATE, trainingYear),
+  updateTrainingYear: (id: number, trainingYear: any): Promise<TrainingYear> =>
+    ipcRenderer.invoke(TRAINING_YEAR_CHANNELS.UPDATE, id, trainingYear),
+  deleteTrainingYear: (id: number): Promise<TrainingYear> => ipcRenderer.invoke(TRAINING_YEAR_CHANNELS.DELETE, id),
+
+  // Assessment Target API functions
+  getAssessmentTarget: (): Promise<AssessmentTarget | null> => ipcRenderer.invoke(ASSESSMENT_TARGET_CHANNELS.GET),
+  createAssessmentTarget: (assessmentTarget: any): Promise<AssessmentTarget> => ipcRenderer.invoke(ASSESSMENT_TARGET_CHANNELS.CREATE, assessmentTarget),
+  updateAssessmentTarget: (id: number, assessmentTarget: any): Promise<AssessmentTarget> =>
+    ipcRenderer.invoke(ASSESSMENT_TARGET_CHANNELS.UPDATE, id, assessmentTarget),
+  deleteAssessmentTarget: (id: number): Promise<AssessmentTarget> => ipcRenderer.invoke(ASSESSMENT_TARGET_CHANNELS.DELETE, id),
+
+  // Academic Target API functions
+  getAcademicTarget: (): Promise<AcademicTarget | null> => ipcRenderer.invoke(ACADEMIC_TARGET_CHANNELS.GET),
+  createAcademicTarget: (academicTarget: any): Promise<AcademicTarget> => ipcRenderer.invoke(ACADEMIC_TARGET_CHANNELS.CREATE, academicTarget),
+  updateAcademicTarget: (id: number, academicTarget: any): Promise<AcademicTarget> =>
+    ipcRenderer.invoke(ACADEMIC_TARGET_CHANNELS.UPDATE, id, academicTarget),
+  deleteAcademicTarget: (id: number): Promise<AcademicTarget> => ipcRenderer.invoke(ACADEMIC_TARGET_CHANNELS.DELETE, id),
+
+  // Other Activity Target API functions
+  getOtherActivityTarget: (): Promise<OtherActivityTarget | null> => ipcRenderer.invoke(OTHER_ACTIVITY_TARGET_CHANNELS.GET),
+  createOtherActivityTarget: (otherActivityTarget: any): Promise<OtherActivityTarget> => ipcRenderer.invoke(OTHER_ACTIVITY_TARGET_CHANNELS.CREATE, otherActivityTarget),
+  updateOtherActivityTarget: (id: number, otherActivityTarget: any): Promise<OtherActivityTarget> =>
+    ipcRenderer.invoke(OTHER_ACTIVITY_TARGET_CHANNELS.UPDATE, id, otherActivityTarget),
+  deleteOtherActivityTarget: (id: number): Promise<OtherActivityTarget> => ipcRenderer.invoke(OTHER_ACTIVITY_TARGET_CHANNELS.DELETE, id),
+
+  // Research Target API functions
+  getResearchTarget: (): Promise<ResearchTarget | null> => ipcRenderer.invoke(RESEARCH_TARGET_CHANNELS.GET),
+  createResearchTarget: (researchTarget: any): Promise<ResearchTarget> => ipcRenderer.invoke(RESEARCH_TARGET_CHANNELS.CREATE, researchTarget),
+  updateResearchTarget: (id: number, researchTarget: any): Promise<ResearchTarget> =>
+    ipcRenderer.invoke(RESEARCH_TARGET_CHANNELS.UPDATE, id, researchTarget),
+  deleteResearchTarget: (id: number): Promise<ResearchTarget> => ipcRenderer.invoke(RESEARCH_TARGET_CHANNELS.DELETE, id),
+
+  // Therapy Target API functions
+  getTherapyTarget: (): Promise<TherapyTarget | null> => ipcRenderer.invoke(THERAPY_TARGET_CHANNELS.GET),
+  createTherapyTarget: (therapyTarget: any): Promise<TherapyTarget> => ipcRenderer.invoke(THERAPY_TARGET_CHANNELS.CREATE, therapyTarget),
+  updateTherapyTarget: (id: number, therapyTarget: any): Promise<TherapyTarget> =>
+    ipcRenderer.invoke(THERAPY_TARGET_CHANNELS.UPDATE, id, therapyTarget),
+  deleteTherapyTarget: (id: number): Promise<TherapyTarget> => ipcRenderer.invoke(THERAPY_TARGET_CHANNELS.DELETE, id),
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to
