@@ -51,6 +51,11 @@ const AssessmentLogCard = (props: Props) => {
           <p>
             <strong className="font-semibold text-gray-800 dark:text-gray-100">검사 종류:</strong> {log.researchType}
           </p>
+          {log.researchType === '기타' && log.etcDescription && (
+            <p>
+              <strong className="font-semibold text-gray-800 dark:text-gray-100">기타사항:</strong> {log.etcDescription}
+            </p>
+          )}
           <p>
             <strong className="font-semibold text-gray-800 dark:text-gray-100">검사일:</strong> {formattedResearchDate}
           </p>

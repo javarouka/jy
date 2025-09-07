@@ -17,6 +17,7 @@ model AssessmentLog {
   dx           String
   researchType String
   researchDate DateTime
+  etcDescription  String @default("") /// * 기타
   creditTime   Int ///  * 인정시간. 분
   usable       Boolean  @default(false)
   createdAt    DateTime @default(now())

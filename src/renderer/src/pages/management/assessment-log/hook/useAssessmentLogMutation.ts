@@ -12,11 +12,18 @@ export default function useAssessmentLogMutation(_queryClient?: QueryClient) {
     dx: '',
     researchType: RESEARCH_TYPE_OPTIONS[0],
     researchDate: '',
+    etcDescription: '',
     creditTime: 0
   });
 
   const isValidateForm = (formData: TypeAssessmentFormData): boolean => {
-    return !!formData.gender
+    // 기본 유효성 검사
+    if (!formData.gender) {
+      return false
+    }
+
+    // researchType이 '기타'인 경우 etcDescription이 필수
+    return !(formData.researchType === '기타' && !formData.etcDescription.trim());
   }
 
   const createAssessmentLogMutation = useMutation({

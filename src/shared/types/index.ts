@@ -13,6 +13,7 @@ export interface TypeAssessmentLog {
   dx: string             // 진단명
   researchType: string // '종합심리평가', '신경심리평가' 등
   researchDate: Date // 검사일
+  etcDescription: string // 기타 설명
   creditTime: number // 인정시간. 분
   usable: boolean
   createdAt: Date
@@ -25,6 +26,7 @@ export type TypeAssessmentFormData = {
   dx: string
   researchType: string
   researchDate: string // HTML input date는 string 타입으로 값을 다룹니다.
+  etcDescription: string // 기타 설명
   creditTime: number
 }
 
@@ -64,6 +66,7 @@ export type TypeIndividualTherapyFormData = {
 export const RESEARCH_TYPE_OPTIONS = [
   '종합심리평가',
   '신경심리평가',
+  '기타',
 ]
 
 export interface TypeGroupTherapyLog {

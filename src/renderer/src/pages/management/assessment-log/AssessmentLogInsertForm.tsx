@@ -1,3 +1,4 @@
+import { useRef, useEffect, useState } from 'react'
 import useAssessmentLogMutation from '@renderer/pages/management/assessment-log/hook/useAssessmentLogMutation'
 import { RESEARCH_TYPE_OPTIONS } from '@shared/types'
 
@@ -9,6 +10,26 @@ function AssessmentLogInsertForm() {
     handleSubmit,
     handleChange,
   } = useAssessmentLogMutation()
+
+  const [etcDescHeight, setEtcDescHeight] = useState<number>(0)
+  const etcDescRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    // Use setTimeout to ensure DOM has been updated
+    const timer = setTimeout(() => {
+      if (etcDescRef.current) {
+        if (formData.researchType === '기타') {
+          // Make sure the element is visible for measurement
+          const tempHeight = etcDescRef.current.scrollHeight
+          setEtcDescHeight(tempHeight)
+        } else {
+          setEtcDescHeight(0)
+        }
+      }
+    }, 10) // Small delay to ensure DOM update
+
+    return () => clearTimeout(timer)
+  }, [formData.researchType])
 
   return (
     <fieldset>
@@ -43,51 +64,6 @@ function AssessmentLogInsertForm() {
             </div>
 
             <div className="flex-1 mb-2 text-sm">
-              <label htmlFor="creditTime" className="block font-bold">인정 시간 (분)</label>
-              <input
-                type="number"
-                id="creditTime"
-                name="creditTime"
-                value={formData.creditTime}
-                onChange={handleChange}
-                required
-                className="w-full p-1 border border-gray-300 rounded box-border text-base"
-              />
-            </div>
-          </div>
-
-          <div className="mb-2 text-sm">
-            <label htmlFor="dx" className="block font-bold">진단명(Dx)</label>
-            <input
-              type="text"
-              id="dx"
-              name="dx"
-              value={formData.dx}
-              onChange={handleChange}
-              required
-              className="w-full p-1 border border-gray-300 rounded box-border text-base"
-            />
-          </div>
-
-          <div className="flex gap-8">
-            <div className="flex-1 mb-2 text-sm">
-              <label htmlFor="researchType" className="block font-bold">검사 종류</label>
-              <select
-                id="researchType"
-                name="researchType"
-                value={formData.researchType}
-                onChange={handleChange}
-                className="w-full p-1 border border-gray-300 rounded box-border text-base"
-              >
-                {RESEARCH_TYPE_OPTIONS.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="flex-1 mb-2 text-sm">
               <label className="block font-bold">성별</label>
               <div className="flex gap-8 mt-1">
                 <label className="flex items-center font-normal">
@@ -115,6 +91,73 @@ function AssessmentLogInsertForm() {
                   여성
                 </label>
               </div>
+            </div>
+
+          </div>
+
+          <div className="mb-2 text-sm">
+            <label htmlFor="dx" className="block font-bold">진단명(Dx)</label>
+            <input
+              type="text"
+              id="dx"
+              name="dx"
+              value={formData.dx}
+              onChange={handleChange}
+              required
+              className="w-full p-1 border border-gray-300 rounded box-border text-base"
+            />
+          </div>
+
+          <div className="flex gap-4">
+            <div className="flex-1 mb-2 text-sm">
+              <label htmlFor="researchType" className="block font-bold">검사 종류</label>
+              <select
+                id="researchType"
+                name="researchType"
+                value={formData.researchType}
+                onChange={handleChange}
+                className="w-full p-1 border border-gray-300 rounded box-border text-base"
+              >
+                {RESEARCH_TYPE_OPTIONS.map((type) => (
+                  <option key={type} value={type}>
+                    {type}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="flex-1 mb-2 text-sm">
+              <label htmlFor="creditTime" className="block font-bold">인정 시간 (분)</label>
+              <input
+                type="number"
+                id="creditTime"
+                name="creditTime"
+                value={formData.creditTime}
+                onChange={handleChange}
+                required
+                className="w-full p-1 border border-gray-300 rounded box-border text-base"
+              />
+            </div>
+
+          </div>
+
+          <div
+            ref={etcDescRef}
+            className={`overflow-hidden transition-all duration-300 ease-in-out ${etcDescHeight === 0 ? 'w-0' : 'flex-1'}`}
+            style={{ maxHeight: `${etcDescHeight}px`, opacity: etcDescHeight > 0 ? 1 : 0 }}
+          >
+            <div className="mb-2 text-sm">
+              <label htmlFor="etcDescription" className="block font-bold">기타 설명</label>
+              <input
+                type="text"
+                id="etcDescription"
+                name="etcDescription"
+                value={formData.etcDescription}
+                onChange={handleChange}
+                required={formData.researchType === '기타'}
+                placeholder="기타 검사 종류를 입력해주세요"
+                className="w-full p-1 border border-gray-300 rounded box-border text-base"
+              />
             </div>
           </div>
 
