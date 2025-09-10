@@ -197,31 +197,31 @@ export default function useTotalStatistics() {
 
     // Ethics education attendance
     const ethicsEducationLogs = academicActivityLogs.filter(log =>
-      log.act === 'ATTENDING' && log.activityType === 'ETHICS_EDUCATION')
+      log.act === 'ATTENDING' && log.activityType === 'ETHICS_EDUCATION' && log.organization !== 'TRAINING_INSTITUTION')
     const ethicsEducationCount = ethicsEducationLogs.length
     const ethicsEducationSuccess = ethicsEducationCount >= 1
 
     // Academic meeting attendance
     const academicMeetingLogs = academicActivityLogs.filter(log =>
-      log.act === 'ATTENDING' && log.activityType === 'ACADEMIC_CONFERENCE')
+      log.act === 'ATTENDING' && log.activityType === 'ACADEMIC_CONFERENCE' && log.organization !== 'TRAINING_INSTITUTION')
     const academicMeetingCreditTime = academicMeetingLogs.reduce((sum, log) => sum + log.creditTime, 0)
     const academicMeetingSuccess = academicMeetingCreditTime >= 30 * 60 // 30 hours in minutes
 
     // Case meeting attendance
     const caseMeetingLogs = academicActivityLogs.filter(log =>
-      log.act === 'ATTENDING' && log.activityType === 'CASE_CONFERENCE')
+      log.act === 'ATTENDING' && log.activityType === 'CASE_CONFERENCE' && log.organization !== 'TRAINING_INSTITUTION')
     const caseMeetingCreditTime = caseMeetingLogs.reduce((sum, log) => sum + log.creditTime, 0)
     const caseMeetingSuccess = caseMeetingCreditTime >= 10 * 60 // 10 hours in minutes
 
     // Case presentation
     const casePresentationLogs = academicActivityLogs.filter(log =>
-      log.act === 'ASSISTING' && log.activityType === 'CASE_CONFERENCE')
+      log.act === 'PRESENTATION' && log.activityType === 'CASE_CONFERENCE' && log.organization !== 'TRAINING_INSTITUTION')
     const casePresentationCount = casePresentationLogs.length
     const casePresentationSuccess = casePresentationCount >= 2
 
     // Paper presentation
     const paperPresentationLogs = academicActivityLogs.filter(log =>
-      log.act === 'ASSISTING' && log.activityType === 'PAPER_PRESENTATION')
+      log.act === 'PRESENTATION' && log.activityType === 'PAPER_PRESENTATION' && log.organization !== 'TRAINING_INSTITUTION')
     const paperPresentationCount = paperPresentationLogs.length
     const paperPresentationSuccess = paperPresentationCount >= 1
 

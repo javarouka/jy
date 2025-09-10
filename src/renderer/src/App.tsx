@@ -6,6 +6,7 @@ import ManagementRoot from '@renderer/pages/management/ManagementRoot'
 import Statistics from '@renderer/pages/statistics/Statistics'
 import Overview from '@renderer/pages/overview/Overview'
 import TrainingConstantsSettings from '@renderer/pages/config/TrainingConstantsSettings'
+import DataManagement from '@renderer/pages/data/DataManagement'
 
 export default function App(){
   return (
@@ -16,6 +17,7 @@ export default function App(){
           <Route path="/management" element={<ManagementRoot />} />
           <Route path="/overview" element={<Overview />} />
           <Route path="/config" element={<TrainingConstantsSettings />} />
+          <Route path="/data-management" element={<DataManagement />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

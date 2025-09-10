@@ -9,8 +9,8 @@
   "participate.type.FIRST_AUTHOR": "1저자",
   "participate.type.CO_AUTHOR": "공동저자",
 
-  "common.base.ASSISTING": "보조",
   "common.base.ATTENDING": "참석",
+  "common.base.PRESENTATION": "발표",
 
   "activity.type.ACADEMIC_CONFERENCE": "학술회의",
   "activity.type.CASE_CONFERENCE": "사례회의",

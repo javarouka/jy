@@ -12,11 +12,11 @@ export const AssessmentTarget = {
 }
 
 export const AcademicTarget = {
-  ethicsEducationJoinCount: 1, // 윤리교육 참여
+  ethicsEducationJoinCount: 1, // 윤리교육 참석 횟수
   caseConferencePresentationCount: 2, // 사례회의 발표 횟수
   thesisPresentationCount: 1, // 논문발표 횟수
-  academicConferenceJoinMinutes: 30 * 60, // 학술회의 참여 인정시간
-  caseConferenceJoinMinutes: 10 * 60, // 사례회의 참여 인정시간
+  academicConferenceJoinMinutes: 30 * 60, // 학술회의 참석 인정시간
+  caseConferenceJoinMinutes: 10 * 60, // 사례회의 참석 인정시간
 }
 
 export const OtherActivityTarget = {

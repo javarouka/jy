@@ -132,11 +132,11 @@ model AssessmentTarget {
 ///  * 학술활동 목표
 model AcademicTarget {
   id                             Int      @id @default(autoincrement())
-  ethicsEducationJoinCount       Int      // 윤리교육 참여
+  ethicsEducationJoinCount       Int      // 윤리교육 참석
   caseConferencePresentationCount Int      // 사례회의 발표 횟수
   thesisPresentationCount        Int      // 논문발표 횟수
-  academicConferenceJoinMinutes  Int      // 학술회의 참여 인정시간
-  caseConferenceJoinMinutes      Int      // 사례회의 참여 인정시간
+  academicConferenceJoinMinutes  Int      // 학술회의 참석 인정시간
+  caseConferenceJoinMinutes      Int      // 사례회의 참석 인정시간
   createdAt                      DateTime @default(now())
   modifiedAt                     DateTime @updatedAt
 }

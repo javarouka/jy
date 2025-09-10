@@ -47,7 +47,7 @@ function AcademicTargetForm() {
       ) : (
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="mb-2 text-sm">
-            <label htmlFor="ethicsEducationJoinCount" className="block font-bold">윤리교육 참여 횟수</label>
+            <label htmlFor="ethicsEducationJoinCount" className="block font-bold">윤리교육 참석 횟수</label>
             <input
               type="number"
               id="ethicsEducationJoinCount"
@@ -89,7 +89,7 @@ function AcademicTargetForm() {
           </div>
 
           <div className="mb-2 text-sm">
-            <label htmlFor="academicConferenceJoinHours" className="block font-bold">학술회의 참여 인정시간 (시간)</label>
+            <label htmlFor="academicConferenceJoinHours" className="block font-bold">학술회의 참석 인정시간 (시간)</label>
             <input
               type="number"
               id="academicConferenceJoinHours"
@@ -107,7 +107,7 @@ function AcademicTargetForm() {
           </div>
 
           <div className="mb-2 text-sm">
-            <label htmlFor="caseConferenceJoinHours" className="block font-bold">사례회의 참여 인정시간 (시간)</label>
+            <label htmlFor="caseConferenceJoinHours" className="block font-bold">사례회의 참석 인정시간 (시간)</label>
             <input
               type="number"
               id="caseConferenceJoinHours"
@@ -146,11 +146,11 @@ function AcademicTargetForm() {
         <div className="mt-8">
           <h4 className="text-left mb-2 font-bold">현재 설정된 목표</h4>
           <div className="bg-gray-50 p-4 rounded">
-            <p><span className="font-bold">윤리교육 참여 횟수:</span> {academicTarget.ethicsEducationJoinCount}회</p>
+            <p><span className="font-bold">윤리교육 참석 횟수:</span> {academicTarget.ethicsEducationJoinCount}회</p>
             <p><span className="font-bold">사례회의 발표 횟수:</span> {academicTarget.caseConferencePresentationCount}회</p>
             <p><span className="font-bold">논문발표 횟수:</span> {academicTarget.thesisPresentationCount}회</p>
-            <p><span className="font-bold">학술회의 참여 인정시간:</span> {minutesToHours(academicTarget.academicConferenceJoinMinutes)}시간 ({academicTarget.academicConferenceJoinMinutes}분)</p>
-            <p><span className="font-bold">사례회의 참여 인정시간:</span> {minutesToHours(academicTarget.caseConferenceJoinMinutes)}시간 ({academicTarget.caseConferenceJoinMinutes}분)</p>
+            <p><span className="font-bold">학술회의 참석 인정시간:</span> {minutesToHours(academicTarget.academicConferenceJoinMinutes)}시간 ({academicTarget.academicConferenceJoinMinutes}분)</p>
+            <p><span className="font-bold">사례회의 참석 인정시간:</span> {minutesToHours(academicTarget.caseConferenceJoinMinutes)}시간 ({academicTarget.caseConferenceJoinMinutes}분)</p>
           </div>
         </div>
       )}

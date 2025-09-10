@@ -15,8 +15,8 @@ export const PARTICIPATE_TYPE_OPTIONS = [
 ]
 
 export const ACT_OPTIONS = [
-  { id: "ASSISTING", category: "common.base", defaultCode: "보조" },
-  { id: "ATTENDING", category: "common.base", defaultCode: "참석" }
+  { id: "ATTENDING", category: "common.base", defaultCode: "보조" },
+  { id: "PRESENTATION", category: "common.base", defaultCode: "참석" }
 ]
 
 export const ACTIVITY_TYPE_OPTIONS = [
