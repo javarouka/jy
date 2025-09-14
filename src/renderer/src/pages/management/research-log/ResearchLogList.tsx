@@ -83,17 +83,15 @@ const ResearchLogList = () => {
   if (isError) return <FetchError />
 
   return (
-    <div className="data-list">
-      {/* Edit Modal */}
+    <div className="data-list text-[0.8em]">
       <EditResearchLogModal
         isOpen={isEditModalOpen}
         onClose={handleCloseModal}
         log={selectedLog}
         onSave={handleSaveEdit}
       />
-
       {/* 검색 폼 */}
-      <div className="mb-6 p-4 border border-gray-200 rounded-md">
+      <div className="mb-6 p-4 border border-gray-200">
         <h3 className="text-lg font-medium mb-4">검색</h3>
         {/* 기본 검색 필드 */}
         <div className="flex flex-wrap items-end gap-4 w-full">

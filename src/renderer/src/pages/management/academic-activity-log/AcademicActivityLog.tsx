@@ -8,10 +8,10 @@ function AcademicActivityLog() {
     <ManagementWrapper>
       <SubTitle>학술활동 관리</SubTitle>
       <div className="flex flex-col md:flex-row gap-4">
-        <div className="w-full md:w-[30%]">
+        <div className="w-full md:w-[30%] lg:w-[30%]">
           <AcademicActivityLogInsertForm />
         </div>
-        <div className="w-full md:w-[70%]">
+        <div className="w-full md:w-[70%] lg:w-[70%]">
           <AcademicActivityLogList />
         </div>
       </div>

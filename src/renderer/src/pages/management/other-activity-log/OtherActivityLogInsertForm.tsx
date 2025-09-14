@@ -13,8 +13,7 @@ function OtherActivityLogInsertForm() {
 
   return (
     <fieldset>
-      <div>
-        <form onSubmit={handleSubmit} className="p-2 border border-gray-200 rounded-lg shadow-md font-sans space-y-4">
+      <form onSubmit={handleSubmit} className="p-2 border border-gray-200 rounded-lg shadow-md font-sans space-y-4 text-[0.8em]">
           <h3 className="text-left mb-4">기타 활동 기록 입력</h3>
 
           <div className="mb-2 text-sm">
@@ -95,7 +94,6 @@ function OtherActivityLogInsertForm() {
             저장
           </button>
         </form>
-      </div>
     </fieldset>
   )
 }

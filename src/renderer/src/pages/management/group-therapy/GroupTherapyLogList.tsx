@@ -135,7 +135,7 @@ const GroupTherapyLogList = () => {
       />
 
       {/* 검색 폼 */}
-      <div className="mb-6 p-4 border border-gray-200 rounded-md">
+      <div className="mb-6 p-4 border border-gray-200">
         <h3 className="text-lg font-medium mb-4">검색</h3>
         {/* 그룹명, 치료자 유형을 한줄에 표시 */}
         <div className="flex flex-wrap items-end gap-4 w-full">

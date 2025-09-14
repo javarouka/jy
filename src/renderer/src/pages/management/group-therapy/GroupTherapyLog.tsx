@@ -9,10 +9,10 @@ function GroupTherapyLog() {
     <ManagementWrapper>
       <SubTitle>집단심리치료 관리</SubTitle>
       <div className="flex flex-col md:flex-row gap-4">
-        <div className="w-full md:w-[30%]">
+        <div className="w-full md:w-[30%] lg:w-[30%] min-w-0">
           <GroupTherapyLogInsertForm />
         </div>
-        <div className="w-full md:w-[70%]">
+        <div className="w-full md:w-[70%] lg:w-[70%]">
           <GroupTherapyLogList />
         </div>
       </div>

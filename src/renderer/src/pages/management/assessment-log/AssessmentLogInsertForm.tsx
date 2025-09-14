@@ -34,8 +34,7 @@ function AssessmentLogInsertForm() {
 
   return (
     <fieldset>
-      <div>
-        <form onSubmit={handleSubmit} className="p-2 border border-gray-200 shadow-md font-sans space-y-4 text-[0.8em]">
+      <form onSubmit={handleSubmit} className="p-2 border border-gray-200 shadow-md font-sans space-y-4 text-[0.8em]">
           <h3 className="text-left mb-4">평가 기록 입력</h3>
           <div className="mb-2">
             <label htmlFor="clientName" className="block font-bold">내담자명</label>
@@ -181,7 +180,6 @@ function AssessmentLogInsertForm() {
             저장
           </button>
         </form>
-      </div>
     </fieldset>
   )
 }

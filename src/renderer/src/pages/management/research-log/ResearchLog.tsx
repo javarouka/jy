@@ -8,10 +8,10 @@ function ResearchLog() {
     <ManagementWrapper>
       <SubTitle>연구로그 관리</SubTitle>
       <div className="flex flex-col md:flex-row gap-4">
-        <div className="w-full md:w-[30%]">
+        <div className="w-full md:w-[30%] lg:w-[30%]">
           <ResearchLogInsertForm />
         </div>
-        <div className="w-full md:w-[70%]">
+        <div className="w-full md:w-[70%] lg:w-[70%]">
           <ResearchLogList />
         </div>
       </div>

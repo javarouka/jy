@@ -8,10 +8,10 @@ function AssessmentLog() {
     <ManagementWrapper>
       <SubTitle>심리평가 기록 관리</SubTitle>
       <div className="flex flex-col md:flex-row gap-4">
-        <div className="w-full md:w-[30%]">
+        <div className="w-full md:w-[30%] lg:w-[30%]">
           <AssessmentLogInsertForm />
         </div>
-        <div className="w-full md:w-[70%]">
+        <div className="w-full md:w-[70%] lg:w-[70%]">
           <AssessmentLogList />
         </div>
       </div>
