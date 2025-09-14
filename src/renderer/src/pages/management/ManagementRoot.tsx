@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import ManagementAssessmentLog from '@renderer/pages/management/assessment-log/ManagementAssessmentLog'
+import AssessmentLog from '@renderer/pages/management/assessment-log/AssessmentLog'
 import IndividualTherapyLog from '@renderer/pages/management/individual-therapy/IndividualTherapyLog'
 import GroupTherapyLog from '@renderer/pages/management/group-therapy/GroupTherapyLog'
 import AcademicActivityLog from '@renderer/pages/management/academic-activity-log/AcademicActivityLog'
@@ -10,7 +10,7 @@ import Tabs from '@renderer/component/layout/Tabs'
 const tabData: { title: string; content: ReactNode }[] = [
   {
     title: '심리평가',
-    content: <ManagementAssessmentLog />,
+    content: <AssessmentLog />,
   },
   {
     title: '심리치료 (개인)',
@@ -36,7 +36,7 @@ const tabData: { title: string; content: ReactNode }[] = [
 
 export default function MyTabs() {
   return (
-    <div className="w-full flex flex-col">
+    <div className="text-xs w-full flex flex-col">
       <Tabs tabData={tabData} />
     </div>
   );

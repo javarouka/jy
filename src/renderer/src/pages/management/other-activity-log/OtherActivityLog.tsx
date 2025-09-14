@@ -8,7 +8,7 @@ function OtherActivityLog() {
     <ManagementWrapper>
       <SubTitle>기타 수련 활동 관리</SubTitle>
       <div className="flex flex-col md:flex-row gap-4">
-        <div className="w-full md:w-[30%] md:max-w-[380px]">
+        <div className="w-full md:w-[30%]">
           <OtherActivityLogInsertForm />
         </div>
         <div className="w-full md:w-[70%]">

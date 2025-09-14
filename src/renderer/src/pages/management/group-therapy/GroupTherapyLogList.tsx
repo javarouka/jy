@@ -1,4 +1,3 @@
-import GroupTherapyLogCard from '@renderer/pages/management/group-therapy/GroupTherapyLogCard'
 import useGroupTherapyLogSearch from './hook/useGroupTherapyLogSearch'
 import type { FormEvent } from 'react'
 import { useState } from 'react'
@@ -8,15 +7,16 @@ import LoadingSpinner from '@renderer/component/basic/LoadingSpinner'
 import FetchError from '@renderer/component/basic/FetchError'
 import { THERAPY_TYPE_OPTIONS } from '@shared/constants'
 import { getTranslatedText } from '@renderer/helpers/translateConstants'
-import useViewMode from '@renderer/hook/useViewMode'
+import useTableSortFilter from '@renderer/hook/useTableSortFilter'
+import SortableTableHeader from '@renderer/component/table/SortableTableHeader'
+import ResultTable from '@renderer/component/table/ResultTable'
 
 const GroupTherapyLogList = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [selectedLog, setSelectedLog] = useState<GroupTherapyLog | null>(null)
   const [isDetailedSearchExpanded, setIsDetailedSearchExpanded] = useState(false)
 
-  // Use the view mode hook with a unique key for this component
-  const { viewMode, toggleViewMode } = useViewMode('group-therapy-log')
+  // No view mode hook needed anymore as we only use table view
 
   const {
     data: {
@@ -31,6 +31,18 @@ const GroupTherapyLogList = () => {
     deleteLog,
     updateLog
   } = useGroupTherapyLogSearch()
+
+  // Use the table sort and filter hook with column-specific filtering
+  const {
+    sortedAndFilteredData,
+    requestSort,
+    getSortDirection,
+    columnFilters,
+    handleColumnFilterChange,
+    clearColumnFilter,
+    clearAllFilters,
+    getColumnFilterValue
+  } = useTableSortFilter(groupTherapyLog)
 
   // Apply search internally
   const applySearch = (ev: FormEvent) => {
@@ -113,7 +125,7 @@ const GroupTherapyLogList = () => {
   if (isError) return <FetchError />
 
   return (
-    <div>
+    <div className="data-list">
       {/* Edit Modal */}
       <EditGroupTherapyLogModal
         isOpen={isEditModalOpen}
@@ -363,107 +375,190 @@ const GroupTherapyLogList = () => {
           </button>
         </div>
       </div>
+      <div>
+      <div>
+        <ResultTable>
+          <thead className="bg-gray-100">
+            <tr>
+              <SortableTableHeader
+                column="groupName"
+                label="그룹명"
+                sortKey="groupName"
+                getSortDirection={getSortDirection}
+                requestSort={requestSort}
+              />
+              <SortableTableHeader
+                column="therapyType"
+                label="치료자 유형"
+                sortKey="therapyType"
+                getSortDirection={getSortDirection}
+                requestSort={requestSort}
+              />
+              <SortableTableHeader
+                column="sessionCount"
+                label="회기 수"
+                sortKey="sessionCount"
+                getSortDirection={getSortDirection}
+                requestSort={requestSort}
+              />
+              <SortableTableHeader
+                column="prepareTime"
+                label="준비 시간"
+                sortKey="prepareTime"
+                getSortDirection={getSortDirection}
+                requestSort={requestSort}
+              />
+              <SortableTableHeader
+                column="sessionTime"
+                label="상담 시간"
+                sortKey="sessionTime"
+                getSortDirection={getSortDirection}
+                requestSort={requestSort}
+              />
+              <SortableTableHeader
+                column="supervisionTime"
+                label="지도감독 시간"
+                sortKey="supervisionTime"
+                getSortDirection={getSortDirection}
+                requestSort={requestSort}
+              />
+              <SortableTableHeader
+                column="startDate"
+                label="시작일"
+                sortKey="startDate"
+                getSortDirection={getSortDirection}
+                requestSort={requestSort}
+              />
+              <SortableTableHeader
+                column="endDate"
+                label="종료일"
+                sortKey="endDate"
+                getSortDirection={getSortDirection}
+                requestSort={requestSort}
+              />
+              <th className="py-2 px-4 border-b text-left">작업</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sortedAndFilteredData.map((log) => {
+              // Find therapy type text
+              const therapyType = THERAPY_TYPE_OPTIONS.find(type => type.id === log.therapyType);
+              const therapyTypeText = therapyType ? getTranslatedText(therapyType) : '';
 
-      {/* 뷰 모드 전환 버튼 */}
-      <div className="mb-4 flex justify-end">
-        <button
-          onClick={toggleViewMode}
-          className="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 flex items-center"
-        >
-          {viewMode === 'table' ? (
-            <>
-              <span className="mr-2">카드 뷰로 보기</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M4 11H2v3h2v-3zm5-4H7v7h2V7zm5-5h-2v12h2V2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1h-2zM6 7a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1H6zm-5 4a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1H1z"/>
-              </svg>
-            </>
-          ) : (
-            <>
-              <span className="mr-2">테이블 뷰로 보기</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z"/>
-              </svg>
-            </>
+              return (
+                <tr key={log.id} className="hover:bg-gray-50">
+                  <td className="py-2 px-4 border-b">{log.groupName}</td>
+                  <td className="py-2 px-4 border-b">{therapyTypeText}</td>
+                  <td className="py-2 px-4 border-b">{log.sessionCount}</td>
+                  <td className="py-2 px-4 border-b">{log.prepareTime}분</td>
+                  <td className="py-2 px-4 border-b">{log.sessionTime}분</td>
+                  <td className="py-2 px-4 border-b">{log.supervisionTime}분</td>
+                  <td className="py-2 px-4 border-b">{log.startDate ? new Date(log.startDate).toLocaleDateString() : '-'}</td>
+                  <td className="py-2 px-4 border-b">{log.endDate ? new Date(log.endDate).toLocaleDateString() : '-'}</td>
+                  <td className="py-2 px-4 border-b">
+                    <div className="flex space-x-2">
+                      <button
+                        onClick={() => handleEditClick(log.id)}
+                        className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-xs"
+                      >
+                        수정
+                      </button>
+                      <button
+                        onClick={() => deleteLog(log.id)}
+                        className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 text-xs"
+                      >
+                        삭제
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </ResultTable>
+
+        {/* 결과내 검색 */}
+        <div className="mt-4 p-3 bg-gray-50 border border-gray-200 rounded">
+          <h3 className="text-md font-medium mb-3">결과내 검색</h3>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+            {/* 그룹명 필터 */}
+            <div className="flex flex-col">
+              <label htmlFor="filter-groupName" className="mb-1 font-medium">그룹명:</label>
+              <div className="flex">
+                <input
+                  id="filter-groupName"
+                  type="text"
+                  value={getColumnFilterValue('groupName')}
+                  onChange={(e) => handleColumnFilterChange('groupName', e.target.value)}
+                  placeholder="그룹명 검색..."
+                  className="flex-1 p-2 border border-gray-300 rounded-l"
+                />
+                {getColumnFilterValue('groupName') && (
+                  <button
+                    onClick={() => clearColumnFilter('groupName')}
+                    className="px-2 py-1 bg-gray-200 text-gray-700 rounded-r hover:bg-gray-300"
+                    title="필터 초기화"
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* 치료자 유형 필터 */}
+            <div className="flex flex-col">
+              <label htmlFor="filter-therapyType" className="mb-1 font-medium">치료자 유형:</label>
+              <div className="flex">
+                <select
+                  id="filter-therapyType"
+                  value={getColumnFilterValue('therapyType')}
+                  onChange={(e) => handleColumnFilterChange('therapyType', e.target.value)}
+                  className="flex-1 p-2 border border-gray-300 rounded-l"
+                >
+                  <option value="">전체</option>
+                  {THERAPY_TYPE_OPTIONS.map((type) => (
+                    <option key={type.id} value={type.id}>
+                      {getTranslatedText(type)}
+                    </option>
+                  ))}
+                </select>
+                {getColumnFilterValue('therapyType') && (
+                  <button
+                    onClick={() => clearColumnFilter('therapyType')}
+                    className="px-2 py-1 bg-gray-200 text-gray-700 rounded-r hover:bg-gray-300"
+                    title="필터 초기화"
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* 필터 초기화 버튼 */}
+          {Object.keys(columnFilters).length > 0 && (
+            <div className="flex justify-end">
+              <button
+                onClick={clearAllFilters}
+                className="px-3 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300"
+              >
+                모든 필터 초기화
+              </button>
+            </div>
           )}
-        </button>
+
+          <p className="mt-2 text-sm text-gray-500">
+            * 각 컬럼별로 필터를 적용할 수 있습니다. 필터는 대소문자를 구분하지 않습니다.
+          </p>
+        </div>
       </div>
 
-      {/* 결과 목록 */}
-      <div>
-        {viewMode === 'card' ? (
-          // 카드 뷰
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {groupTherapyLog.map((log) => (
-              <GroupTherapyLogCard
-                key={log.id}
-                log={log}
-                onDelete={deleteLog}
-                onEdit={handleEditClick}
-              />
-            ))}
-          </div>
-        ) : (
-          // 테이블 뷰
-          <div className="overflow-x-auto">
-            <table className="min-w-full bg-white border border-gray-200">
-              <thead className="bg-gray-100">
-                <tr>
-                  <th className="py-2 px-4 border-b text-left">그룹명</th>
-                  <th className="py-2 px-4 border-b text-left">치료자 유형</th>
-                  <th className="py-2 px-4 border-b text-left">회기 수</th>
-                  <th className="py-2 px-4 border-b text-left">준비 시간</th>
-                  <th className="py-2 px-4 border-b text-left">상담 시간</th>
-                  <th className="py-2 px-4 border-b text-left">지도감독 시간</th>
-                  <th className="py-2 px-4 border-b text-left">시작일</th>
-                  <th className="py-2 px-4 border-b text-left">종료일</th>
-                  <th className="py-2 px-4 border-b text-left">작업</th>
-                </tr>
-              </thead>
-              <tbody>
-                {groupTherapyLog.map((log) => {
-                  // Find therapy type text
-                  const therapyType = THERAPY_TYPE_OPTIONS.find(type => type.id === log.therapyType);
-                  const therapyTypeText = therapyType ? getTranslatedText(therapyType) : '';
-
-                  return (
-                    <tr key={log.id} className="hover:bg-gray-50">
-                      <td className="py-2 px-4 border-b">{log.groupName}</td>
-                      <td className="py-2 px-4 border-b">{therapyTypeText}</td>
-                      <td className="py-2 px-4 border-b">{log.sessionCount}</td>
-                      <td className="py-2 px-4 border-b">{log.prepareTime}분</td>
-                      <td className="py-2 px-4 border-b">{log.sessionTime}분</td>
-                      <td className="py-2 px-4 border-b">{log.supervisionTime}분</td>
-                      <td className="py-2 px-4 border-b">{log.startDate ? new Date(log.startDate).toLocaleDateString() : '-'}</td>
-                      <td className="py-2 px-4 border-b">{log.endDate ? new Date(log.endDate).toLocaleDateString() : '-'}</td>
-                      <td className="py-2 px-4 border-b">
-                        <div className="flex space-x-2">
-                          <button
-                            onClick={() => handleEditClick(log.id)}
-                            className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-xs"
-                          >
-                            수정
-                          </button>
-                          <button
-                            onClick={() => deleteLog(log.id)}
-                            className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 text-xs"
-                          >
-                            삭제
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        )}
-
-        {groupTherapyLog.length === 0 && (
-          <div className="text-center py-8 text-gray-500">
-            검색 결과가 없습니다.
-          </div>
-        )}
+      {sortedAndFilteredData.length === 0 && (
+        <div className="text-center py-8 text-gray-500">
+          검색 결과가 없습니다.
+        </div>
+      )}
       </div>
     </div>
   );

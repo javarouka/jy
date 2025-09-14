@@ -14,7 +14,7 @@ function GroupTherapyLogInsertForm() {
   return (
     <fieldset>
       <div>
-        <form onSubmit={handleSubmit} className="m-2 p-2 border border-gray-200 rounded-lg shadow-md font-sans space-y-4">
+        <form onSubmit={handleSubmit} className="p-2 border border-gray-200 rounded-lg shadow-md font-sans space-y-4">
           <h3 className="text-left mb-4">집단심리치료 기록 입력</h3>
           <div className="mb-2 text-sm">
             <label htmlFor="groupName" className="block font-bold">그룹명</label>

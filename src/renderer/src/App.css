@@ -8,6 +8,7 @@ body {
   margin: 0;
   color: #333;
   font-size: 0.8rem;
+  box-sizing: border-box;
 }
 
 #root {

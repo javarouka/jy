@@ -2,12 +2,16 @@ import { type FormEvent, useState } from 'react'
 import type { AcademicActivityLog } from '@prisma/client'
 import useAcademicActivityLogSearch
   from '@renderer/pages/management/academic-activity-log/hook/useAcademicActivityLogSearch'
-import AcademicActivityLogCard from '@renderer/pages/management/academic-activity-log/AcademicActivityLogCard'
 import EditAcademicActivityLogModal from '@renderer/pages/management/academic-activity-log/EditAcademicActivityLogModal'
 import LoadingSpinner from '@renderer/component/basic/LoadingSpinner'
 import FetchError from '@renderer/component/basic/FetchError'
 import { ACT_OPTIONS, ACTIVITY_TYPE_OPTIONS, ORGANIZATION_OPTIONS } from '@shared/constants'
-import { getTranslatedText } from '@renderer/helpers/translateConstants'
+import { getTranslatedText, getTranslatedTextById } from '@renderer/helpers/translateConstants'
+import useTableSortFilter from '@renderer/hook/useTableSortFilter'
+import SortableTableHeader from '@renderer/component/table/SortableTableHeader'
+import ResultTable from '@renderer/component/table/ResultTable'
+import { format } from 'date-fns'
+import { convertMinuteToReader } from '@renderer/helpers/Times'
 
 const AcademicActivityLogList = () => {
 
@@ -28,6 +32,18 @@ const AcademicActivityLogList = () => {
     deleteLog,
     updateLog
   } = useAcademicActivityLogSearch()
+
+  // Use the table sort and filter hook with column-specific filtering
+  const {
+    sortedAndFilteredData,
+    requestSort,
+    getSortDirection,
+    columnFilters,
+    handleColumnFilterChange,
+    clearColumnFilter,
+    clearAllFilters,
+    getColumnFilterValue
+  } = useTableSortFilter(log)
 
   // Apply search internally
   const applySearch = (ev: FormEvent) => {
@@ -63,10 +79,8 @@ const AcademicActivityLogList = () => {
     setSelectedLog(null)
   }
 
-  // Toggle detailed search section and reset hidden form fields when collapsing
   const toggleDetailedSearch = () => {
     if (isDetailedSearchExpanded) {
-      // Reset hidden form fields when collapsing
       const resetData = {
         ...searchFormData,
         sessionCountMin: '',
@@ -110,7 +124,7 @@ const AcademicActivityLogList = () => {
   if (isError) return <FetchError />
 
   return (
-    <div>
+    <div className="data-list">
       {/* Edit Modal */}
       <EditAcademicActivityLogModal
         isOpen={isEditModalOpen}
@@ -304,16 +318,263 @@ const AcademicActivityLogList = () => {
 
       {/* 결과 목록 */}
       <div>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {log.map((log: AcademicActivityLog) => (
-            <AcademicActivityLogCard
-              key={log.id}
-              log={log}
-              onDelete={deleteLog}
-              onEdit={handleEditClick}
-            />
-          ))}
+        <ResultTable>
+          <thead className="bg-gray-100">
+            <tr>
+              <SortableTableHeader
+                column="activityName"
+                label="회의명"
+                sortKey="activityName"
+                getSortDirection={getSortDirection}
+                requestSort={requestSort}
+              />
+              <SortableTableHeader
+                column="sessionName"
+                label="발표명"
+                sortKey="sessionName"
+                getSortDirection={getSortDirection}
+                requestSort={requestSort}
+              />
+              <SortableTableHeader
+                column="act"
+                label="참석 발표"
+                sortKey="act"
+                getSortDirection={getSortDirection}
+                requestSort={requestSort}
+              />
+              <SortableTableHeader
+                column="activityType"
+                label="회의 유형"
+                sortKey="activityType"
+                getSortDirection={getSortDirection}
+                requestSort={requestSort}
+              />
+              <SortableTableHeader
+                column="organization"
+                label="주관기관"
+                sortKey="organization"
+                getSortDirection={getSortDirection}
+                requestSort={requestSort}
+              />
+              <SortableTableHeader
+                column="activityDate"
+                label="활동일"
+                sortKey="activityDate"
+                getSortDirection={getSortDirection}
+                requestSort={requestSort}
+              />
+              <SortableTableHeader
+                column="creditTime"
+                label="인정시간"
+                sortKey="creditTime"
+                getSortDirection={getSortDirection}
+                requestSort={requestSort}
+              />
+              <th className="py-2 px-4 border-b text-left">작업</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sortedAndFilteredData.map((log) => {
+              // Find translated values
+              const actText = getTranslatedTextById(log.act, "common.base", log.act);
+              const activityTypeText = getTranslatedTextById(log.activityType, "activity.type", log.activityType);
+              const organizationText = getTranslatedTextById(log.organization, "organization", log.organization);
+              const formattedActivityDate = log.activityDate ? format(new Date(log.activityDate), 'yyyy-MM-dd') : '-';
+
+              return (
+                <tr key={log.id} className="hover:bg-gray-50">
+                  <td className="py-2 px-4 border-b">{log.activityName}</td>
+                  <td className="py-2 px-4 border-b">{log.sessionName}</td>
+                  <td className="py-2 px-4 border-b">{actText}</td>
+                  <td className="py-2 px-4 border-b">{activityTypeText}</td>
+                  <td className="py-2 px-4 border-b">{organizationText}</td>
+                  <td className="py-2 px-4 border-b">{formattedActivityDate}</td>
+                  <td className="py-2 px-4 border-b">{convertMinuteToReader(log.creditTime)}</td>
+                  <td className="py-2 px-4 border-b">
+                    <div className="flex space-x-2">
+                      <button
+                        onClick={() => handleEditClick(log.id)}
+                        className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-xs"
+                      >
+                        수정
+                      </button>
+                      <button
+                        onClick={() => deleteLog(log.id)}
+                        className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 text-xs"
+                      >
+                        삭제
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </ResultTable>
+
+        {/* 결과내 검색 */}
+        <div className="mt-4 p-3 bg-gray-50 border border-gray-200 rounded">
+          <h3 className="text-md font-medium mb-3">결과내 검색</h3>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+            {/* 회의명 필터 */}
+            <div className="flex flex-col">
+              <label htmlFor="filter-activityName" className="mb-1 font-medium">회의명:</label>
+              <div className="flex">
+                <input
+                  id="filter-activityName"
+                  type="text"
+                  value={getColumnFilterValue('activityName')}
+                  onChange={(e) => handleColumnFilterChange('activityName', e.target.value)}
+                  placeholder="회의명 검색..."
+                  className="flex-1 p-2 border border-gray-300 rounded-l"
+                />
+                {getColumnFilterValue('activityName') && (
+                  <button
+                    onClick={() => clearColumnFilter('activityName')}
+                    className="px-2 py-1 bg-gray-200 text-gray-700 rounded-r hover:bg-gray-300"
+                    title="필터 초기화"
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* 발표명 필터 */}
+            <div className="flex flex-col">
+              <label htmlFor="filter-sessionName" className="mb-1 font-medium">발표명:</label>
+              <div className="flex">
+                <input
+                  id="filter-sessionName"
+                  type="text"
+                  value={getColumnFilterValue('sessionName')}
+                  onChange={(e) => handleColumnFilterChange('sessionName', e.target.value)}
+                  placeholder="발표명 검색..."
+                  className="flex-1 p-2 border border-gray-300 rounded-l"
+                />
+                {getColumnFilterValue('sessionName') && (
+                  <button
+                    onClick={() => clearColumnFilter('sessionName')}
+                    className="px-2 py-1 bg-gray-200 text-gray-700 rounded-r hover:bg-gray-300"
+                    title="필터 초기화"
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* 참석 발표 필터 */}
+            <div className="flex flex-col">
+              <label htmlFor="filter-act" className="mb-1 font-medium">참석 발표:</label>
+              <div className="flex">
+                <select
+                  id="filter-act"
+                  value={getColumnFilterValue('act')}
+                  onChange={(e) => handleColumnFilterChange('act', e.target.value)}
+                  className="flex-1 p-2 border border-gray-300 rounded-l"
+                >
+                  <option value="">전체</option>
+                  {ACT_OPTIONS.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {getTranslatedText(option)}
+                    </option>
+                  ))}
+                </select>
+                {getColumnFilterValue('act') && (
+                  <button
+                    onClick={() => clearColumnFilter('act')}
+                    className="px-2 py-1 bg-gray-200 text-gray-700 rounded-r hover:bg-gray-300"
+                    title="필터 초기화"
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* 회의 유형 필터 */}
+            <div className="flex flex-col">
+              <label htmlFor="filter-activityType" className="mb-1 font-medium">회의 유형:</label>
+              <div className="flex">
+                <select
+                  id="filter-activityType"
+                  value={getColumnFilterValue('activityType')}
+                  onChange={(e) => handleColumnFilterChange('activityType', e.target.value)}
+                  className="flex-1 p-2 border border-gray-300 rounded-l"
+                >
+                  <option value="">전체</option>
+                  {ACTIVITY_TYPE_OPTIONS.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {getTranslatedText(option)}
+                    </option>
+                  ))}
+                </select>
+                {getColumnFilterValue('activityType') && (
+                  <button
+                    onClick={() => clearColumnFilter('activityType')}
+                    className="px-2 py-1 bg-gray-200 text-gray-700 rounded-r hover:bg-gray-300"
+                    title="필터 초기화"
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* 주관기관 필터 */}
+            <div className="flex flex-col">
+              <label htmlFor="filter-organization" className="mb-1 font-medium">주관기관:</label>
+              <div className="flex">
+                <select
+                  id="filter-organization"
+                  value={getColumnFilterValue('organization')}
+                  onChange={(e) => handleColumnFilterChange('organization', e.target.value)}
+                  className="flex-1 p-2 border border-gray-300 rounded-l"
+                >
+                  <option value="">전체</option>
+                  {ORGANIZATION_OPTIONS.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {getTranslatedText(option)}
+                    </option>
+                  ))}
+                </select>
+                {getColumnFilterValue('organization') && (
+                  <button
+                    onClick={() => clearColumnFilter('organization')}
+                    className="px-2 py-1 bg-gray-200 text-gray-700 rounded-r hover:bg-gray-300"
+                    title="필터 초기화"
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* 필터 초기화 버튼 */}
+          {Object.keys(columnFilters).length > 0 && (
+            <div className="flex justify-end">
+              <button
+                onClick={clearAllFilters}
+                className="px-3 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300"
+              >
+                모든 필터 초기화
+              </button>
+            </div>
+          )}
+
+          <p className="mt-2 text-sm text-gray-500">
+            * 각 컬럼별로 필터를 적용할 수 있습니다. 필터는 대소문자를 구분하지 않습니다.
+          </p>
         </div>
+
+        {sortedAndFilteredData.length === 0 && (
+          <div className="text-center py-8 text-gray-500">
+            검색 결과가 없습니다.
+          </div>
+        )}
       </div>
     </div>
   );
