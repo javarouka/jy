@@ -35,9 +35,9 @@ function AssessmentLogInsertForm() {
   return (
     <fieldset>
       <div>
-        <form onSubmit={handleSubmit} className="p-2 border border-gray-200 shadow-md font-sans space-y-4">
+        <form onSubmit={handleSubmit} className="p-2 border border-gray-200 shadow-md font-sans space-y-4 text-[0.8em]">
           <h3 className="text-left mb-4">평가 기록 입력</h3>
-          <div className="mb-2 text-sm">
+          <div className="mb-2">
             <label htmlFor="clientName" className="block font-bold">내담자명</label>
             <input
               type="text"
@@ -46,12 +46,12 @@ function AssessmentLogInsertForm() {
               value={formData.clientName}
               onChange={handleChange}
               required
-              className="w-full p-1 border border-gray-300 rounded box-border text-base"
+              className="w-full p-1 border border-gray-300 rounded box-border"
             />
           </div>
 
           <div className="flex gap-4">
-            <div className="flex-1 mb-2 text-sm">
+            <div className="flex-1 mb-2">
               <label htmlFor="age" className="block font-bold">나이</label>
               <input
                 type="number"
@@ -60,11 +60,11 @@ function AssessmentLogInsertForm() {
                 value={formData.age}
                 onChange={handleChange}
                 required
-                className="w-full p-1 border border-gray-300 rounded box-border text-base"
+                className="w-full p-1 border border-gray-300 rounded box-border"
               />
             </div>
 
-            <div className="flex-1 mb-2 text-sm">
+            <div className="flex-1 mb-2">
               <label className="block font-bold">성별</label>
               <div className="flex gap-8 mt-1">
                 <label className="flex items-center font-normal">
@@ -96,7 +96,7 @@ function AssessmentLogInsertForm() {
 
           </div>
 
-          <div className="mb-2 text-sm">
+          <div className="mb-2">
             <label htmlFor="dx" className="block font-bold">진단명(Dx)</label>
             <input
               type="text"
@@ -105,19 +105,19 @@ function AssessmentLogInsertForm() {
               value={formData.dx}
               onChange={handleChange}
               required
-              className="w-full p-1 border border-gray-300 rounded box-border text-base"
+              className="w-full p-1 border border-gray-300 rounded box-border"
             />
           </div>
 
           <div className="flex gap-4">
-            <div className="flex-1 mb-2 text-sm">
+            <div className="flex-1 mb-2">
               <label htmlFor="researchType" className="block font-bold">검사 종류</label>
               <select
                 id="researchType"
                 name="researchType"
                 value={formData.researchType}
                 onChange={handleChange}
-                className="w-full p-1 border border-gray-300 rounded box-border text-base"
+                className="w-full p-1 border border-gray-300 rounded box-border"
               >
                 {RESEARCH_TYPE_OPTIONS.map((type) => (
                   <option key={type.id} value={type.id}>
@@ -127,7 +127,7 @@ function AssessmentLogInsertForm() {
               </select>
             </div>
 
-            <div className="flex-1 mb-2 text-sm">
+            <div className="flex-1 mb-2">
               <label htmlFor="creditTime" className="block font-bold">인정 시간 (분)</label>
               <input
                 type="number"
@@ -136,7 +136,7 @@ function AssessmentLogInsertForm() {
                 value={formData.creditTime}
                 onChange={handleChange}
                 required
-                className="w-full p-1 border border-gray-300 rounded box-border text-base"
+                className="w-full p-1 border border-gray-300 rounded box-border"
               />
             </div>
 
@@ -147,7 +147,7 @@ function AssessmentLogInsertForm() {
             className={`overflow-hidden transition-all duration-300 ease-in-out ${etcDescHeight === 0 ? 'w-0' : 'flex-1'}`}
             style={{ maxHeight: `${etcDescHeight}px`, opacity: etcDescHeight > 0 ? 1 : 0 }}
           >
-            <div className="mb-2 text-sm">
+            <div className="mb-2">
               <label htmlFor="etcDescription" className="block font-bold">기타 설명</label>
               <input
                 type="text"
@@ -157,12 +157,12 @@ function AssessmentLogInsertForm() {
                 onChange={handleChange}
                 required={formData.researchType === 'OTHER'}
                 placeholder="기타 검사 종류를 입력해주세요"
-                className="w-full p-1 border border-gray-300 rounded box-border text-base"
+                className="w-full p-1 border border-gray-300 rounded box-border"
               />
             </div>
           </div>
 
-          <div className="mb-2 text-sm">
+          <div className="mb-2">
             <label htmlFor="researchDate" className="block font-bold">검사일</label>
             <input
               type="date"
@@ -171,12 +171,12 @@ function AssessmentLogInsertForm() {
               value={formData.researchDate}
               onChange={handleChange}
               required
-              className="w-full p-1 border border-gray-300 rounded box-border text-base"
+              className="w-full p-1 border border-gray-300 rounded box-border"
             />
           </div>
 
           <button
-            className="w-full py-2 px-4 rounded bg-blue-600 text-sm font-bold text-white transition-colors duration-200 hover:bg-blue-700 cursor-pointer"
+            className="w-full py-2 px-4 rounded bg-blue-600 font-bold text-white transition-colors duration-200 hover:bg-blue-700 cursor-pointer"
           >
             저장
           </button>

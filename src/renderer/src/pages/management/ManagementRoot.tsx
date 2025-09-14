@@ -36,7 +36,7 @@ const tabData: { title: string; content: ReactNode }[] = [
 
 export default function MyTabs() {
   return (
-    <div className="text-xs w-full flex flex-col">
+    <div className="text-base w-full flex flex-col">
       <Tabs tabData={tabData} />
     </div>
   );

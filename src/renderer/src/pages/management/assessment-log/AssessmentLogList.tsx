@@ -80,7 +80,7 @@ const AssessmentLogList = () => {
   if (isError) return <FetchError />
 
   return (
-    <div className="data-list">
+    <div className="data-list text-[0.8em]">
       {/* Edit Modal */}
       <EditAssessmentLogModal
         isOpen={isEditModalOpen}
@@ -93,7 +93,7 @@ const AssessmentLogList = () => {
       <div className="mb-6 p-4 border border-gray-200 rounded-md">
         <h3 className="text-lg font-medium mb-4">검색</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div className="mb-2 text-sm">
+          <div className="mb-2">
             <label htmlFor="search-clientName" className="block font-bold mb-1">내담자명</label>
             <input
               type="text"
@@ -102,11 +102,11 @@ const AssessmentLogList = () => {
               value={searchFormData.clientName}
               onChange={handleSearchChange}
               placeholder="내담자명 검색"
-              className="w-full p-1 border border-gray-300 rounded text-base"
+              className="w-full p-1 border border-gray-300 rounded"
             />
           </div>
 
-          <div className="mb-2 text-sm">
+          <div className="mb-2">
             <label htmlFor="search-age" className="block font-bold mb-1">나이</label>
             <input
               type="number"
@@ -115,18 +115,18 @@ const AssessmentLogList = () => {
               value={searchFormData.age}
               onChange={handleSearchChange}
               placeholder="나이 검색"
-              className="w-full p-1 border border-gray-300 rounded text-base"
+              className="w-full p-1 border border-gray-300 rounded"
             />
           </div>
 
-          <div className="mb-2 text-sm">
+          <div className="mb-2">
             <label htmlFor="search-gender" className="block font-bold mb-1">성별</label>
             <select
               id="search-gender"
               name="gender"
               value={searchFormData.gender}
               onChange={handleSearchChange}
-              className="w-full p-1 border border-gray-300 rounded text-base"
+              className="w-full p-1 border border-gray-300 rounded"
             >
               <option value="">전체</option>
               <option value="male">남성</option>
@@ -134,7 +134,7 @@ const AssessmentLogList = () => {
             </select>
           </div>
 
-          <div className="mb-2 text-sm">
+          <div className="mb-2">
             <label htmlFor="search-dx" className="block font-bold mb-1">진단명(Dx)</label>
             <input
               type="text"
@@ -143,18 +143,18 @@ const AssessmentLogList = () => {
               value={searchFormData.dx}
               onChange={handleSearchChange}
               placeholder="진단명 검색"
-              className="w-full p-1 border border-gray-300 rounded text-base"
+              className="w-full p-1 border border-gray-300 rounded"
             />
           </div>
 
-          <div className="mb-2 text-sm">
+          <div className="mb-2">
             <label htmlFor="search-researchType" className="block font-bold mb-1">검사 종류</label>
             <select
               id="search-researchType"
               name="researchType"
               value={searchFormData.researchType}
               onChange={handleSearchChange}
-              className="w-full p-1 border border-gray-300 rounded text-base"
+              className="w-full p-1 border border-gray-300 rounded"
             >
               <option value="">전체</option>
               {RESEARCH_TYPE_OPTIONS.map((type) => (
@@ -167,7 +167,7 @@ const AssessmentLogList = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-          <div className="mb-2 text-sm">
+          <div className="mb-2">
             <label htmlFor="search-startDate" className="block font-bold mb-1">검사일 시작</label>
             <input
               type="date"
@@ -175,11 +175,11 @@ const AssessmentLogList = () => {
               name="startDate"
               value={searchFormData.startDate}
               onChange={handleSearchChange}
-              className="w-full p-1 border border-gray-300 rounded text-base"
+              className="w-full p-1 border border-gray-300 rounded"
             />
           </div>
 
-          <div className="mb-2 text-sm">
+          <div className="mb-2">
             <label htmlFor="search-endDate" className="block font-bold mb-1">검사일 종료</label>
             <input
               type="date"
@@ -187,7 +187,7 @@ const AssessmentLogList = () => {
               name="endDate"
               value={searchFormData.endDate}
               onChange={handleSearchChange}
-              className="w-full p-1 border border-gray-300 rounded text-base"
+              className="w-full p-1 border border-gray-300 rounded"
             />
           </div>
         </div>
@@ -276,13 +276,13 @@ const AssessmentLogList = () => {
                     <div className="flex space-x-2">
                       <button
                         onClick={() => handleEditClick(log.id)}
-                        className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-xs"
+                        className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
                       >
                         수정
                       </button>
                       <button
                         onClick={() => deleteLog(log.id)}
-                        className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 text-xs"
+                        className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
                       >
                         삭제
                       </button>
@@ -415,7 +415,7 @@ const AssessmentLogList = () => {
             </div>
           )}
 
-          <p className="mt-2 text-sm text-gray-500">
+          <p className="mt-2 text-gray-500">
             * 각 컬럼별로 필터를 적용할 수 있습니다. 필터는 대소문자를 구분하지 않습니다.
           </p>
         </div>

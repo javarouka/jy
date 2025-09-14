@@ -14,9 +14,9 @@ function IndividualTherapyLogInsertForm() {
   return (
     <fieldset>
       <div>
-        <form onSubmit={handleSubmit} className="p-2 border border-gray-200 rounded-lg shadow-md font-sans space-y-4">
+        <form onSubmit={handleSubmit} className="p-2 border border-gray-200 rounded-lg shadow-md font-sans space-y-4 text-[0.8em]">
           <h3 className="text-left mb-4">개인심리치료 기록 입력</h3>
-          <div className="mb-2 text-sm">
+          <div className="mb-2">
             <label htmlFor="clientName" className="block font-bold">내담자명</label>
             <input
               type="text"
@@ -25,12 +25,12 @@ function IndividualTherapyLogInsertForm() {
               value={formData.clientName}
               onChange={handleChange}
               required
-              className="w-full p-1 border border-gray-300 rounded box-border text-base"
+              className="w-full p-1 border border-gray-300 rounded box-border"
             />
           </div>
 
           <div className="flex gap-4">
-            <div className="flex-1 mb-2 text-sm">
+            <div className="flex-1 mb-2">
               <label htmlFor="age" className="block font-bold">나이</label>
               <input
                 type="number"
@@ -39,11 +39,11 @@ function IndividualTherapyLogInsertForm() {
                 value={formData.age}
                 onChange={handleChange}
                 required
-                className="w-full p-1 border border-gray-300 rounded box-border text-base"
+                className="w-full p-1 border border-gray-300 rounded box-border"
               />
             </div>
 
-            <div className="flex-1 mb-2 text-sm">
+            <div className="flex-1 mb-2">
               <label htmlFor="sessionCount" className="block font-bold">회기 수</label>
               <input
                 type="number"
@@ -52,13 +52,13 @@ function IndividualTherapyLogInsertForm() {
                 value={formData.sessionCount}
                 onChange={handleChange}
                 required
-                className="w-full p-1 border border-gray-300 rounded box-border text-base"
+                className="w-full p-1 border border-gray-300 rounded box-border"
               />
             </div>
           </div>
 
           <div className="flex gap-4">
-            <div className="flex-1 mb-2 text-sm">
+            <div className="flex-1 mb-2">
               <label htmlFor="prepareTime" className="block font-bold">준비 시간 (분)</label>
               <input
                 type="number"
@@ -67,11 +67,11 @@ function IndividualTherapyLogInsertForm() {
                 value={formData.prepareTime}
                 onChange={handleChange}
                 required
-                className="w-full p-1 border border-gray-300 rounded box-border text-base"
+                className="w-full p-1 border border-gray-300 rounded box-border"
               />
             </div>
 
-            <div className="flex-1 mb-2 text-sm">
+            <div className="flex-1 mb-2">
               <label htmlFor="sessionTime" className="block font-bold">상담 시간 (분)</label>
               <input
                 type="number"
@@ -80,12 +80,12 @@ function IndividualTherapyLogInsertForm() {
                 value={formData.sessionTime}
                 onChange={handleChange}
                 required
-                className="w-full p-1 border border-gray-300 rounded box-border text-base"
+                className="w-full p-1 border border-gray-300 rounded box-border"
               />
             </div>
           </div>
 
-          <div className="mb-2 text-sm">
+          <div className="mb-2">
             <label htmlFor="supervisionTime" className="block font-bold">지도감독 시간 (분)</label>
             <input
               type="number"
@@ -94,19 +94,19 @@ function IndividualTherapyLogInsertForm() {
               value={formData.supervisionTime}
               onChange={handleChange}
               required
-              className="w-full p-1 border border-gray-300 rounded box-border text-base"
+              className="w-full p-1 border border-gray-300 rounded box-border"
             />
           </div>
 
           <div className="flex gap-8">
-            <div className="flex-1 mb-2 text-sm">
+            <div className="flex-1 mb-2">
               <label htmlFor="therapyType" className="block font-bold">치료자 유형</label>
               <select
                 id="therapyType"
                 name="therapyType"
                 value={formData.therapyType}
                 onChange={handleChange}
-                className="w-full p-1 border border-gray-300 rounded box-border text-base"
+                className="w-full p-1 border border-gray-300 rounded box-border"
               >
                 <option value={THERAPY_TYPE_OPTIONS[0].id}>
                   {getTranslatedText(THERAPY_TYPE_OPTIONS[0])}
@@ -114,7 +114,7 @@ function IndividualTherapyLogInsertForm() {
               </select>
             </div>
 
-            <div className="flex-1 mb-2 text-sm">
+            <div className="flex-1 mb-2">
               <label className="block font-bold">성별</label>
               <div className="flex gap-8 mt-1">
                 <label className="flex items-center font-normal">
@@ -145,7 +145,7 @@ function IndividualTherapyLogInsertForm() {
             </div>
           </div>
 
-          <div className="mb-2 text-sm">
+          <div className="mb-2">
             <label htmlFor="researchDate" className="block font-bold">검사일</label>
             <input
               type="date"
@@ -154,12 +154,12 @@ function IndividualTherapyLogInsertForm() {
               value={formData.researchDate}
               onChange={handleChange}
               required
-              className="w-full p-1 border border-gray-300 rounded box-border text-base"
+              className="w-full p-1 border border-gray-300 rounded box-border"
             />
           </div>
 
           <div className="flex gap-4">
-            <div className="flex-1 mb-2 text-sm">
+            <div className="flex-1 mb-2">
               <label htmlFor="startDate" className="block font-bold">시작일</label>
               <input
                 type="date"
@@ -168,11 +168,11 @@ function IndividualTherapyLogInsertForm() {
                 value={formData.startDate}
                 onChange={handleChange}
                 required
-                className="w-full p-1 border border-gray-300 rounded box-border text-base"
+                className="w-full p-1 border border-gray-300 rounded box-border"
               />
             </div>
 
-            <div className="flex-1 mb-2 text-sm">
+            <div className="flex-1 mb-2">
               <label htmlFor="endDate" className="block font-bold">종료일</label>
               <input
                 type="date"
@@ -181,13 +181,13 @@ function IndividualTherapyLogInsertForm() {
                 value={formData.endDate}
                 onChange={handleChange}
                 required
-                className="w-full p-1 border border-gray-300 rounded box-border text-base"
+                className="w-full p-1 border border-gray-300 rounded box-border"
               />
             </div>
           </div>
 
           <button
-            className="w-full py-2 px-4 rounded bg-blue-600 text-sm font-bold text-white transition-colors duration-200 hover:bg-blue-700 cursor-pointer"
+            className="w-full py-2 px-4 rounded bg-blue-600 font-bold text-white transition-colors duration-200 hover:bg-blue-700 cursor-pointer"
           >
             저장
           </button>

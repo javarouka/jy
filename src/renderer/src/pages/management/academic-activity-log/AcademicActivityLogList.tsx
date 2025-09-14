@@ -124,7 +124,7 @@ const AcademicActivityLogList = () => {
   if (isError) return <FetchError />
 
   return (
-    <div className="data-list">
+    <div className="data-list text-[0.8em]">
       {/* Edit Modal */}
       <EditAcademicActivityLogModal
         isOpen={isEditModalOpen}
@@ -138,7 +138,7 @@ const AcademicActivityLogList = () => {
         <h3 className="text-lg font-medium mb-4">검색</h3>
         {/* 기본 검색 필드 */}
         <div className="flex flex-wrap items-end gap-4 w-full">
-          <div className="form-group text-sm flex-1">
+          <div className="form-group flex-1">
             <label htmlFor="search-activityName">회의명 (부분 검색)</label>
             <input
               type="text"
@@ -151,7 +151,7 @@ const AcademicActivityLogList = () => {
             />
           </div>
 
-          <div className="form-group text-sm flex-1">
+          <div className="form-group flex-1">
             <label htmlFor="search-sessionName">발표명 (부분 검색)</label>
             <input
               type="text"

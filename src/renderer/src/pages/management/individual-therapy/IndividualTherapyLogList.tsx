@@ -123,7 +123,7 @@ const IndividualTherapyLogList = () => {
   if (isError) return <FetchError />
 
   return (
-    <div className="data-list">
+    <div className="data-list text-[0.8em]">
       {/* Edit Modal */}
       <EditIndividualTherapyLogModal
         isOpen={isEditModalOpen}
@@ -137,7 +137,7 @@ const IndividualTherapyLogList = () => {
         <h3 className="text-lg font-medium mb-4">검색</h3>
         {/* 내담자명, 나이, 성별, 치료자 유형을 한줄에 표시 */}
         <div className="flex flex-wrap items-end gap-4 w-full">
-          <div className="form-group text-sm flex-1">
+          <div className="form-group flex-1">
             <label htmlFor="search-clientName">내담자명</label>
             <input
               type="text"
@@ -150,7 +150,7 @@ const IndividualTherapyLogList = () => {
             />
           </div>
 
-          <div className="form-group text-sm">
+          <div className="form-group">
             <label htmlFor="search-age">나이</label>
             <input
               type="number"
@@ -163,7 +163,7 @@ const IndividualTherapyLogList = () => {
             />
           </div>
 
-          <div className="form-group text-sm">
+          <div className="form-group">
             <label htmlFor="search-gender">성별</label>
             <select
               id="search-gender"
@@ -196,7 +196,7 @@ const IndividualTherapyLogList = () => {
           <div className="mt-4">
             {/* 회기 수 범위 검색 */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-              <div className="form-group text-sm">
+              <div className="form-group">
                 <label htmlFor="search-sessionCountMin">회기 수 (최소)</label>
                 <input
                   type="number"
@@ -209,7 +209,7 @@ const IndividualTherapyLogList = () => {
                 />
               </div>
 
-              <div className="form-group text-sm">
+              <div className="form-group">
                 <label htmlFor="search-sessionCountMax">회기 수 (최대)</label>
                 <input
                   type="number"
@@ -225,7 +225,7 @@ const IndividualTherapyLogList = () => {
 
             {/* 준비 시간 범위 검색 */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-              <div className="form-group text-sm">
+              <div className="form-group">
                 <label htmlFor="search-prepareTimeMin">준비 시간 (최소, 분)</label>
                 <input
                   type="number"
@@ -238,7 +238,7 @@ const IndividualTherapyLogList = () => {
                 />
               </div>
 
-              <div className="form-group text-sm">
+              <div className="form-group">
                 <label htmlFor="search-prepareTimeMax">준비 시간 (최대, 분)</label>
                 <input
                   type="number"
@@ -470,13 +470,13 @@ const IndividualTherapyLogList = () => {
                   <div className="flex space-x-2">
                     <button
                       onClick={() => handleEditClick(log.id)}
-                      className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-xs"
+                      className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
                     >
                       수정
                     </button>
                     <button
                       onClick={() => deleteLog(log.id)}
-                      className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 text-xs"
+                      className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
                     >
                       삭제
                     </button>
@@ -555,7 +555,7 @@ const IndividualTherapyLogList = () => {
             </div>
           )}
 
-          <p className="mt-2 text-sm text-gray-500">
+          <p className="mt-2 text-gray-500">
             * 각 컬럼별로 필터를 적용할 수 있습니다. 필터는 대소문자를 구분하지 않습니다.
           </p>
         </div>
